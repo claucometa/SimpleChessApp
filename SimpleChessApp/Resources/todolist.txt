@@ -18,4 +18,5 @@
 3.3 Draw by repetition
 
 4. Pawn promotion
-5. Chess annotations
+5. En Passant
+6. Chess annotations
