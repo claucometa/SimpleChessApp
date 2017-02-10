@@ -22,7 +22,7 @@ namespace SimpleChessApp
             x.AppendLine("1. Selection");
             x.AppendLine("2. Move with Click && Click");
             x.AppendLine("3. Capture");
-            x.AppendLine("3.1 Avoid capturing of same color");
+            x.AppendLine("4. Avoid capturing of same color");
             x.AppendLine("");
             x.AppendLine("");
             x.AppendLine("TODO LIST");
