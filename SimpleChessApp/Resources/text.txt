@@ -1,0 +1,17 @@
+﻿Implementations
+--------------------------------------
+1. Selection
+2. Move with Click && Click
+3. Capture
+4. Avoid capturing of same color
+
+TODO LIST
+--------------------------------------
+1. Switch players
+2. Movement rules for each piece
+3. Handle move interception
+4. King castle
+5. Check
+6. Stale Mate
+7. Check Mate
+8. Pawn promotion
