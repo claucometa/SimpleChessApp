@@ -1,18 +1,22 @@
 ﻿TODO LIST
 --------------------------------------
-1. Switch players
-2. Movement rules for each piece
-3. Handle move interception
 
-4. King special
-4.1 King castle
-4.2 Check
+1. Game Flow
+1.1 Switch players
+1.2 Reset board
 
-5. End Game
-5.1 Stale Mate
-5.2 Check Mate
-5.3 Draw by repetition
+2. Movement
+2.1 Movement rules for each piece
+2.2 Handle move interception
 
-6. Reset board
-7. Pawn promotion
-8. Chess annotations
+2.3. Especial moves
+2.3.1 King castle
+2.3.2 Check
+
+3. End Game
+3.1 Stale Mate
+3.2 Check Mate
+3.3 Draw by repetition
+
+4. Pawn promotion
+5. Chess annotations
