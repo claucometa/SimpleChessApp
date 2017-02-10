@@ -33,7 +33,10 @@ namespace SimpleChessApp
                 x.Add(new TodoItem(false, null, "--------- TO DO ---------"));
                 x.Add(new TodoItem(false, null, "1 Game Flow"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "1.1 Turns"));
-                x.Add(new TodoItem(false, Difficulty.Easy, "1.2 Reset board"));
+                x.Add(new TodoItem(false, Difficulty.Easy, "1.2 Start game"));
+                x.Add(new TodoItem(false, Difficulty.Easy, "1.3 Abort"));
+                x.Add(new TodoItem(false, Difficulty.Easy, "1.4 Resign"));
+                x.Add(new TodoItem(false, Difficulty.Easy, "1.5 Request Draw"));
                 x.Add(new TodoItem(false, null, "2 Movement"));
                 x.Add(new TodoItem(false, Difficulty.Medium, "2.1 Movement rules for each piece"));
                 x.Add(new TodoItem(false, Difficulty.Hard, "2.2 Handle move interception"));
