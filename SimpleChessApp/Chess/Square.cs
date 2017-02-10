@@ -1,7 +1,5 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using static SimpleChessApp.ChessSet;
 
 namespace SimpleChessApp
 {
@@ -9,6 +7,7 @@ namespace SimpleChessApp
     {
         static Square LastSelectedSquare;
         static Square SelectedSquare;
+        public static Square PromotedSquare;
 
         public int File { get; set; }
         public int Rank { get; set; }
@@ -16,7 +15,7 @@ namespace SimpleChessApp
         bool IsSelected;
 
         public Color DefaultColor;
-        public Pieces Piece = Pieces.None;
+        Pieces Piece = Pieces.None;
         public bool IsBlack;
 
         bool isBlackSquare;
@@ -51,7 +50,7 @@ namespace SimpleChessApp
         public Square(int file, int rank)
         {
             InitializeComponent();
-          //  label1.Text = $"{file}|{rank}";
+            //  label1.Text = $"{file}|{rank}";
             BackgroundImageLayout = ImageLayout.Center;
             MouseUp += Square_Click;
             File = file;
@@ -126,15 +125,17 @@ namespace SimpleChessApp
                     {
                         if (from.IsBlack)
                         {
-                            if(from.Rank == 1)
+                            if (from.Rank == 1)
                             {
-                                if (from.Rank - to.Rank == -1 || 
+                                if (from.Rank - to.Rank == -1 ||
                                     from.Rank - to.Rank == -2)
                                     return true;
                             }
-
                             if (from.Rank - to.Rank == -1)
+                            {
+                                if (to.Rank == 7) promotePawn(from, to);
                                 return true;
+                            }
                         }
 
                         if (!from.IsBlack)
@@ -143,11 +144,16 @@ namespace SimpleChessApp
                             {
                                 if (from.Rank - to.Rank == 1 ||
                                     from.Rank - to.Rank == 2)
+                                    
                                     return true;
+                                
                             }
 
                             if (from.Rank - to.Rank == 1)
+                            {
+                                if (to.Rank == 0) promotePawn(from, to);
                                 return true;
+                            }
                         }
                     }
                     return false;
@@ -169,10 +175,15 @@ namespace SimpleChessApp
             return true;
         }
 
+        private void promotePawn(Square from, Square to)
+        {
+            ChessContext.Set.ShowPieceSelector(from);
+            PromotedSquare = to;            
+        }
+
         private void ClearSquare()
         {
             BackgroundImage = null;
-
             Piece = Pieces.None;
         }
     }

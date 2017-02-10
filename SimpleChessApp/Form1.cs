@@ -19,6 +19,7 @@ namespace SimpleChessApp
             x.Add(new TodoItem(true, Difficulty.Easy, "3 General Capture"));
             x.Add(new TodoItem(true, Difficulty.Easy, "3.1 Avoid capturing of same color"));
             x.Add(new TodoItem(true, Difficulty.Easy, "4 Pawn movement"));
+            x.Add(new TodoItem(true, Difficulty.Medium, "5 Pawn promotion"));
             // Not implemented
             x.Add(new TodoItem(false, null, ""));
             x.Add(new TodoItem(false, null, "--------- TO DO ---------"));
@@ -34,10 +35,9 @@ namespace SimpleChessApp
             x.Add(new TodoItem(false, null, "3. End Game"));
             x.Add(new TodoItem(false, Difficulty.Hard, "3.1 Stale Mate"));
             x.Add(new TodoItem(false, Difficulty.Hard, "3.2 Check Mate"));
-            x.Add(new TodoItem(false, Difficulty.Easy, "3.3 Draw by repetition"));
-            x.Add(new TodoItem(false, Difficulty.Easy, "4 Pawn promotion"));
-            x.Add(new TodoItem(false, Difficulty.Medium, "5 En Passant"));
-            x.Add(new TodoItem(false, Difficulty.Easy, "6 Chess annotation"));
+            x.Add(new TodoItem(false, Difficulty.Easy, "3.3 Draw by repetition"));            
+            x.Add(new TodoItem(false, Difficulty.Medium, "4 En Passant"));
+            x.Add(new TodoItem(false, Difficulty.Easy, "5 Chess annotation"));
             #endregion
 
             dataGridView1.DataSource = x;

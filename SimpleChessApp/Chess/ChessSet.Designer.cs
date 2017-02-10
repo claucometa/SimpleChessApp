@@ -32,6 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChessSet));
             this.blackList = new System.Windows.Forms.ImageList(this.components);
             this.whiteList = new System.Windows.Forms.ImageList(this.components);
+            this.pawnPromotion = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.queenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bishopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pawnPromotion.SuspendLayout();
             // 
             // blackList
             // 
@@ -54,6 +60,41 @@
             this.whiteList.Images.SetKeyName(3, "chess_tower_white.png");
             this.whiteList.Images.SetKeyName(4, "chess_king_white.png");
             this.whiteList.Images.SetKeyName(5, "chess_queen_white.png");
+            // 
+            // pawnPromotion
+            // 
+            this.pawnPromotion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.queenToolStripMenuItem,
+            this.rookToolStripMenuItem,
+            this.bishopToolStripMenuItem,
+            this.knightToolStripMenuItem});
+            this.pawnPromotion.Name = "contextMenuStrip1";
+            this.pawnPromotion.Size = new System.Drawing.Size(111, 92);
+            // 
+            // queenToolStripMenuItem
+            // 
+            this.queenToolStripMenuItem.Name = "queenToolStripMenuItem";
+            this.queenToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.queenToolStripMenuItem.Text = "Queen";
+            // 
+            // rookToolStripMenuItem
+            // 
+            this.rookToolStripMenuItem.Name = "rookToolStripMenuItem";
+            this.rookToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.rookToolStripMenuItem.Text = "Rook";
+            // 
+            // bishopToolStripMenuItem
+            // 
+            this.bishopToolStripMenuItem.Name = "bishopToolStripMenuItem";
+            this.bishopToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.bishopToolStripMenuItem.Text = "Bishop";
+            // 
+            // knightToolStripMenuItem
+            // 
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            this.pawnPromotion.ResumeLayout(false);
 
         }
 
@@ -61,5 +102,10 @@
 
         private System.Windows.Forms.ImageList blackList;
         private System.Windows.Forms.ImageList whiteList;
+        private System.Windows.Forms.ContextMenuStrip pawnPromotion;
+        private System.Windows.Forms.ToolStripMenuItem queenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bishopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knightToolStripMenuItem;
     }
 }
