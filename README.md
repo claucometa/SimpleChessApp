@@ -22,6 +22,7 @@
 2 Movement</br>
 2.1 Movement rules for each piece</br>
 2.2 Handle move interception</br>
+</br>
 2.3 Special moves</br>
 2.3.1 King castle</br>
 2.3.2 Check</br>
