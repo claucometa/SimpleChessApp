@@ -117,12 +117,11 @@ namespace SimpleChessApp.Chess
                 LastSelectedSquare = SelectedSquare;
             }
         }
-
-        // TODO 2. Movement rules for each piece
+        
         private bool PieceCanMove(Square from, Square to)
         {
             var x = new MoveValidation(from, to);
-            return x.CheckMove();           
+            return x.CheckMove();
         }
 
         private void ClearSquare()

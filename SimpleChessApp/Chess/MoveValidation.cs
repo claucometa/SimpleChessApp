@@ -1,6 +1,8 @@
 ﻿
 namespace SimpleChessApp.Chess
 {
+    // TODO 2. Movement rules for each piece
+
     internal class MoveValidation
     {
         Square from;
