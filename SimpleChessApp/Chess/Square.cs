@@ -121,7 +121,7 @@ namespace SimpleChessApp
                 case Pieces.None:
                     break;
                 case Pieces.Pawn:
-                    #region Pawn Moving Rules   
+                    #region Pawn Movement 
                     if (from.File == to.File)
                     {
                         if (from.IsBlack)
