@@ -1,4 +1,4 @@
-﻿Implementations
+﻿Implemented
 --------------------------------------
 1. Selection
 2. Move with Click && Click
