@@ -6,30 +6,31 @@ namespace SimpleChessApp
     public partial class Board : UserControl
     {
         Square[,] squares = new Square[8, 8];
+        bool isBlack;
 
         public Board()
         {
             InitializeComponent();
         }
 
-        bool isblack;
-
         protected override void OnLoad(EventArgs e)
         {
-            int isBlack = 1;
+            #region Build Squares
+            int count = 1;
 
             for (int z = 0; z < 8; z++)
             {
-                isblack = (isBlack++ % 2) == 0;
+                isBlack = (count++ % 2) == 0;
                 for (int w = 0; w < 8; w++)
                 {
                     var x = new Square();
-                    x.IsBlackSquare = isblack;
-                    isblack = (isBlack++ % 2) == 0;
+                    x.IsBlackSquare = isBlack;
+                    isBlack = (count++ % 2) == 0;
                     squares[w, z] = x;
                     this.tableLayoutPanel1.Controls.Add(x, w, z);
                 }
             }
+            #endregion
 
             #region Set Black Pieces
             for (int i = 0; i < 8; i++)
