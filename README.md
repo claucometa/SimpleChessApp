@@ -5,7 +5,7 @@
 3 General Capture</br>
 3.1 Avoid capturing of same color</br>
 4 Pawn promotion</br>
-// Not implemented</br>
+</br>
 </br>
 --------- TO DO ---------</br>
 1 Game Flow</br>
