@@ -19,48 +19,48 @@ namespace SimpleChessApp.Chess
             switch (from.Piece)
             {
                 case Pieces.Pawn:
-                    return checkPawn(from, to);
+                    return checkPawn();
                 case Pieces.Knight:
-                    return checkKnight(from, to);
+                    return checkKnight();
                 case Pieces.Bishop:
-                    return checkBishop(from, to);
+                    return checkBishop();
                 case Pieces.Rook:
-                    return checkRook(from, to);
+                    return checkRook();
                 case Pieces.King:
-                    return checkKing(from, to);
+                    return checkKing();
                 case Pieces.Queen:
-                    return checkQueen(from, to);
+                    return checkQueen();
                 default:
                     return false;
             }
         }
 
-        private bool checkQueen(Square from, Square to)
+        private bool checkQueen()
         {
             return true;
         }
 
-        private bool checkKing(Square from, Square to)
+        private bool checkKing()
         {
             return true;
         }
 
-        private bool checkRook(Square from, Square to)
+        private bool checkRook()
         {
             return true;
         }
 
-        private bool checkBishop(Square from, Square to)
+        private bool checkBishop()
         {
             return true;
         }
 
-        private bool checkKnight(Square from, Square to)
+        private bool checkKnight()
         {
             return true;
         }
 
-        private bool checkPawn(Square from, Square to)
+        private bool checkPawn()
         {
             if (from.File == to.File)
             {
@@ -74,7 +74,7 @@ namespace SimpleChessApp.Chess
                     }
                     if (from.Rank - to.Rank == -1)
                     {
-                        if (to.Rank == 7) promotePawn(from, to);
+                        if (to.Rank == 7) promotePawn();
                         return true;
                     }
                 }
@@ -92,7 +92,7 @@ namespace SimpleChessApp.Chess
 
                     if (from.Rank - to.Rank == 1)
                     {
-                        if (to.Rank == 0) promotePawn(from, to);
+                        if (to.Rank == 0) promotePawn();
                         return true;
                     }
                 }
@@ -100,7 +100,7 @@ namespace SimpleChessApp.Chess
             return false;
         }
 
-        private void promotePawn(Square from, Square to)
+        private void promotePawn()
         {
             ChessContext.Set.ShowPieceSelector(from);
             Square.PromotedSquare = to;
