@@ -1,4 +1,4 @@
-﻿namespace SimpleChessApp
+﻿namespace SimpleChessApp.Chess
 {
     /// <summary>
     /// Instanciate ChessSet in Set

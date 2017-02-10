@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace SimpleChessApp
+namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
@@ -15,7 +15,7 @@ namespace SimpleChessApp
         bool IsSelected;
 
         public Color DefaultColor;
-        Pieces Piece = Pieces.None;
+        public Pieces Piece = Pieces.None;
         public bool IsBlack;
 
         bool isBlackSquare;
@@ -115,70 +115,8 @@ namespace SimpleChessApp
         // TODO 2. Movement rules for each piece
         private bool PieceCanMove(Square from, Square to)
         {
-            switch (from.Piece)
-            {
-                case Pieces.None:
-                    break;
-                case Pieces.Pawn:
-                    #region Pawn Movement 
-                    if (from.File == to.File)
-                    {
-                        if (from.IsBlack)
-                        {
-                            if (from.Rank == 1)
-                            {
-                                if (from.Rank - to.Rank == -1 ||
-                                    from.Rank - to.Rank == -2)
-                                    return true;
-                            }
-                            if (from.Rank - to.Rank == -1)
-                            {
-                                if (to.Rank == 7) promotePawn(from, to);
-                                return true;
-                            }
-                        }
-
-                        if (!from.IsBlack)
-                        {
-                            if (from.Rank == 6)
-                            {
-                                if (from.Rank - to.Rank == 1 ||
-                                    from.Rank - to.Rank == 2)
-                                    
-                                    return true;
-                                
-                            }
-
-                            if (from.Rank - to.Rank == 1)
-                            {
-                                if (to.Rank == 0) promotePawn(from, to);
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                #endregion  
-                case Pieces.Knight:
-                    break;
-                case Pieces.Bishop:
-                    break;
-                case Pieces.Rook:
-                    break;
-                case Pieces.King:
-                    break;
-                case Pieces.Queen:
-                    break;
-                default:
-                    break;
-            }
-
-            return true;
-        }
-
-        private void promotePawn(Square from, Square to)
-        {
-            ChessContext.Set.ShowPieceSelector(from);
-            PromotedSquare = to;            
+            var x = new MoveValidation(from, to);
+            return x.CheckMove();           
         }
 
         private void ClearSquare()

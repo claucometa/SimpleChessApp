@@ -58,6 +58,7 @@
     <Compile Include="Chess\ChessSet.Designer.cs">
       <DependentUpon>ChessSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chess\MoveValidation.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

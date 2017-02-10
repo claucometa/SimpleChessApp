@@ -1,4 +1,4 @@
-﻿namespace SimpleChessApp
+﻿namespace SimpleChessApp.Chess
 {
     partial class ChessSet
     {

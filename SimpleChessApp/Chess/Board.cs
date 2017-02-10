@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SimpleChessApp
+namespace SimpleChessApp.Chess
 {
     public partial class Board : UserControl
     {

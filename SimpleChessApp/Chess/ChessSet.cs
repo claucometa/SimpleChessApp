@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SimpleChessApp
+namespace SimpleChessApp.Chess
 {
     /// <summary>
     /// Has the method GetPiece(name, isBlack)
