@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using static SimpleChessApp.ChessSet;
 
@@ -75,11 +76,13 @@ namespace SimpleChessApp
                         // Move
                         if (LastSelectedSquare.Piece != Pieces.None)
                         {
-                            SelectedSquare.SetPiece(LastSelectedSquare.Piece, LastSelectedSquare.IsBlack);
-                            LastSelectedSquare.ClearSquare();
-                            return;
+                            if (PieceCanMove(SelectedSquare))
+                            {
+                                SelectedSquare.SetPiece(LastSelectedSquare.Piece, LastSelectedSquare.IsBlack);
+                                LastSelectedSquare.ClearSquare();
+                                return;
+                            }
                         }
-
                     }
                     else
                     {
@@ -102,6 +105,32 @@ namespace SimpleChessApp
 
                 LastSelectedSquare = SelectedSquare;
             }
+        }
+
+        // TODO 2. Movement rules for each piece
+        private bool PieceCanMove(Square x)
+        {
+            switch (x.Piece)
+            {
+                case Pieces.None:
+                    break;
+                case Pieces.Pawn:
+                    break;
+                case Pieces.Knight:
+                    break;
+                case Pieces.Bishop:
+                    break;
+                case Pieces.Rook:
+                    break;
+                case Pieces.King:
+                    break;
+                case Pieces.Queen:
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
         }
 
         private void ClearSquare()
