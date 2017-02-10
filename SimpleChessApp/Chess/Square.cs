@@ -88,6 +88,12 @@ namespace SimpleChessApp
                                 LastSelectedSquare.ClearSquare();
                                 return;
                             }
+                            else
+                            {
+                                //Invalidate square selection if the movement if not allowed
+                                //TODO: Display a toast message
+                                return;
+                            }
                         }
                     }
                     else
