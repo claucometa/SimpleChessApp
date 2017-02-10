@@ -64,37 +64,20 @@ namespace SimpleChessApp.Chess
         {
             if (from.File == to.File)
             {
-                if (from.IsBlack)
+                var isBlack = from.IsBlack;
+                var rank = isBlack ? 1 : 6;
+                var mult = isBlack ? -1 : 1;
+
+                if (from.Rank == rank)
                 {
-                    if (from.Rank == 1)
-                    {
-                        if (from.Rank - to.Rank == -1 ||
-                            from.Rank - to.Rank == -2)
-                            return true;
-                    }
-                    if (from.Rank - to.Rank == -1)
-                    {
-                        if (to.Rank == 7) promotePawn();
+                    if (from.Rank - to.Rank == 1 * mult ||
+                        from.Rank - to.Rank == 2 * mult)
                         return true;
-                    }
                 }
-
-                if (!from.IsBlack)
+                if (from.Rank - to.Rank == 1 * mult)
                 {
-                    if (from.Rank == 6)
-                    {
-                        if (from.Rank - to.Rank == 1 ||
-                            from.Rank - to.Rank == 2)
-
-                            return true;
-
-                    }
-
-                    if (from.Rank - to.Rank == 1)
-                    {
-                        if (to.Rank == 0) promotePawn();
-                        return true;
-                    }
+                    if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
+                    return true;
                 }
             }
             return false;
