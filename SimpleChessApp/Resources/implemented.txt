@@ -1,0 +1,6 @@
+﻿Implemented
+--------------------------------------
+1. Selection
+2. Move with Click && Click
+3. Capture
+3.1. Avoid capturing of same color

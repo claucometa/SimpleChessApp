@@ -61,28 +61,43 @@ namespace SimpleChessApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Implementations
+        ///   Looks up a localized string similar to Implemented
         ///--------------------------------------
         ///1. Selection
         ///2. Move with Click &amp;&amp; Click
         ///3. Capture
-        ///4. Avoid capturing of same color
-        ///
-        ///TODO LIST
+        ///3.1. Avoid capturing of same color.
+        /// </summary>
+        internal static string implemented {
+            get {
+                return ResourceManager.GetString("implemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TODO LIST
         ///--------------------------------------
         ///1. Switch players
         ///2. Movement rules for each piece
         ///3. Handle move interception
-        ///4. King castle
-        ///5. Check
-        ///6. Stale Mate
-        ///7. Check Mate
-        ///8. Pawn promotion
+        ///
+        ///4. King special
+        ///4.1 King castle
+        ///4.2 Check
+        ///
+        ///5. End Game
+        ///5.1 Stale Mate
+        ///5.2 Check Mate
+        ///5.3 Draw by repetition
+        ///
+        ///6. Reset board
+        ///7. Pawn promotion
+        ///8. Chess annotations
         ///.
         /// </summary>
-        internal static string text {
+        internal static string todolist {
             get {
-                return ResourceManager.GetString("text", resourceCulture);
+                return ResourceManager.GetString("todolist", resourceCulture);
             }
         }
     }
