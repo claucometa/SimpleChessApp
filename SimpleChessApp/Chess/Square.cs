@@ -10,6 +10,9 @@ namespace SimpleChessApp
         static Square LastSelectedSquare;
         static Square SelectedSquare;
 
+        public int File { get; set; }
+        public int Rank { get; set; }
+
         bool IsSelected;
 
         public Color DefaultColor;
@@ -45,11 +48,14 @@ namespace SimpleChessApp
             return piece == Pieces.None ? null : ChessContext.Set.GetPiece(piece, side);
         }
 
-        public Square()
+        public Square(int file, int rank)
         {
             InitializeComponent();
+          //  label1.Text = $"{file}|{rank}";
             BackgroundImageLayout = ImageLayout.Center;
             MouseUp += Square_Click;
+            File = file;
+            Rank = rank;
         }
 
         private void Square_Click(object sender, System.EventArgs e)
@@ -76,7 +82,7 @@ namespace SimpleChessApp
                         // Move
                         if (LastSelectedSquare.Piece != Pieces.None)
                         {
-                            if (PieceCanMove(SelectedSquare))
+                            if (PieceCanMove(LastSelectedSquare, SelectedSquare))
                             {
                                 SelectedSquare.SetPiece(LastSelectedSquare.Piece, LastSelectedSquare.IsBlack);
                                 LastSelectedSquare.ClearSquare();
@@ -108,14 +114,44 @@ namespace SimpleChessApp
         }
 
         // TODO 2. Movement rules for each piece
-        private bool PieceCanMove(Square x)
+        private bool PieceCanMove(Square from, Square to)
         {
-            switch (x.Piece)
+            switch (from.Piece)
             {
                 case Pieces.None:
                     break;
                 case Pieces.Pawn:
-                    break;
+                    #region Pawn Moving Rules   
+                    if (from.File == to.File)
+                    {
+                        if (from.IsBlack)
+                        {
+                            if(from.Rank == 1)
+                            {
+                                if (from.Rank - to.Rank == -1 || 
+                                    from.Rank - to.Rank == -2)
+                                    return true;
+                            }
+
+                            if (from.Rank - to.Rank == -1)
+                                return true;
+                        }
+
+                        if (!from.IsBlack)
+                        {
+                            if (from.Rank == 6)
+                            {
+                                if (from.Rank - to.Rank == 1 ||
+                                    from.Rank - to.Rank == 2)
+                                    return true;
+                            }
+
+                            if (from.Rank - to.Rank == 1)
+                                return true;
+                        }
+                    }
+                    return false;
+                #endregion  
                 case Pieces.Knight:
                     break;
                 case Pieces.Bishop:
@@ -136,6 +172,7 @@ namespace SimpleChessApp
         private void ClearSquare()
         {
             BackgroundImage = null;
+
             Piece = Pieces.None;
         }
     }

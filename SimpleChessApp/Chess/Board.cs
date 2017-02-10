@@ -18,16 +18,16 @@ namespace SimpleChessApp
             #region Build Squares
             int count = 1;
 
-            for (int z = 0; z < 8; z++)
+            for (int rank = 0; rank < 8; rank++)
             {
                 isBlack = (count++ % 2) == 0;
-                for (int w = 0; w < 8; w++)
+                for (int file = 0; file < 8; file++)
                 {
-                    var x = new Square();
+                    var x = new Square(rank, file);
                     x.IsBlackSquare = isBlack;
                     isBlack = (count++ % 2) == 0;
-                    squares[w, z] = x;
-                    this.tableLayoutPanel1.Controls.Add(x, w, z);
+                    squares[rank, file] = x;
+                    this.tableLayoutPanel1.Controls.Add(x, rank, file);
                 }
             }
             #endregion
