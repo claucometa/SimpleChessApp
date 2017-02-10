@@ -90,7 +90,7 @@ namespace SimpleChessApp
                             }
                             else
                             {
-                                //Invalidate square selection if the movement if not allowed
+                                //Invalidate square selection if the move is not allowed
                                 //TODO: Display a toast message
                                 return;
                             }
