@@ -13,7 +13,7 @@ namespace SimpleChessApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmGame());
+            Application.Run(new Form1());
         }
     }
 }

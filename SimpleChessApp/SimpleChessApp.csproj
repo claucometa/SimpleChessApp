@@ -58,11 +58,11 @@
     <Compile Include="Chess\ChessSet.Designer.cs">
       <DependentUpon>ChessSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmGame.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGame.Designer.cs">
-      <DependentUpon>FrmGame.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,8 +83,8 @@
     <EmbeddedResource Include="Chess\ChessSet.resx">
       <DependentUpon>ChessSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmGame.resx">
-      <DependentUpon>FrmGame.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chess\Square.resx">
       <DependentUpon>Square.cs</DependentUpon>
