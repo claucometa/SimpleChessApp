@@ -74,18 +74,6 @@ namespace SimpleChessApp.Chess
 
             if (isMovingVertically)
             {
-                // Allow pawn moving one or two steps forward from home rank
-                if (isHomeRank)
-                {
-                    if (from.Rank - to.Rank == 1 * mult ||
-                        from.Rank - to.Rank == 2 * mult)
-                    {
-                        var ok = isPathFree();
-                        ChessContext.Core.PassantAllowed = ok;
-                        return ok;
-                    }
-                }
-
                 // Allow pawn moving one step forward
                 if (from.Rank - to.Rank == 1 * mult)
                 {
@@ -93,6 +81,17 @@ namespace SimpleChessApp.Chess
                     if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
 
                     return isPathFree();
+                }
+
+                // Allow pawn moving one two steps forward from home rank only
+                if (isHomeRank)
+                {
+                    if (from.Rank - to.Rank == 2 * mult)
+                    {
+                        var ok = isPathFree();
+                        ChessContext.Core.AllowPassant = ok;
+                        return ok;
+                    }
                 }
             }
             else if (pawnMoveCaptureException)

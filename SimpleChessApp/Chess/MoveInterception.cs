@@ -64,7 +64,7 @@ namespace SimpleChessApp
                 init = to.Rank;
             }
 
-            // Navigates from point A to Be vertically
+            // Navigates from point A to B vertically
             for (int i = init; i <= end; i++)
             {
                 var square = ChessContext.Core.ChessBoard.Squares[from.File, i];

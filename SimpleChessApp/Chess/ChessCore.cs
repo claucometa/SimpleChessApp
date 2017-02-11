@@ -10,7 +10,10 @@ namespace SimpleChessApp.Chess
     /// </summary>      
     public partial class ChessCore : Component
     {
-        public bool PassantAllowed;
+        public event EventHandler GameStatus;
+
+        public bool AllowPassant;
+        public bool IsPassantActive;
 
         // White always starts so it makes sense to
         // call this variable like this once it's false
@@ -34,7 +37,12 @@ namespace SimpleChessApp.Chess
 
         public void ChangeTurn()
         {
+            IsPassantActive = AllowPassant;
+            if (!AllowPassant) IsPassantActive = false;
+            AllowPassant = false;
+
             IsBlackPlaying = !IsBlackPlaying;
+            GameStatus?.Invoke(this, null);
         }
 
         public ChessCore(IContainer container)

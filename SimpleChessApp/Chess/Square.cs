@@ -18,6 +18,7 @@ namespace SimpleChessApp.Chess
         public Pieces Piece = Pieces.None;
         public bool IsBlack;
 
+        // Just used to draw the board
         bool isBlackSquare;
         public bool IsBlackSquare
         {
@@ -75,8 +76,7 @@ namespace SimpleChessApp.Chess
                 fromSquare.BackColor = fromSquare.DefaultColor;
                 fromSquare.IsSelected = false;
 
-                // Controls player turn
-                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack)
+                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack) // Controls player turn
                 {
                     if (toSquare.Piece == Pieces.None)
                     {
@@ -86,7 +86,7 @@ namespace SimpleChessApp.Chess
                             if (new MoveValidation(fromSquare, toSquare).Validate)
                             {
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
-                                fromSquare.ClearSquare();
+                                fromSquare.clearSquare();
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }
@@ -112,7 +112,7 @@ namespace SimpleChessApp.Chess
                                 if (fromSquare.IsBlack != toSquare.IsBlack)
                                 {
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
-                                    fromSquare.ClearSquare();
+                                    fromSquare.clearSquare();
                                     ChessContext.Core.ChangeTurn();
                                     return;
                                 }
@@ -128,7 +128,7 @@ namespace SimpleChessApp.Chess
             fromSquare = toSquare;
         }
 
-        private void ClearSquare()
+        private void clearSquare()
         {
             BackgroundImage = null;
             Piece = Pieces.None;
