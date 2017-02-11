@@ -32,21 +32,12 @@ namespace SimpleChessApp.Chess
             }
             #endregion
 
-            #region Set Black Pieces
-            for (int i = 0; i < 8; i++)
-                Squares[i, 1].SetPiece(Pieces.Pawn, true);
+            setBlackPieces();
+            setWhitePieces();
+        }
 
-            Squares[0, 0].SetPiece(Pieces.Rook, true);
-            Squares[1, 0].SetPiece(Pieces.Knight, true);
-            Squares[2, 0].SetPiece(Pieces.Bishop, true);
-            Squares[3, 0].SetPiece(Pieces.Queen, true);
-            Squares[4, 0].SetPiece(Pieces.King, true);
-            Squares[5, 0].SetPiece(Pieces.Bishop, true);
-            Squares[6, 0].SetPiece(Pieces.Knight, true);
-            Squares[7, 0].SetPiece(Pieces.Rook, true);
-            #endregion
-
-            #region Set White Pieces
+        private void setWhitePieces()
+        {
             for (int i = 0; i < 8; i++)
                 Squares[i, 6].SetPiece(Pieces.Pawn, false);
 
@@ -58,7 +49,51 @@ namespace SimpleChessApp.Chess
             Squares[5, 7].SetPiece(Pieces.Bishop, false);
             Squares[6, 7].SetPiece(Pieces.Knight, false);
             Squares[7, 7].SetPiece(Pieces.Rook, false);
-            #endregion
+        }
+
+        internal void Restart()
+        {
+            clearBoard();
+            setBlackPieces();
+            setWhitePieces();
+        }
+
+        internal void PassantSetup()
+        {
+            clearBoard();
+            Squares[1, 6].SetPiece(Pieces.Pawn, false);
+            Squares[2, 4].SetPiece(Pieces.Pawn, true);
+            Squares[3, 6].SetPiece(Pieces.Pawn, false);
+
+            Squares[4, 1].SetPiece(Pieces.Pawn, true);
+            Squares[5, 3].SetPiece(Pieces.Pawn, false);
+            Squares[6, 1].SetPiece(Pieces.Pawn, true);
+        }
+
+        private void clearBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    Squares[i, x].SetPiece(Pieces.None, false);
+                }
+            }
+        }
+
+        private void setBlackPieces()
+        {
+            for (int i = 0; i < 8; i++)
+                Squares[i, 1].SetPiece(Pieces.Pawn, true);
+
+            Squares[0, 0].SetPiece(Pieces.Rook, true);
+            Squares[1, 0].SetPiece(Pieces.Knight, true);
+            Squares[2, 0].SetPiece(Pieces.Bishop, true);
+            Squares[3, 0].SetPiece(Pieces.Queen, true);
+            Squares[4, 0].SetPiece(Pieces.King, true);
+            Squares[5, 0].SetPiece(Pieces.Bishop, true);
+            Squares[6, 0].SetPiece(Pieces.Knight, true);
+            Squares[7, 0].SetPiece(Pieces.Rook, true);
         }
     }
 }

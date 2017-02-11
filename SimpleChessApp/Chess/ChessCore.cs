@@ -45,6 +45,22 @@ namespace SimpleChessApp.Chess
             GameStatus?.Invoke(this, null);
         }
 
+        internal void RestartGame()
+        {
+            ChessBoard.Restart();
+            IsBlackPlaying = false;
+            IsPassantActive = false;
+            GameStatus?.Invoke(this, null);
+        }
+
+        internal void PassantTest()
+        {
+            ChessBoard.PassantSetup();
+            IsBlackPlaying = false;
+            IsPassantActive = false;
+            GameStatus?.Invoke(this, null);
+        }
+
         public ChessCore(IContainer container)
         {
             container.Add(this);

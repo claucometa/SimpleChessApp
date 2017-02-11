@@ -38,5 +38,15 @@ namespace SimpleChessApp
             x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
             textBox1.Text = x.ToString();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Chess.ChessContext.Core.RestartGame();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Chess.ChessContext.Core.PassantTest();
+        }
     }
 }
