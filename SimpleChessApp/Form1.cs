@@ -7,7 +7,7 @@ namespace SimpleChessApp
         public Form1()
         {
             InitializeComponent();
-            panel1.Controls.Add(Chess.ChessContext.Set.ChessBoard);
+            panel1.Controls.Add(Chess.ChessContext.Core.ChessBoard);
 
             dataGridView1.DataSource = TodoItem.Items;
             dataGridView1.RowTemplate.Height = 21;

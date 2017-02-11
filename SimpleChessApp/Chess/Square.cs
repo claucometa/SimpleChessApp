@@ -44,7 +44,7 @@ namespace SimpleChessApp.Chess
 
         private Image getPiece(Pieces piece, bool side)
         {
-            return piece == Pieces.None ? null : ChessContext.Set.GetPiece(piece, side);
+            return piece == Pieces.None ? null : ChessContext.Core.GetPiece(piece, side);
         }
 
         public Square(int file, int rank)
@@ -76,7 +76,7 @@ namespace SimpleChessApp.Chess
                 fromSquare.IsSelected = false;
 
                 // Controls player turn
-                if (ChessContext.Set.IsBlackPlaying == fromSquare.IsBlack)
+                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack)
                 {
                     if (toSquare.Piece == Pieces.None)
                     {
@@ -87,7 +87,7 @@ namespace SimpleChessApp.Chess
                             {
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                 fromSquare.ClearSquare();
-                                ChessContext.Set.ChangeTurn();
+                                ChessContext.Core.ChangeTurn();
                                 return;
                             }
                             else
@@ -113,7 +113,7 @@ namespace SimpleChessApp.Chess
                                 {
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                     fromSquare.ClearSquare();
-                                    ChessContext.Set.ChangeTurn();
+                                    ChessContext.Core.ChangeTurn();
                                     return;
                                 }
                             }

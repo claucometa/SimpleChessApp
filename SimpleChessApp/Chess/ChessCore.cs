@@ -8,12 +8,15 @@ namespace SimpleChessApp.Chess
     /// <summary>
     /// Has the method GetPiece(name, isBlack)
     /// </summary>      
-    public partial class ChessSet : Component
+    public partial class ChessCore : Component
     {
         public bool PassantAllowed;
-        public bool IsBlackPlaying; // Not implemented
 
-        public ChessSet()
+        // White always starts so it makes sense to
+        // call this variable like this once it's false
+        public bool IsBlackPlaying;
+
+        public ChessCore()
         {
             InitializeComponent();
 
@@ -34,7 +37,7 @@ namespace SimpleChessApp.Chess
             IsBlackPlaying = !IsBlackPlaying;
         }
 
-        public ChessSet(IContainer container)
+        public ChessCore(IContainer container)
         {
             container.Add(this);
             InitializeComponent();

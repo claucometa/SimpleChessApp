@@ -81,7 +81,7 @@ namespace SimpleChessApp.Chess
                         from.Rank - to.Rank == 2 * mult)
                     {
                         var ok = isPathFree();
-                        ChessContext.Set.PassantAllowed = ok;
+                        ChessContext.Core.PassantAllowed = ok;
                         return ok;
                     }
                 }
@@ -111,7 +111,7 @@ namespace SimpleChessApp.Chess
 
         private void promotePawn()
         {
-            ChessContext.Set.ShowPieceSelector(from);
+            ChessContext.Core.ShowPieceSelector(from);
             Square.PromotedSquare = to;
         }
 

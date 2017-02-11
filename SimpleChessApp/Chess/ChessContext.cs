@@ -6,6 +6,6 @@
 
     public static class ChessContext
     {
-        public static ChessSet Set = new ChessSet();
+        public static ChessCore Core = new ChessCore();
     }
 }

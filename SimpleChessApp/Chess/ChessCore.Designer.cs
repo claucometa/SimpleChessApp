@@ -1,6 +1,6 @@
 ﻿namespace SimpleChessApp.Chess
 {
-    partial class ChessSet
+    partial class ChessCore
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChessSet));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChessCore));
             this.BlackPieces = new System.Windows.Forms.ImageList(this.components);
             this.WhitePieces = new System.Windows.Forms.ImageList(this.components);
             this.PawnPromotionDialog = new System.Windows.Forms.ContextMenuStrip(this.components);
