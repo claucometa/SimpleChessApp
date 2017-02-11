@@ -68,62 +68,62 @@ namespace SimpleChessApp.Chess
                 return;
             }
 
-            if (TargetSquare != SelectedSquare)
-            {
-                if (SelectedSquare != null)
-                {
-                    SelectedSquare.BackColor = SelectedSquare.DefaultColor;
-                    SelectedSquare.IsSelected = false;
+            if (TargetSquare == SelectedSquare) return;
 
-                    if (TargetSquare.Piece == Pieces.None)
+            if (SelectedSquare != null)
+            {
+                SelectedSquare.BackColor = SelectedSquare.DefaultColor;
+                SelectedSquare.IsSelected = false;
+
+                if (TargetSquare.Piece == Pieces.None)
+                {
+                    // Move
+                    if (SelectedSquare.Piece != Pieces.None)
                     {
-                        // Move
-                        if (SelectedSquare.Piece != Pieces.None)
+                        if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
                         {
-                            if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
+                            TargetSquare.SetPiece(SelectedSquare.Piece, SelectedSquare.IsBlack);
+                            SelectedSquare.ClearSquare();
+                            return;
+                        }
+                        else
+                        {
+                            //Invalidate square selection if the move is not allowed
+                            //TODO: Display a toast message
+                            return;
+                        }
+                    }
+                }
+
+                // Capture
+                if (TargetSquare.Piece != Pieces.None)
+                {
+                    if (SelectedSquare.Piece != Pieces.None)
+                    {
+                        // Move validation applies to all pieces except pawn
+                        if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
+                        {
+                            if (SelectedSquare.Piece == Pieces.Pawn)
+                            {
+                                // TODO: Handle capture pawn exception
+                            }
+
+                            // Avoid capture same color
+                            if (SelectedSquare.IsBlack != TargetSquare.IsBlack)
                             {
                                 TargetSquare.SetPiece(SelectedSquare.Piece, SelectedSquare.IsBlack);
                                 SelectedSquare.ClearSquare();
                                 return;
                             }
-                            else
-                            {
-                                //Invalidate square selection if the move is not allowed
-                                //TODO: Display a toast message
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Capture
-                        if (SelectedSquare.Piece != Pieces.None)
-                        {
-                            // Move validation applies to all pieces except pawn
-                            if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
-                            {
-                                if (SelectedSquare.Piece == Pieces.Pawn)
-                                {
-                                    // TODO: Handle capture pawn exception
-                                }
-
-                                // Avoid capture same color
-                                if (SelectedSquare.IsBlack != TargetSquare.IsBlack)
-                                {
-                                    TargetSquare.SetPiece(SelectedSquare.Piece, SelectedSquare.IsBlack);
-                                    SelectedSquare.ClearSquare();
-                                    return;
-                                }
-                            }
                         }
                     }
                 }
-
-                TargetSquare.BackColor = Color.LightGreen;
-                TargetSquare.IsSelected = true;
-
-                SelectedSquare = TargetSquare;
             }
+
+            TargetSquare.BackColor = Color.LightGreen;
+            TargetSquare.IsSelected = true;
+
+            SelectedSquare = TargetSquare;
         }
 
         private void ClearSquare()
