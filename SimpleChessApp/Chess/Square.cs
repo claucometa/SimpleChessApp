@@ -81,7 +81,7 @@ namespace SimpleChessApp.Chess
                         // Move
                         if (LastSelectedSquare.Piece != Pieces.None)
                         {
-                            if (PieceCanMove(LastSelectedSquare, SelectedSquare))
+                            if (new MoveValidation(LastSelectedSquare, SelectedSquare).Validate)
                             {
                                 SelectedSquare.SetPiece(LastSelectedSquare.Piece, LastSelectedSquare.IsBlack);
                                 LastSelectedSquare.ClearSquare();
@@ -116,12 +116,6 @@ namespace SimpleChessApp.Chess
 
                 LastSelectedSquare = SelectedSquare;
             }
-        }
-        
-        private bool PieceCanMove(Square from, Square to)
-        {
-            var x = new MoveValidation(from, to);
-            return x.CheckMove();
         }
 
         private void ClearSquare()

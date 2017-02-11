@@ -14,24 +14,28 @@ namespace SimpleChessApp.Chess
             to = To;
         }
 
-        public bool CheckMove()
+        public bool Validate
         {
-            switch (from.Piece)
+            get
+
             {
-                case Pieces.Pawn:
-                    return checkPawn();
-                case Pieces.Knight:
-                    return checkKnight();
-                case Pieces.Bishop:
-                    return checkBishop();
-                case Pieces.Rook:
-                    return checkRook();
-                case Pieces.King:
-                    return checkKing();
-                case Pieces.Queen:
-                    return checkQueen();
-                default:
-                    return false;
+                switch (from.Piece)
+                {
+                    case Pieces.Pawn:
+                        return checkPawn();
+                    case Pieces.Knight:
+                        return checkKnight();
+                    case Pieces.Bishop:
+                        return checkBishop();
+                    case Pieces.Rook:
+                        return checkRook();
+                    case Pieces.King:
+                        return checkKing();
+                    case Pieces.Queen:
+                        return checkQueen();
+                    default:
+                        return false;
+                }
             }
         }
 
