@@ -27,7 +27,7 @@ namespace SimpleChessApp
                 x.Add(new TodoItem(true, Difficulty.Medium, "4 Pawn promotion"));
                 x.Add(new TodoItem(false, null, "1 Game Flow"));
                 x.Add(new TodoItem(true, Difficulty.Easy, "1.1 Turns"));
-                x.Add(new TodoItem(false, Difficulty.Easy, "1.2 Start game"));
+                x.Add(new TodoItem(true, Difficulty.Easy, "1.2 Start game"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "1.3 Abort"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "1.4 Resign"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "1.5 Request Draw"));
