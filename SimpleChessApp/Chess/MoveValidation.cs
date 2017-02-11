@@ -21,7 +21,6 @@ namespace SimpleChessApp.Chess
         public bool Validate
         {
             get
-
             {
                 switch (from.Piece)
                 {
@@ -80,7 +79,11 @@ namespace SimpleChessApp.Chess
                 {
                     if (from.Rank - to.Rank == 1 * mult ||
                         from.Rank - to.Rank == 2 * mult)
-                        return isPathFree();
+                    {
+                        var ok = isPathFree();
+                        ChessContext.Set.PassantAllowed = ok;
+                        return ok;
+                    }
                 }
 
                 // Allow pawn moving one step forward
@@ -103,7 +106,7 @@ namespace SimpleChessApp.Chess
 
         private bool isPathFree()
         {
-            return new MoveInterception(from, to).Check();                   
+            return new MoveInterception(from, to).Validate;
         }
 
         private void promotePawn()
@@ -112,9 +115,10 @@ namespace SimpleChessApp.Chess
             Square.PromotedSquare = to;
         }
 
-        // For the time this logic 'devices' are being used to pawn movement
-
+        #region Logic Devices
         bool isMovingVertically { get { return from.File == to.File; } }
+        bool isMovingHorizontally { get { return from.Rank == to.Rank; } } // Not in use yet
+        bool isMovingDiagonally { get { return true; } } // Not implemented
 
         bool isHomeRank
         {
@@ -124,5 +128,6 @@ namespace SimpleChessApp.Chess
                 return from.Rank == (isBlack ? 1 : 6);
             }
         }
+        #endregion
     }
 }

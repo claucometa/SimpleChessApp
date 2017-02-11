@@ -10,8 +10,8 @@ namespace SimpleChessApp.Chess
     /// </summary>      
     public partial class ChessSet : Component
     {
-        public bool IsPassantAllowed;
-        public bool IsWhitePlaying; // Not implemented
+        public bool PassantAllowed;
+        public bool IsBlackPlaying; // Not implemented
 
         public ChessSet()
         {
@@ -31,7 +31,7 @@ namespace SimpleChessApp.Chess
 
         public void ChangeTurn()
         {
-            IsWhitePlaying = !IsWhitePlaying;
+            IsBlackPlaying = !IsBlackPlaying;
         }
 
         public ChessSet(IContainer container)

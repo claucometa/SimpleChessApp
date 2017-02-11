@@ -13,22 +13,25 @@ namespace SimpleChessApp
             to = To;
         }
 
-        internal bool Check()
+        internal bool Validate
         {
-            switch (from.Piece)
+            get
             {
-                case Pieces.King:
-                    return handleKing();
-                case Pieces.Pawn:
-                    return handlePawn();
-                case Pieces.Bishop:
-                    return handleBishop();
-                case Pieces.Rook:
-                    return handleRook();
-                case Pieces.Queen:
-                    return handleQueen();
+                switch (from.Piece)
+                {
+                    case Pieces.King:
+                        return handleKing();
+                    case Pieces.Pawn:
+                        return handlePawn();
+                    case Pieces.Bishop:
+                        return handleBishop();
+                    case Pieces.Rook:
+                        return handleRook();
+                    case Pieces.Queen:
+                        return handleQueen();
+                }
+                return true; // Handle Knight :)
             }
-            return true; // Handle Knight :)
         }
 
         private bool handleQueen()

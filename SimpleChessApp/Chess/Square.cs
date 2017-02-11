@@ -5,8 +5,8 @@ namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
-        static Square SelectedSquare;
-        static Square TargetSquare;
+        static Square fromSquare;
+        static Square toSquare;
         public static Square PromotedSquare;
 
         public int File { get; set; }
@@ -58,68 +58,74 @@ namespace SimpleChessApp.Chess
 
         private void Square_Click(object sender, System.EventArgs e)
         {
-            TargetSquare = (Square)sender;
+            toSquare = (Square)sender;
 
-            if (TargetSquare.IsSelected)
+            if (toSquare.IsSelected)
             {
-                TargetSquare.IsSelected = false;
-                TargetSquare.BackColor = TargetSquare.DefaultColor;
-                SelectedSquare = null;
+                toSquare.IsSelected = false;
+                toSquare.BackColor = toSquare.DefaultColor;
+                fromSquare = null;
                 return;
             }
 
-            if (TargetSquare == SelectedSquare) return;
+            if (toSquare == fromSquare) return;
 
-            if (SelectedSquare != null)
+            if (fromSquare != null)
             {
-                SelectedSquare.BackColor = SelectedSquare.DefaultColor;
-                SelectedSquare.IsSelected = false;
+                fromSquare.BackColor = fromSquare.DefaultColor;
+                fromSquare.IsSelected = false;
 
-                if (TargetSquare.Piece == Pieces.None)
+                // Controls player turn
+                if (ChessContext.Set.IsBlackPlaying == fromSquare.IsBlack)
                 {
-                    // Move
-                    if (SelectedSquare.Piece != Pieces.None)
+                    if (toSquare.Piece == Pieces.None)
                     {
-                        if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
+                        // Move
+                        if (fromSquare.Piece != Pieces.None)
                         {
-                            TargetSquare.SetPiece(SelectedSquare.Piece, SelectedSquare.IsBlack);
-                            SelectedSquare.ClearSquare();
-                            return;
-                        }
-                        else
-                        {
-                            //Invalidate square selection if the move is not allowed
-                            //TODO: Display a toast message
-                            return;
+                            if (new MoveValidation(fromSquare, toSquare).Validate)
+                            {
+                                toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
+                                fromSquare.ClearSquare();
+                                ChessContext.Set.ChangeTurn();
+                                return;
+                            }
+                            else
+                            {
+                                //Invalidate square selection if the move is not allowed
+                                //TODO: Display a toast message
+                                return;
+                            }
                         }
                     }
-                }
 
-                // Capture
-                if (TargetSquare.Piece != Pieces.None)
-                {
-                    if (SelectedSquare.Piece != Pieces.None)
+                    // Capture
+                    if (toSquare.Piece != Pieces.None)
                     {
-                        // Move validation applies to all pieces but pawn
-                        if (new MoveValidation(SelectedSquare, TargetSquare, 
-                            SelectedSquare.Piece == Pieces.Pawn).Validate)
+                        if (fromSquare.Piece != Pieces.None)
                         {
-                            // Avoid capture same color
-                            if (SelectedSquare.IsBlack != TargetSquare.IsBlack)
+                            // Move validation applies to all pieces but pawn
+                            if (new MoveValidation(fromSquare, toSquare,
+                                fromSquare.Piece == Pieces.Pawn).Validate)
                             {
-                                TargetSquare.SetPiece(SelectedSquare.Piece, SelectedSquare.IsBlack);
-                                SelectedSquare.ClearSquare();
-                                return;
+                                // Avoid capture same color
+                                if (fromSquare.IsBlack != toSquare.IsBlack)
+                                {
+                                    toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
+                                    fromSquare.ClearSquare();
+                                    ChessContext.Set.ChangeTurn();
+                                    return;
+                                }
                             }
                         }
                     }
                 }
             }
 
-            TargetSquare.BackColor = Color.LightGreen;
-            TargetSquare.IsSelected = true;
+            toSquare.BackColor = Color.LightGreen;
+            toSquare.IsSelected = true;
 
-            SelectedSquare = TargetSquare;
+            fromSquare = toSquare;
         }
 
         private void ClearSquare()
