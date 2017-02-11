@@ -26,49 +26,49 @@ namespace SimpleChessApp.Chess
                 switch (from.Piece)
                 {
                     case Pieces.Pawn:
-                        return checkPawn();
+                        return handlePawn();
                     case Pieces.Knight:
-                        return checkKnight();
+                        return handleKnight();
                     case Pieces.Bishop:
-                        return checkBishop();
+                        return handleBishop();
                     case Pieces.Rook:
-                        return checkRook();
+                        return handleRook();
                     case Pieces.King:
-                        return checkKing();
+                        return handleKing();
                     case Pieces.Queen:
-                        return checkQueen();
+                        return handleQueen();
                     default:
                         return false;
                 }
             }
         }
 
-        private bool checkQueen()
+        private bool handleQueen()
         {
             return true;
         }
 
-        private bool checkKing()
+        private bool handleKing()
         {
             return true;
         }
 
-        private bool checkRook()
+        private bool handleRook()
         {
             return true;
         }
 
-        private bool checkBishop()
+        private bool handleBishop()
         {
             return true;
         }
 
-        private bool checkKnight()
+        private bool handleKnight()
         {
             return true;
         }
 
-        private bool checkPawn()
+        private bool handlePawn()
         {
             var isBlack = from.IsBlack;
             var mult = isBlack ? -1 : 1;
@@ -80,7 +80,7 @@ namespace SimpleChessApp.Chess
                 {
                     if (from.Rank - to.Rank == 1 * mult ||
                         from.Rank - to.Rank == 2 * mult)
-                        return hasInterception();
+                        return isPathFree();
                 }
 
                 // Allow pawn moving one step forward
@@ -89,7 +89,7 @@ namespace SimpleChessApp.Chess
                     // promotes when reach last rank 
                     if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
 
-                    return hasInterception();
+                    return isPathFree();
                 }
             }
             else if (pawnMoveCaptureException)
@@ -101,14 +101,9 @@ namespace SimpleChessApp.Chess
             return false;
         }
 
-        private bool hasInterception()
+        private bool isPathFree()
         {
-            if (from.Piece == Pieces.Pawn)
-            {
-
-            }
-
-            return true;
+            return new MoveInterception(from, to).Check();                   
         }
 
         private void promotePawn()

@@ -5,7 +5,7 @@ namespace SimpleChessApp.Chess
 {
     public partial class Board : UserControl
     {
-        Square[,] squares = new Square[8, 8];
+        public Square[,] Squares = new Square[8, 8];
         bool isBlack;
 
         public Board()
@@ -26,7 +26,7 @@ namespace SimpleChessApp.Chess
                     var x = new Square(rank, file);
                     x.IsBlackSquare = isBlack;
                     isBlack = (count++ % 2) == 0;
-                    squares[rank, file] = x;
+                    Squares[rank, file] = x;
                     this.tableLayoutPanel1.Controls.Add(x, rank, file);
                 }
             }
@@ -34,30 +34,30 @@ namespace SimpleChessApp.Chess
 
             #region Set Black Pieces
             for (int i = 0; i < 8; i++)
-                squares[i, 1].SetPiece(Pieces.Pawn, true);
+                Squares[i, 1].SetPiece(Pieces.Pawn, true);
 
-            squares[0, 0].SetPiece(Pieces.Rook, true);
-            squares[1, 0].SetPiece(Pieces.Knight, true);
-            squares[2, 0].SetPiece(Pieces.Bishop, true);
-            squares[3, 0].SetPiece(Pieces.Queen, true);
-            squares[4, 0].SetPiece(Pieces.King, true);
-            squares[5, 0].SetPiece(Pieces.Bishop, true);
-            squares[6, 0].SetPiece(Pieces.Knight, true);
-            squares[7, 0].SetPiece(Pieces.Rook, true);
+            Squares[0, 0].SetPiece(Pieces.Rook, true);
+            Squares[1, 0].SetPiece(Pieces.Knight, true);
+            Squares[2, 0].SetPiece(Pieces.Bishop, true);
+            Squares[3, 0].SetPiece(Pieces.Queen, true);
+            Squares[4, 0].SetPiece(Pieces.King, true);
+            Squares[5, 0].SetPiece(Pieces.Bishop, true);
+            Squares[6, 0].SetPiece(Pieces.Knight, true);
+            Squares[7, 0].SetPiece(Pieces.Rook, true);
             #endregion
 
             #region Set White Pieces
             for (int i = 0; i < 8; i++)
-                squares[i, 6].SetPiece(Pieces.Pawn, false);
+                Squares[i, 6].SetPiece(Pieces.Pawn, false);
 
-            squares[0, 7].SetPiece(Pieces.Rook, false);
-            squares[1, 7].SetPiece(Pieces.Knight, false);
-            squares[2, 7].SetPiece(Pieces.Bishop, false);
-            squares[3, 7].SetPiece(Pieces.Queen, false);
-            squares[4, 7].SetPiece(Pieces.King, false);
-            squares[5, 7].SetPiece(Pieces.Bishop, false);
-            squares[6, 7].SetPiece(Pieces.Knight, false);
-            squares[7, 7].SetPiece(Pieces.Rook, false);
+            Squares[0, 7].SetPiece(Pieces.Rook, false);
+            Squares[1, 7].SetPiece(Pieces.Knight, false);
+            Squares[2, 7].SetPiece(Pieces.Bishop, false);
+            Squares[3, 7].SetPiece(Pieces.Queen, false);
+            Squares[4, 7].SetPiece(Pieces.King, false);
+            Squares[5, 7].SetPiece(Pieces.Bishop, false);
+            Squares[6, 7].SetPiece(Pieces.Knight, false);
+            Squares[7, 7].SetPiece(Pieces.Rook, false);
             #endregion
         }
     }
