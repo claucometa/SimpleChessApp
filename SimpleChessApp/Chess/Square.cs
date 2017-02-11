@@ -122,7 +122,7 @@ namespace SimpleChessApp.Chess
                                 if (fromSquare.IsBlack != toSquare.IsBlack)
                                 {
                                     // Handles passant
-                                    if (toSquare.Piece == Pieces.Pawn)
+                                    if (fromSquare.Piece == Pieces.Pawn)
                                         if (ChessContext.Core.IsPassantActive)
                                             if (toSquare.Piece == Pieces.GhostPawn)
                                                 lastMove.SetPiece(Pieces.None, false);
