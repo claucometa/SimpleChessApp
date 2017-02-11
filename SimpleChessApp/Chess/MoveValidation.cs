@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Drawing;
 
 namespace SimpleChessApp.Chess
 {
@@ -9,6 +10,7 @@ namespace SimpleChessApp.Chess
     {
         Square from;
         Square to;
+        public static Square GhostSquare;
         bool pawnMoveCaptureException;
 
         public MoveValidation(Square From, Square To, bool PawnCaptureException = false)
@@ -89,6 +91,14 @@ namespace SimpleChessApp.Chess
                     if (from.Rank - to.Rank == 2 * mult)
                     {
                         var ok = isPathFree();
+
+                        if (ok)
+                        {
+                            GhostSquare = ChessContext.Core.ChessBoard.Squares[from.File, from.Rank - mult];
+                            GhostSquare.Piece = Pieces.GhostPawn;
+                            GhostSquare.IsBlack = isBlack;
+                        }
+
                         ChessContext.Core.AllowPassant = ok;
                         return ok;
                     }

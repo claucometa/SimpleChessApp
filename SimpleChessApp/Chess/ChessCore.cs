@@ -38,7 +38,15 @@ namespace SimpleChessApp.Chess
         public void ChangeTurn()
         {
             IsPassantActive = AllowPassant;
-            if (!AllowPassant) IsPassantActive = false;
+            if (!AllowPassant)
+            {
+                IsPassantActive = false;
+                // Assure the ghost square will be cleared
+                if (MoveValidation.GhostSquare != null)
+                    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+                        MoveValidation.GhostSquare.Piece = Pieces.None;
+            }
+
             AllowPassant = false;
 
             IsBlackPlaying = !IsBlackPlaying;
@@ -100,5 +108,6 @@ namespace SimpleChessApp.Chess
         Rook,
         King,
         Queen,
+        GhostPawn,
     }
 }

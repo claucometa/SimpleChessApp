@@ -7,12 +7,13 @@ namespace SimpleChessApp.Chess
     {
         static Square fromSquare;
         static Square toSquare;
+        static Square lastMove;
         public static Square PromotedSquare;
 
         public int File { get; set; }
         public int Rank { get; set; }
 
-        bool IsSelected;
+        private bool IsSelected;
 
         public Color DefaultColor;
         public Pieces Piece = Pieces.None;
@@ -48,11 +49,15 @@ namespace SimpleChessApp.Chess
             return piece == Pieces.None ? null : ChessContext.Core.GetPiece(piece, side);
         }
 
-        public Square(int file, int rank)
+        public Square()
         {
             InitializeComponent();
             BackgroundImageLayout = ImageLayout.Center;
             MouseUp += Square_Click;
+        }
+
+        public Square(int file, int rank) : this()
+        {
             File = file;
             Rank = rank;
         }
@@ -69,7 +74,12 @@ namespace SimpleChessApp.Chess
                 return;
             }
 
-            if (toSquare == fromSquare) return;
+            if (toSquare == fromSquare)
+            {
+                toSquare.IsSelected = !toSquare.IsSelected;
+                if (toSquare.IsSelected) toSquare.BackColor = Color.LightGreen;
+                return;
+            }
 
             if (fromSquare != null)
             {
@@ -80,11 +90,12 @@ namespace SimpleChessApp.Chess
                 {
                     if (toSquare.Piece == Pieces.None)
                     {
-                        // Move
+                        // Handle Move
                         if (fromSquare.Piece != Pieces.None)
                         {
                             if (new MoveValidation(fromSquare, toSquare).Validate)
                             {
+                                lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                 fromSquare.clearSquare();
                                 ChessContext.Core.ChangeTurn();
@@ -99,18 +110,23 @@ namespace SimpleChessApp.Chess
                         }
                     }
 
-                    // Capture
+                    // Handle Capture
                     if (toSquare.Piece != Pieces.None)
                     {
                         if (fromSquare.Piece != Pieces.None)
                         {
-                            // Move validation applies to all pieces but pawn
                             if (new MoveValidation(fromSquare, toSquare,
                                 fromSquare.Piece == Pieces.Pawn).Validate)
                             {
-                                // Avoid capture same color
+                                // Avoid capture of same piece color
                                 if (fromSquare.IsBlack != toSquare.IsBlack)
                                 {
+                                    // Handles passant
+                                    if (toSquare.Piece == Pieces.Pawn)
+                                        if (ChessContext.Core.IsPassantActive)
+                                            if (toSquare.Piece == Pieces.GhostPawn)
+                                                lastMove.SetPiece(Pieces.None, false);
+
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                     fromSquare.clearSquare();
                                     ChessContext.Core.ChangeTurn();
