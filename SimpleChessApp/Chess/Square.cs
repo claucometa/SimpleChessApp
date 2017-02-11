@@ -100,14 +100,10 @@ namespace SimpleChessApp.Chess
                 {
                     if (SelectedSquare.Piece != Pieces.None)
                     {
-                        // Move validation applies to all pieces except pawn
-                        if (new MoveValidation(SelectedSquare, TargetSquare).Validate)
+                        // Move validation applies to all pieces but pawn
+                        if (new MoveValidation(SelectedSquare, TargetSquare, 
+                            SelectedSquare.Piece == Pieces.Pawn).Validate)
                         {
-                            if (SelectedSquare.Piece == Pieces.Pawn)
-                            {
-                                // TODO: Handle capture pawn exception
-                            }
-
                             // Avoid capture same color
                             if (SelectedSquare.IsBlack != TargetSquare.IsBlack)
                             {

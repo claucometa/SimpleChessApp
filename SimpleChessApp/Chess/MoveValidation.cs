@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace SimpleChessApp.Chess
 {
     // TODO 2. Movement rules for each piece
@@ -7,11 +9,13 @@ namespace SimpleChessApp.Chess
     {
         Square from;
         Square to;
+        bool pawnException;
 
-        public MoveValidation(Square From, Square To)
+        public MoveValidation(Square From, Square To, bool PawnCaptureException = false)
         {
             from = From;
             to = To;
+            pawnException = PawnCaptureException;
         }
 
         public bool Validate
@@ -66,7 +70,7 @@ namespace SimpleChessApp.Chess
 
         private bool checkPawn()
         {
-            if (from.File == to.File)
+            if (from.File == to.File || pawnException)
             {
                 var isBlack = from.IsBlack;
                 var rank = isBlack ? 1 : 6;
@@ -76,6 +80,9 @@ namespace SimpleChessApp.Chess
                 {
                     if (from.Rank - to.Rank == 1 * mult ||
                         from.Rank - to.Rank == 2 * mult)
+                        return true;
+
+                    if (Math.Abs(from.File - to.File) == 1)
                         return true;
                 }
                 if (from.Rank - to.Rank == 1 * mult)

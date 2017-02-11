@@ -24,7 +24,7 @@ namespace SimpleChessApp
                 x.Add(new TodoItem(false, null, "--------- DONE ---------"));
                 x.Add(new TodoItem(true, Difficulty.Easy, "1 Selection"));
                 x.Add(new TodoItem(true, Difficulty.Easy, "2 General Move with Click & Click"));
-                x.Add(new TodoItem(true, Difficulty.Easy, "2.1 Pawn movement"));
+                x.Add(new TodoItem(true, Difficulty.Easy, "2.1 Pawn movement / Capture"));
                 x.Add(new TodoItem(true, Difficulty.Easy, "3 General Capture"));
                 x.Add(new TodoItem(true, Difficulty.Easy, "3.1 Avoid capturing of same color"));
                 x.Add(new TodoItem(true, Difficulty.Medium, "4 Pawn promotion"));
