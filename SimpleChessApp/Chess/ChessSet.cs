@@ -10,7 +10,8 @@ namespace SimpleChessApp.Chess
     /// </summary>      
     public partial class ChessSet : Component
     {
-        public event EventHandler Promoted;
+        public bool IsPassantAllowed;
+        public bool IsWhitePlaying; // Not implemented
 
         public ChessSet()
         {
@@ -28,6 +29,11 @@ namespace SimpleChessApp.Chess
             #endregion
         }
 
+        public void ChangeTurn()
+        {
+            IsWhitePlaying = !IsWhitePlaying;
+        }
+
         public ChessSet(IContainer container)
         {
             container.Add(this);
@@ -43,18 +49,18 @@ namespace SimpleChessApp.Chess
         {
             var i = ((int)name) - 1;
 
-            return IsBlack ? blackList.Images[i] : whiteList.Images[i];
+            return IsBlack ? BlackPieces.Images[i] : WhitePieces.Images[i];
         }
 
         internal void ShowPieceSelector(Control x)
         {
-            pawnPromotion.Show(x.Parent, x.Location);
+            PawnPromotionDialog.Show(x.Parent, x.Location);
         }
 
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var x = (ToolStripMenuItem)sender;
-            Promoted?.Invoke((Pieces)x.Tag, e);
+            var square = Square.PromotedSquare;
+            square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.IsBlack);
         }
     }
 

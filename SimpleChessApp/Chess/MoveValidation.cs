@@ -9,13 +9,13 @@ namespace SimpleChessApp.Chess
     {
         Square from;
         Square to;
-        bool pawnException;
+        bool pawnMoveCaptureException;
 
         public MoveValidation(Square From, Square To, bool PawnCaptureException = false)
         {
             from = From;
             to = To;
-            pawnException = PawnCaptureException;
+            pawnMoveCaptureException = PawnCaptureException;
         }
 
         public bool Validate
@@ -70,34 +70,64 @@ namespace SimpleChessApp.Chess
 
         private bool checkPawn()
         {
-            if (from.File == to.File || pawnException)
-            {
-                var isBlack = from.IsBlack;
-                var rank = isBlack ? 1 : 6;
-                var mult = isBlack ? -1 : 1;
+            var isBlack = from.IsBlack;
+            var mult = isBlack ? -1 : 1;
 
-                if (from.Rank == rank)
+            if (isMovingVertically)
+            {
+                // Allow pawn moving one or two steps forward from home rank
+                if (isHomeRank)
                 {
                     if (from.Rank - to.Rank == 1 * mult ||
                         from.Rank - to.Rank == 2 * mult)
-                        return true;
-
-                    if (Math.Abs(from.File - to.File) == 1)
-                        return true;
+                        return hasInterception();
                 }
+
+                // Allow pawn moving one step forward
                 if (from.Rank - to.Rank == 1 * mult)
                 {
+                    // promotes when reach last rank 
                     if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
-                    return true;
+
+                    return hasInterception();
                 }
             }
+            else if (pawnMoveCaptureException)
+            {
+                // Handles pawn capture
+                return Math.Abs(from.File - to.File) == 1 && from.Rank - to.Rank == (1 * mult);
+            }
+
             return false;
+        }
+
+        private bool hasInterception()
+        {
+            if (from.Piece == Pieces.Pawn)
+            {
+
+            }
+
+            return true;
         }
 
         private void promotePawn()
         {
             ChessContext.Set.ShowPieceSelector(from);
             Square.PromotedSquare = to;
+        }
+
+        // For the time this logic 'devices' are being used to pawn movement
+
+        bool isMovingVertically { get { return from.File == to.File; } }
+
+        bool isHomeRank
+        {
+            get
+            {
+                var isBlack = from.IsBlack;
+                return from.Rank == (isBlack ? 1 : 6);
+            }
         }
     }
 }

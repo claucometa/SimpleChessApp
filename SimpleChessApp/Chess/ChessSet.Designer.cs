@@ -30,46 +30,48 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChessSet));
-            this.blackList = new System.Windows.Forms.ImageList(this.components);
-            this.whiteList = new System.Windows.Forms.ImageList(this.components);
-            this.pawnPromotion = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.BlackPieces = new System.Windows.Forms.ImageList(this.components);
+            this.WhitePieces = new System.Windows.Forms.ImageList(this.components);
+            this.PawnPromotionDialog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.queenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bishopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pawnPromotion.SuspendLayout();
+            this.ChessBoard = new SimpleChessApp.Chess.Board();
+            this.PawnPromotionDialog.SuspendLayout();
             // 
-            // blackList
+            // BlackPieces
             // 
-            this.blackList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("blackList.ImageStream")));
-            this.blackList.TransparentColor = System.Drawing.Color.Transparent;
-            this.blackList.Images.SetKeyName(0, "chess_pawn.png");
-            this.blackList.Images.SetKeyName(1, "chess_horse.png");
-            this.blackList.Images.SetKeyName(2, "chess_bishop.png");
-            this.blackList.Images.SetKeyName(3, "chess_tower.png");
-            this.blackList.Images.SetKeyName(4, "chess_king.png");
-            this.blackList.Images.SetKeyName(5, "chess_queen.png");
+            this.BlackPieces.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("BlackPieces.ImageStream")));
+            this.BlackPieces.TransparentColor = System.Drawing.Color.Transparent;
+            this.BlackPieces.Images.SetKeyName(0, "chess_pawn.png");
+            this.BlackPieces.Images.SetKeyName(1, "chess_horse.png");
+            this.BlackPieces.Images.SetKeyName(2, "chess_bishop.png");
+            this.BlackPieces.Images.SetKeyName(3, "chess_tower.png");
+            this.BlackPieces.Images.SetKeyName(4, "chess_king.png");
+            this.BlackPieces.Images.SetKeyName(5, "chess_queen.png");
             // 
-            // whiteList
+            // WhitePieces
             // 
-            this.whiteList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("whiteList.ImageStream")));
-            this.whiteList.TransparentColor = System.Drawing.Color.Transparent;
-            this.whiteList.Images.SetKeyName(0, "chess_pawn_white.png");
-            this.whiteList.Images.SetKeyName(1, "chess_horse_white.png");
-            this.whiteList.Images.SetKeyName(2, "chess_bishop_white.png");
-            this.whiteList.Images.SetKeyName(3, "chess_tower_white.png");
-            this.whiteList.Images.SetKeyName(4, "chess_king_white.png");
-            this.whiteList.Images.SetKeyName(5, "chess_queen_white.png");
+            this.WhitePieces.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WhitePieces.ImageStream")));
+            this.WhitePieces.TransparentColor = System.Drawing.Color.Transparent;
+            this.WhitePieces.Images.SetKeyName(0, "chess_pawn_white.png");
+            this.WhitePieces.Images.SetKeyName(1, "chess_horse_white.png");
+            this.WhitePieces.Images.SetKeyName(2, "chess_bishop_white.png");
+            this.WhitePieces.Images.SetKeyName(3, "chess_tower_white.png");
+            this.WhitePieces.Images.SetKeyName(4, "chess_king_white.png");
+            this.WhitePieces.Images.SetKeyName(5, "chess_queen_white.png");
             // 
-            // pawnPromotion
+            // PawnPromotionDialog
             // 
-            this.pawnPromotion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PawnPromotionDialog.AccessibleDescription = "";
+            this.PawnPromotionDialog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.queenToolStripMenuItem,
             this.rookToolStripMenuItem,
             this.bishopToolStripMenuItem,
             this.knightToolStripMenuItem});
-            this.pawnPromotion.Name = "contextMenuStrip1";
-            this.pawnPromotion.Size = new System.Drawing.Size(111, 92);
+            this.PawnPromotionDialog.Name = "contextMenuStrip1";
+            this.PawnPromotionDialog.Size = new System.Drawing.Size(111, 92);
             // 
             // queenToolStripMenuItem
             // 
@@ -94,18 +96,27 @@
             this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
             this.knightToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.knightToolStripMenuItem.Text = "Knight";
-            this.pawnPromotion.ResumeLayout(false);
+            // 
+            // ChessBoard
+            // 
+            this.ChessBoard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ChessBoard.Location = new System.Drawing.Point(0, 0);
+            this.ChessBoard.Name = "ChessBoard";
+            this.ChessBoard.Size = new System.Drawing.Size(400, 400);
+            this.ChessBoard.TabIndex = 0;
+            this.PawnPromotionDialog.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ImageList blackList;
-        private System.Windows.Forms.ImageList whiteList;
-        private System.Windows.Forms.ContextMenuStrip pawnPromotion;
+        private System.Windows.Forms.ImageList BlackPieces;
+        private System.Windows.Forms.ImageList WhitePieces;
+        private System.Windows.Forms.ContextMenuStrip PawnPromotionDialog;
         private System.Windows.Forms.ToolStripMenuItem queenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bishopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem knightToolStripMenuItem;
+        public Board ChessBoard;
     }
 }

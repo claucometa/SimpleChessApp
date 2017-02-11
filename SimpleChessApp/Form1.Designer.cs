@@ -32,7 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.board1 = new SimpleChessApp.Chess.Board();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,7 +52,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.board1);
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(885, 545);
             this.splitContainer1.SplitterDistance = 449;
             this.splitContainer1.TabIndex = 3;
@@ -78,12 +78,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(449, 545);
             this.dataGridView1.TabIndex = 0;
             // 
-            // board1
+            // panel1
             // 
-            this.board1.Location = new System.Drawing.Point(33, 62);
-            this.board1.Name = "board1";
-            this.board1.Size = new System.Drawing.Size(358, 347);
-            this.board1.TabIndex = 0;
+            this.panel1.Location = new System.Drawing.Point(35, 78);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(360, 360);
+            this.panel1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -107,10 +107,9 @@
         }
 
         #endregion
-
-        private Chess.Board board1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
