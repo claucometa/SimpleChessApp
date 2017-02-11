@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Drawing;
 
 namespace SimpleChessApp.Chess
 {
@@ -11,13 +10,13 @@ namespace SimpleChessApp.Chess
         Square from;
         Square to;
         public static Square GhostSquare;
-        bool pawnMoveCaptureException;
+        bool pawnCaptureException;
 
         public MoveValidation(Square From, Square To, bool PawnCaptureException = false)
         {
             from = From;
             to = To;
-            pawnMoveCaptureException = PawnCaptureException;
+            pawnCaptureException = PawnCaptureException;
         }
 
         public bool Validate
@@ -104,7 +103,7 @@ namespace SimpleChessApp.Chess
                     }
                 }
             }
-            else if (pawnMoveCaptureException)
+            else if (pawnCaptureException)
             {
                 // Handles pawn capture
                 return Math.Abs(from.File - to.File) == 1 && from.Rank - to.Rank == (1 * mult);
