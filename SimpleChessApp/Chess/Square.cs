@@ -19,8 +19,6 @@ namespace SimpleChessApp.Chess
         public Pieces Piece = Pieces.None;
         public PieceColor PieceColor;
 
-
-
         // Just used to draw the board
         bool isBlackSquare;
         public bool IsBlackSquare
@@ -153,7 +151,7 @@ namespace SimpleChessApp.Chess
 
                                 lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                fromSquare.ClearSquare();
+                                fromSquare.clearSquare();
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }
@@ -183,7 +181,7 @@ namespace SimpleChessApp.Chess
                                             lastMove.SetPiece(Pieces.None, PieceColor.None);
                                         else
                                         {
-                                            MoveValidation.GhostSquare.ClearSquare();
+                                            MoveValidation.GhostSquare.clearSquare();
                                             return;
                                         }
                                     }
@@ -191,11 +189,11 @@ namespace SimpleChessApp.Chess
                                     if (fromSquare.Piece != Pieces.Pawn)
                                     {
                                         if (toSquare.Piece == Pieces.GhostPawn)
-                                            toSquare.ClearSquare();
+                                            toSquare.clearSquare();
                                     }
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                    fromSquare.ClearSquare();
+                                    fromSquare.clearSquare();
                                     ChessContext.Core.ChangeTurn();
                                     return;
                                 }
@@ -211,7 +209,7 @@ namespace SimpleChessApp.Chess
             fromSquare = toSquare;
         }
 
-        private static bool handlePassant
+        bool handlePassant
         {
             get
             {
@@ -220,7 +218,7 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        private void ClearSquare()
+        void clearSquare()
         {
             BackgroundImage = null;
             Piece = Pieces.None;
