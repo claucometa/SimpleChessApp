@@ -30,11 +30,11 @@ namespace SimpleChessApp.Chess
             set
             {
                 isBlackSquare = value;
-                paintSquare();
+                colorSquare();
             }
         }
 
-        private void paintSquare()
+        private void colorSquare()
         {
             DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
             BackColor = DefaultColor;
@@ -98,7 +98,7 @@ namespace SimpleChessApp.Chess
                 fromSquare.IsSelected = false;
 
                 if (ChessContext.Core.WhosPlaying == fromSquare.PieceColor ||
-                    ChessContext.Core.SwitchTurnOff) // Controls player turn
+                    ChessContext.Core.HasNoTurns) // Controls player turn
                 {
                     if (toSquare.Piece == Pieces.None)
                     {

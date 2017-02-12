@@ -14,7 +14,7 @@ namespace SimpleChessApp.Chess
         public PieceColor WhosPlaying;
         public bool AllowPassant;
         public bool IsPassantActive;
-        public bool SwitchTurnOff;
+        public bool HasNoTurns;
         public bool WhiteCanCastleKingSide;
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
@@ -67,7 +67,7 @@ namespace SimpleChessApp.Chess
 
         void resetFlags(bool turn = false)
         {
-            SwitchTurnOff = turn;
+            HasNoTurns = turn;
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
             WhiteCanCastleQueenSide = true;
@@ -85,7 +85,8 @@ namespace SimpleChessApp.Chess
         public Image GetPiece(Pieces name, PieceColor color)
         {
             var i = ((int)name) - 1;
-            return color == PieceColor.Black ? BlackPieces.Images[i] : WhitePieces.Images[i];
+            //return color == PieceColor.Black ? BlackPieces.Images[i] : WhitePieces.Images[i];
+            return color == PieceColor.Black ? imageList1.Images[i] : imageList2.Images[i];
         }
 
         internal void ShowPieceSelector(Control x)
