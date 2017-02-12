@@ -49,40 +49,40 @@ namespace SimpleChessApp.Chess
         bool handleKing()
         {
             #region Check Castling
-            if (from.IsBlack)
+            if (from.PieceColor == PieceColor.Black)
             {
                 if (ChessContext.Core.BlackCanCastleKingSide)
                     if (from.Rank == 0 && from.File - to.File == -2)
                     {
-                        ChessContext.Core.ChessBoard[7, 0].SetPiece(Pieces.None, true);
-                        ChessContext.Core.ChessBoard[5, 0].SetPiece(Pieces.Rook, true);
+                        ChessContext.Core.ChessBoard[7, 0].SetPiece(Pieces.None, PieceColor.Black);
+                        ChessContext.Core.ChessBoard[5, 0].SetPiece(Pieces.Rook, PieceColor.Black);
                         return true;
                     }
 
                 if (ChessContext.Core.BlackCanCastleQueenSide)
                     if (from.Rank == 0 && from.File - to.File == 2)
                     {
-                        ChessContext.Core.ChessBoard[0, 0].SetPiece(Pieces.None, true);
-                        ChessContext.Core.ChessBoard[3, 0].SetPiece(Pieces.Rook, true);
+                        ChessContext.Core.ChessBoard[0, 0].SetPiece(Pieces.None, PieceColor.Black);
+                        ChessContext.Core.ChessBoard[3, 0].SetPiece(Pieces.Rook, PieceColor.Black);
                         return true;
                     }
             }
 
-            if (!from.IsBlack)
+            if (from.PieceColor == PieceColor.White)
             {
                 if (ChessContext.Core.WhiteCanCastleKingSide)
                     if (from.Rank == 7 && from.File - to.File == -2)
                     {
-                        ChessContext.Core.ChessBoard[7, 7].SetPiece(Pieces.None, false);
-                        ChessContext.Core.ChessBoard[5, 7].SetPiece(Pieces.Rook, false);
+                        ChessContext.Core.ChessBoard[7, 7].SetPiece(Pieces.None, PieceColor.White);
+                        ChessContext.Core.ChessBoard[5, 7].SetPiece(Pieces.Rook, PieceColor.White);
                         return true;
                     }
 
                 if (ChessContext.Core.WhiteCanCastleQueenSide)
                     if (from.Rank == 7 && from.File - to.File == 2)
                     {
-                        ChessContext.Core.ChessBoard[0, 7].SetPiece(Pieces.None, false);
-                        ChessContext.Core.ChessBoard[3, 7].SetPiece(Pieces.Rook, false);
+                        ChessContext.Core.ChessBoard[0, 7].SetPiece(Pieces.None, PieceColor.White);
+                        ChessContext.Core.ChessBoard[3, 7].SetPiece(Pieces.Rook, PieceColor.White);
                         return true;
                     }
             }
@@ -114,7 +114,7 @@ namespace SimpleChessApp.Chess
 
         bool handlePawn()
         {
-            var isBlack = from.IsBlack;
+            var isBlack = from.PieceColor == PieceColor.Black;
             var mult = isBlack ? -1 : 1;
 
             if (isMovingVertically)
@@ -125,7 +125,7 @@ namespace SimpleChessApp.Chess
                     // promotes when reach last rank 
                     if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
 
-                    return isPathFree();
+                    return isPathFree(mult);
                 }
 
                 // Allow pawn moving one two steps forward from home rank only
@@ -133,13 +133,13 @@ namespace SimpleChessApp.Chess
                 {
                     if (from.Rank - to.Rank == 2 * mult)
                     {
-                        var ok = isPathFree();
+                        var ok = isPathFree(mult);
 
                         if (ok)
                         {
                             GhostSquare = ChessContext.Core.ChessBoard[from.File, from.Rank - mult];
                             GhostSquare.Piece = Pieces.GhostPawn;
-                            GhostSquare.IsBlack = isBlack;
+                            GhostSquare.PieceColor = PieceColor.None;
                         }
 
                         ChessContext.Core.AllowPassant = ok;
@@ -157,9 +157,9 @@ namespace SimpleChessApp.Chess
         }
 
         // Only used to pawn
-        bool isPathFree()
+        bool isPathFree(int mult)
         {
-            var init = from.Rank + (from.IsBlack ? 1 : -1);
+            var init = from.Rank + mult * -1;
             var end = to.Rank;
             if (init > end)
             {
@@ -283,8 +283,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                var isBlack = from.IsBlack;
-                return from.Rank == (isBlack ? 1 : 6);
+                return from.Rank == (from.PieceColor == PieceColor.Black ? 1 : 6);
             }
         }
         #endregion

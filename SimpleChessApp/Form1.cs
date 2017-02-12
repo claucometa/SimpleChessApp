@@ -18,19 +18,11 @@ namespace SimpleChessApp
             rookToolStripMenuItem.Tag = Chess.Pieces.Rook;
             contextMenuStrip1.ItemClicked += ContextMenuStrip1_ItemClicked;
             #endregion  
-
-            #region Fill Todo List
-            dataGridView1.DataSource = TodoItem.Items;
-            dataGridView1.RowTemplate.Height = 21;
-            dataGridView1.Columns[0].Width = 50;
-            dataGridView1.Columns[1].Width = 80;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            #endregion
         }
 
         private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Chess.ChessContext.Core.TestSinglePiece((Chess.Pieces)e.ClickedItem.Tag);            
+            Chess.ChessContext.Core.TestSinglePiece((Chess.Pieces)e.ClickedItem.Tag);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -48,8 +40,8 @@ namespace SimpleChessApp
         private void describe()
         {
             var x = new StringBuilder();
-            var turno = Chess.ChessContext.Core.IsBlackPlaying ? "Pretas jogam" : "Brancas jogam";
-            if(!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
+            var turno = Chess.ChessContext.Core.WhosPlaying == Chess.PieceColor.Black ? "Pretas jogam" : "Brancas jogam";
+            if (!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
             x.AppendLine($"Turno desativado: {Chess.ChessContext.Core.SwitchTurnOff}");
             x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
             x.AppendLine($"Brancas podem rocar (King): {Chess.ChessContext.Core.WhiteCanCastleKingSide}");
@@ -70,8 +62,8 @@ namespace SimpleChessApp
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {            
-            contextMenuStrip1.Show(button3, 0,0);            
+        {
+            contextMenuStrip1.Show(button3, 0, 0);
         }
 
         private void button4_Click(object sender, EventArgs e)

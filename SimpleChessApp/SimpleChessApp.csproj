@@ -73,7 +73,6 @@
     <Compile Include="Chess\Square.Designer.cs">
       <DependentUpon>Square.cs</DependentUpon>
     </Compile>
-    <Compile Include="TodoItem.cs" />
     <EmbeddedResource Include="Chess\Board.resx">
       <DependentUpon>Board.cs</DependentUpon>
     </EmbeddedResource>

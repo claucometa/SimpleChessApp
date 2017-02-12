@@ -47,16 +47,16 @@ namespace SimpleChessApp.Chess
         private void setWhitePieces()
         {
             for (int i = 0; i < 8; i++)
-                Squares[i, 6].SetPiece(Pieces.Pawn, false);
+                Squares[i, 6].SetPiece(Pieces.Pawn, PieceColor.White);
 
-            Squares[0, 7].SetPiece(Pieces.Rook, false);
-            Squares[1, 7].SetPiece(Pieces.Knight, false);
-            Squares[2, 7].SetPiece(Pieces.Bishop, false);
-            Squares[3, 7].SetPiece(Pieces.Queen, false);
-            Squares[4, 7].SetPiece(Pieces.King, false);
-            Squares[5, 7].SetPiece(Pieces.Bishop, false);
-            Squares[6, 7].SetPiece(Pieces.Knight, false);
-            Squares[7, 7].SetPiece(Pieces.Rook, false);
+            Squares[0, 7].SetPiece(Pieces.Rook, PieceColor.White);
+            Squares[1, 7].SetPiece(Pieces.Knight, PieceColor.White);
+            Squares[2, 7].SetPiece(Pieces.Bishop, PieceColor.White);
+            Squares[3, 7].SetPiece(Pieces.Queen, PieceColor.White);
+            Squares[4, 7].SetPiece(Pieces.King, PieceColor.White);
+            Squares[5, 7].SetPiece(Pieces.Bishop, PieceColor.White);
+            Squares[6, 7].SetPiece(Pieces.Knight, PieceColor.White);
+            Squares[7, 7].SetPiece(Pieces.Rook, PieceColor.White);
         }
 
         internal void Restart()
@@ -69,13 +69,13 @@ namespace SimpleChessApp.Chess
         internal void TestPassant()
         {
             clearBoard();
-            Squares[1, 6].SetPiece(Pieces.Pawn, false);
-            Squares[2, 4].SetPiece(Pieces.Pawn, true);
-            Squares[3, 6].SetPiece(Pieces.Pawn, false);
+            Squares[1, 6].SetPiece(Pieces.Pawn, PieceColor.White);
+            Squares[2, 4].SetPiece(Pieces.Pawn, PieceColor.Black);
+            Squares[3, 6].SetPiece(Pieces.Pawn, PieceColor.White);
 
-            Squares[4, 1].SetPiece(Pieces.Pawn, true);
-            Squares[5, 3].SetPiece(Pieces.Pawn, false);
-            Squares[6, 1].SetPiece(Pieces.Pawn, true);
+            Squares[4, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
+            Squares[5, 3].SetPiece(Pieces.Pawn, PieceColor.White);
+            Squares[6, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
         }
 
         private void clearBoard()
@@ -84,7 +84,7 @@ namespace SimpleChessApp.Chess
             {
                 for (int x = 0; x < 8; x++)
                 {
-                    Squares[i, x].SetPiece(Pieces.None, false);
+                    Squares[i, x].SetPiece(Pieces.None, PieceColor.White);
                 }
             }
         }
@@ -92,34 +92,34 @@ namespace SimpleChessApp.Chess
         internal void TestSinglePiece(Pieces x)
         {
             clearBoard();
-            Squares[4, 4].SetPiece(x, true);
+            Squares[4, 4].SetPiece(x, PieceColor.Black);
         }
 
         private void setBlackPieces()
         {
             for (int i = 0; i < 8; i++)
-                Squares[i, 1].SetPiece(Pieces.Pawn, true);
+                Squares[i, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
 
-            Squares[0, 0].SetPiece(Pieces.Rook, true);
-            Squares[1, 0].SetPiece(Pieces.Knight, true);
-            Squares[2, 0].SetPiece(Pieces.Bishop, true);
-            Squares[3, 0].SetPiece(Pieces.Queen, true);
-            Squares[4, 0].SetPiece(Pieces.King, true);
-            Squares[5, 0].SetPiece(Pieces.Bishop, true);
-            Squares[6, 0].SetPiece(Pieces.Knight, true);
-            Squares[7, 0].SetPiece(Pieces.Rook, true);
+            Squares[0, 0].SetPiece(Pieces.Rook, PieceColor.Black);
+            Squares[1, 0].SetPiece(Pieces.Knight, PieceColor.Black);
+            Squares[2, 0].SetPiece(Pieces.Bishop, PieceColor.Black);
+            Squares[3, 0].SetPiece(Pieces.Queen, PieceColor.Black);
+            Squares[4, 0].SetPiece(Pieces.King, PieceColor.Black);
+            Squares[5, 0].SetPiece(Pieces.Bishop, PieceColor.Black);
+            Squares[6, 0].SetPiece(Pieces.Knight, PieceColor.Black);
+            Squares[7, 0].SetPiece(Pieces.Rook, PieceColor.Black);
         }
 
         internal void TestCastling()
         {
             clearBoard();
-            Squares[0, 0].SetPiece(Pieces.Rook, true);
-            Squares[4, 0].SetPiece(Pieces.King, true);
-            Squares[7, 0].SetPiece(Pieces.Rook, true);
+            Squares[0, 0].SetPiece(Pieces.Rook, PieceColor.Black);
+            Squares[4, 0].SetPiece(Pieces.King, PieceColor.Black);
+            Squares[7, 0].SetPiece(Pieces.Rook, PieceColor.Black);
 
-            Squares[0, 7].SetPiece(Pieces.Rook, false);
-            Squares[4, 7].SetPiece(Pieces.King, false);
-            Squares[7, 7].SetPiece(Pieces.Rook, false);
+            Squares[0, 7].SetPiece(Pieces.Rook, PieceColor.White);
+            Squares[4, 7].SetPiece(Pieces.King, PieceColor.White);
+            Squares[7, 7].SetPiece(Pieces.Rook, PieceColor.White);
         }
     }
 }

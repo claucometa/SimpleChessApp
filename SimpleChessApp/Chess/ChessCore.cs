@@ -11,18 +11,14 @@ namespace SimpleChessApp.Chess
     public partial class ChessCore : Component
     {
         public event EventHandler GameStatus;
-
+        public PieceColor WhosPlaying;
         public bool AllowPassant;
         public bool IsPassantActive;
         public bool SwitchTurnOff;
-        public bool WhiteCanCastleKingSide = true;
-        public bool BlackCanCastleKingSide = true;
-        public bool WhiteCanCastleQueenSide = true;
-        public bool BlackCanCastleQueenSide = true;
-
-        // White always starts so it makes sense to
-        // call this variable like this once it's false
-        public bool IsBlackPlaying;
+        public bool WhiteCanCastleKingSide;
+        public bool BlackCanCastleKingSide;
+        public bool WhiteCanCastleQueenSide;
+        public bool BlackCanCastleQueenSide;
 
         public ChessCore()
         {
@@ -38,6 +34,8 @@ namespace SimpleChessApp.Chess
             rookToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
             bishopToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
             #endregion
+
+            resetFlags();
         }
 
         public void ChangeTurn()
@@ -46,7 +44,12 @@ namespace SimpleChessApp.Chess
             if (!AllowPassant)
                 IsPassantActive = false;
             AllowPassant = false;
-            IsBlackPlaying = !IsBlackPlaying;
+
+            if (WhosPlaying == PieceColor.Black)
+                WhosPlaying = PieceColor.White;
+            else
+                WhosPlaying = PieceColor.Black;
+
             GameStatus?.Invoke(this, null);
         }
 
@@ -91,7 +94,7 @@ namespace SimpleChessApp.Chess
             BlackCanCastleKingSide = true;
             WhiteCanCastleQueenSide = true;
             BlackCanCastleQueenSide = true;
-            IsBlackPlaying = false;
+            WhosPlaying = PieceColor.White;
             IsPassantActive = false;
         }
 
@@ -99,12 +102,11 @@ namespace SimpleChessApp.Chess
         /// Returns the image of a chess piece
         /// </summary> 
         /// <param name="name">The name of the piece</param>
-        /// <param name="IsBlack">The color of the piece</param>
-        public Image GetPiece(Pieces name, bool IsBlack)
+        /// <param name="color">The color of the piece</param>
+        public Image GetPiece(Pieces name, PieceColor color)
         {
             var i = ((int)name) - 1;
-
-            return IsBlack ? BlackPieces.Images[i] : WhitePieces.Images[i];
+            return color == PieceColor.Black ? BlackPieces.Images[i] : WhitePieces.Images[i];
         }
 
         internal void ShowPieceSelector(Control x)
@@ -115,8 +117,15 @@ namespace SimpleChessApp.Chess
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var square = Square.PromotedSquare;
-            square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.IsBlack);
+            square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.PieceColor);
         }
+    }
+
+    public enum PieceColor
+    {
+        None,
+        Black,
+        White
     }
 
     public enum Pieces
