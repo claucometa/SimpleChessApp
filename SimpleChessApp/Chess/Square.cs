@@ -97,7 +97,8 @@ namespace SimpleChessApp.Chess
                 fromSquare.BackColor = fromSquare.DefaultColor;
                 fromSquare.IsSelected = false;
 
-                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack || ChessContext.Core.SwitchTurnOff) // Controls player turn
+                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack ||
+                    ChessContext.Core.SwitchTurnOff) // Controls player turn
                 {
                     if (toSquare.Piece == Pieces.None)
                     {
@@ -175,9 +176,13 @@ namespace SimpleChessApp.Chess
                                     // Handles passant
                                     if (fromSquare.Piece == Pieces.Pawn)
                                     {
-                                        if (ChessContext.Core.IsPassantActive)
-                                            if (toSquare.Piece == Pieces.GhostPawn)
+                                        if (toSquare.Piece == Pieces.GhostPawn)
+                                        {
+                                            if (ChessContext.Core.IsPassantActive)
                                                 lastMove.SetPiece(Pieces.None, false);
+                                            else
+                                                return;
+                                        }
                                     }
 
                                     if (fromSquare.Piece != Pieces.Pawn)
