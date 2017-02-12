@@ -57,21 +57,18 @@ namespace SimpleChessApp.Chess
         {
             ChessBoard.Restart();
             resetFlags();
-            GameStatus?.Invoke(this, null);
         }
 
         internal void TestPassant()
         {
             ChessBoard.TestPassant();
-            resetFlags(true);
-            GameStatus?.Invoke(this, null);
+            resetFlags(true);            
         }
 
         internal void TestSinglePiece(Pieces x)
         {
             ChessBoard.TestSinglePiece(x);
             resetFlags(true);
-            GameStatus?.Invoke(this, null);
         }
 
         public ChessCore(IContainer container)
@@ -84,7 +81,6 @@ namespace SimpleChessApp.Chess
         {
             ChessBoard.TestCastling();
             resetFlags(true);
-            GameStatus?.Invoke(this, null);
         }
 
         void resetFlags(bool turn = false)
@@ -96,6 +92,7 @@ namespace SimpleChessApp.Chess
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
             IsPassantActive = false;
+            GameStatus?.Invoke(this, null);
         }
 
         /// <summary>
@@ -123,7 +120,7 @@ namespace SimpleChessApp.Chess
 
     public enum PieceColor
     {
-        None,
+        None, // <-- Required by GhostPawn
         Black,
         White
     }
@@ -137,6 +134,6 @@ namespace SimpleChessApp.Chess
         Rook,
         King,
         Queen,
-        GhostPawn,
+        GhostPawn // <-- Receives None Color
     }
 }
