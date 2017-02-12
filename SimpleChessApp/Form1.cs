@@ -32,7 +32,7 @@ namespace SimpleChessApp
             describe();
         }
 
-        private void Core_GameStatus(object sender, System.EventArgs e)
+        private void Core_GameStatus(object sender, EventArgs e)
         {
             describe();
         }
@@ -40,14 +40,14 @@ namespace SimpleChessApp
         private void describe()
         {
             var x = new StringBuilder();
-            var turno = Chess.ChessContext.Core.WhosPlaying == Chess.PieceColor.Black ? "Pretas jogam" : "Brancas jogam";
+            var turno = Chess.ChessContext.Core.WhosPlaying == Chess.PieceColor.Black ? "Black's turn" : "White's turn";
             if (!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
-            x.AppendLine($"Turno desativado: {Chess.ChessContext.Core.SwitchTurnOff}");
-            x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
-            x.AppendLine($"Brancas podem rocar (King): {Chess.ChessContext.Core.WhiteCanCastleKingSide}");
-            x.AppendLine($"Brancas podem rocar (Queen): {Chess.ChessContext.Core.WhiteCanCastleQueenSide}");
-            x.AppendLine($"Pretas podem rocar (King): {Chess.ChessContext.Core.BlackCanCastleKingSide}");
-            x.AppendLine($"Pretas podem rocar (Queen): {Chess.ChessContext.Core.BlackCanCastleQueenSide}");
+            x.AppendLine($"Turn enabled: {!Chess.ChessContext.Core.SwitchTurnOff}");
+            x.AppendLine($"Passant enabled: {Chess.ChessContext.Core.IsPassantActive}");
+            x.AppendLine($"White castling king side: {Chess.ChessContext.Core.WhiteCanCastleKingSide}");
+            x.AppendLine($"White castling queen side: {Chess.ChessContext.Core.WhiteCanCastleQueenSide}");
+            x.AppendLine($"Black castling king side: {Chess.ChessContext.Core.BlackCanCastleKingSide}");
+            x.AppendLine($"Black castling queen side: {Chess.ChessContext.Core.BlackCanCastleQueenSide}");
             textBox1.Text = x.ToString();
         }
 

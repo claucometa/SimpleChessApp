@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace SimpleChessApp.Chess
 {
     /// <summary>
-    /// Has the method GetPiece(name, isBlack)
+    /// Has mostly everything
     /// </summary>      
     public partial class ChessCore : Component
     {
@@ -53,34 +53,16 @@ namespace SimpleChessApp.Chess
             GameStatus?.Invoke(this, null);
         }
 
-        internal void RestartGame()
-        {
-            ChessBoard.Restart();
-            resetFlags();
-        }
-
-        internal void TestPassant()
-        {
-            ChessBoard.TestPassant();
-            resetFlags(true);            
-        }
-
-        internal void TestSinglePiece(Pieces x)
-        {
-            ChessBoard.TestSinglePiece(x);
-            resetFlags(true);
-        }
-
         public ChessCore(IContainer container)
         {
             container.Add(this);
             InitializeComponent();
         }
 
-        internal void TestCastling()
+        internal void RestartGame()
         {
-            ChessBoard.TestCastling();
-            resetFlags(true);
+            ChessBoard.Restart();
+            resetFlags();
         }
 
         void resetFlags(bool turn = false)
@@ -116,6 +98,26 @@ namespace SimpleChessApp.Chess
             var square = Square.PromotedSquare;
             square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.PieceColor);
         }
+
+        #region DEBUG 
+        internal void TestPassant()
+        {
+            ChessBoard.TestPassant();
+            resetFlags(true);
+        }
+
+        internal void TestSinglePiece(Pieces x)
+        {
+            ChessBoard.TestSinglePiece(x);
+            resetFlags(true);
+        }
+
+        internal void TestCastling()
+        {
+            ChessBoard.TestCastling();
+            resetFlags(true);
+        }
+        #endregion
     }
 
     public enum PieceColor
