@@ -109,5 +109,17 @@ namespace SimpleChessApp.Chess
             Squares[6, 0].SetPiece(Pieces.Knight, true);
             Squares[7, 0].SetPiece(Pieces.Rook, true);
         }
+
+        internal void TestCastling()
+        {
+            clearBoard();
+            Squares[0, 0].SetPiece(Pieces.Rook, true);
+            Squares[4, 0].SetPiece(Pieces.King, true);
+            Squares[7, 0].SetPiece(Pieces.Rook, true);
+
+            Squares[0, 7].SetPiece(Pieces.Rook, false);
+            Squares[4, 7].SetPiece(Pieces.King, false);
+            Squares[7, 7].SetPiece(Pieces.Rook, false);
+        }
     }
 }

@@ -41,33 +41,37 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        private bool handleQueen()
+        bool handleQueen()
         {
             return isMovingHorizontally || isMovingVertically || isMovingDiagonally;
         }
 
-        private bool handleKing()
+        bool handleKing()
         {
             var x = Math.Abs(from.Rank - to.Rank) == 1 || Math.Abs(from.File - to.File) == 1;
             return x;
         }
 
-        private bool handleRook()
+        bool handleRook()
         {
             return isMovingHorizontally || isMovingVertically;
         }
 
-        private bool handleBishop()
+        bool handleBishop()
         {
             return isMovingDiagonally;
         }
 
-        private bool handleKnight()
+        bool handleKnight()
         {
-            return true;
+            var x = Math.Abs(from.File - to.File);
+            var y = Math.Abs(from.Rank - to.Rank);
+            var c = x + y;
+
+            return (x == 1 && y == 2 || x == 2 && y == 1);
         }
 
-        private bool handlePawn()
+        bool handlePawn()
         {
             var isBlack = from.IsBlack;
             var mult = isBlack ? -1 : 1;
@@ -111,6 +115,7 @@ namespace SimpleChessApp.Chess
             return false;
         }
 
+        // Only used to pawn
         bool isPathFree()
         {
             var init = from.Rank + (from.IsBlack ? 1 : -1);
@@ -132,13 +137,13 @@ namespace SimpleChessApp.Chess
             return true;
         }
 
-        private void promotePawn()
+        void promotePawn()
         {
             ChessContext.Core.ShowPieceSelector(from);
             Square.PromotedSquare = to;
         }
 
-        #region Logic Devices
+        #region Move Devices
         bool isMovingVertically
         {
             get

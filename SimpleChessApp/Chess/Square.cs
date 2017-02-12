@@ -23,15 +23,18 @@ namespace SimpleChessApp.Chess
         bool isBlackSquare;
         public bool IsBlackSquare
         {
-            get { return isBlackSquare; }
+            get
+            {
+                return isBlackSquare;
+            }
             set
             {
                 isBlackSquare = value;
-                drawSquare();
+                paintSquare();
             }
         }
 
-        private void drawSquare()
+        private void paintSquare()
         {
             DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
             BackColor = DefaultColor;
@@ -103,6 +106,46 @@ namespace SimpleChessApp.Chess
                         {
                             if (new MoveValidation(fromSquare, toSquare).Validate)
                             {
+                                #region Set Castling Flags
+                                if (fromSquare.IsBlack)
+                                {
+                                    if (ChessContext.Core.BlackCanCastleKingSide || ChessContext.Core.BlackCanCastleQueenSide)
+                                    {
+                                        if (fromSquare.Piece == Pieces.King)
+                                        {
+                                            ChessContext.Core.BlackCanCastleKingSide = false;
+                                            ChessContext.Core.BlackCanCastleQueenSide = false;
+                                        }
+
+                                        else if (fromSquare.Piece == Pieces.Rook && fromSquare.File == 0)
+                                            ChessContext.Core.BlackCanCastleQueenSide = false;
+
+                                        else if (fromSquare.Piece == Pieces.Rook && fromSquare.File == 7)
+                                            ChessContext.Core.BlackCanCastleKingSide = false;
+
+                                    }
+                                }
+
+                                if (!fromSquare.IsBlack)
+                                {
+                                    if (ChessContext.Core.WhiteCanCastleKingSide || ChessContext.Core.WhiteCanCastleQueenSide)
+                                    {
+                                        if (fromSquare.Piece == Pieces.King)
+                                        {
+                                            ChessContext.Core.WhiteCanCastleKingSide = false;
+                                            ChessContext.Core.WhiteCanCastleQueenSide = false;
+                                        }
+
+                                        else if (fromSquare.Piece == Pieces.Rook && fromSquare.File == 0)
+                                            ChessContext.Core.WhiteCanCastleQueenSide = false;
+
+                                        else if (fromSquare.Piece == Pieces.Rook && fromSquare.File == 7)
+                                            ChessContext.Core.WhiteCanCastleKingSide = false;
+
+                                    }
+                                }
+                                #endregion  
+
                                 lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                 fromSquare.clearSquare();
@@ -127,7 +170,7 @@ namespace SimpleChessApp.Chess
                                 fromSquare.Piece == Pieces.Pawn).Validate)
                             {
                                 // Avoid capture of same piece color
-                                if (fromSquare.IsBlack != toSquare.IsBlack || toSquare.Piece == Pieces.GhostPawn )
+                                if (fromSquare.IsBlack != toSquare.IsBlack || toSquare.Piece == Pieces.GhostPawn)
                                 {
                                     // Handles passant
                                     if (fromSquare.Piece == Pieces.Pawn)

@@ -15,8 +15,10 @@ namespace SimpleChessApp.Chess
         public bool AllowPassant;
         public bool IsPassantActive;
         public bool SwitchTurnOff;
-        public bool WhiteCanCastle = true;
-        public bool BlackCanCastle = true;
+        public bool WhiteCanCastleKingSide = true;
+        public bool BlackCanCastleKingSide = true;
+        public bool WhiteCanCastleQueenSide = true;
+        public bool BlackCanCastleQueenSide = true;
 
         // White always starts so it makes sense to
         // call this variable like this once it's false
@@ -58,29 +60,21 @@ namespace SimpleChessApp.Chess
         internal void RestartGame()
         {
             ChessBoard.Restart();
-            SwitchTurnOff = false;
-            IsBlackPlaying = false;
-            IsPassantActive = false;
-            WhiteCanCastle = true;
-            BlackCanCastle = true;
+            resetFlags();
             GameStatus?.Invoke(this, null);
         }
 
         internal void TestPassant()
         {
             ChessBoard.TestPassant();
-            SwitchTurnOff = true;
-            IsBlackPlaying = false;
-            IsPassantActive = false;
+            resetFlags(true);
             GameStatus?.Invoke(this, null);
         }
 
         internal void TestSinglePiece(Pieces x)
         {
             ChessBoard.TestSinglePiece(x);
-            SwitchTurnOff = true;
-            IsBlackPlaying = false;
-            IsPassantActive = false;
+            resetFlags(true);
             GameStatus?.Invoke(this, null);
         }
 
@@ -88,6 +82,24 @@ namespace SimpleChessApp.Chess
         {
             container.Add(this);
             InitializeComponent();
+        }
+
+        internal void TestCastling()
+        {
+            ChessBoard.TestCastling();
+            resetFlags(true);
+            GameStatus?.Invoke(this, null);
+        }
+
+        void resetFlags(bool turn =false)
+        {
+            SwitchTurnOff = turn;
+            WhiteCanCastleKingSide = true;
+            BlackCanCastleKingSide = true;
+            WhiteCanCastleQueenSide = true;
+            BlackCanCastleQueenSide = true;
+            IsBlackPlaying = false;
+            IsPassantActive = false;
         }
 
         /// <summary>

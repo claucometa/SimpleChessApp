@@ -52,8 +52,10 @@ namespace SimpleChessApp
             if(!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
             x.AppendLine($"Turno desativado: {Chess.ChessContext.Core.SwitchTurnOff}");
             x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
-            x.AppendLine($"Brancas podem rocar: {Chess.ChessContext.Core.WhiteCanCastle}");
-            x.AppendLine($"Pretas podem rocar: {Chess.ChessContext.Core.BlackCanCastle}");
+            x.AppendLine($"Brancas podem rocar (King): {Chess.ChessContext.Core.WhiteCanCastleKingSide}");
+            x.AppendLine($"Brancas podem rocar (Queen): {Chess.ChessContext.Core.WhiteCanCastleQueenSide}");
+            x.AppendLine($"Pretas podem rocar (King): {Chess.ChessContext.Core.BlackCanCastleKingSide}");
+            x.AppendLine($"Pretas podem rocar (Queen): {Chess.ChessContext.Core.BlackCanCastleQueenSide}");
             textBox1.Text = x.ToString();
         }
 
@@ -70,6 +72,11 @@ namespace SimpleChessApp
         private void button3_Click(object sender, EventArgs e)
         {            
             contextMenuStrip1.Show(button3, 0,0);            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Chess.ChessContext.Core.TestCastling();
         }
     }
 }
