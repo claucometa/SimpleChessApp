@@ -6,7 +6,6 @@ namespace SimpleChessApp.Chess
     public partial class Board : UserControl
     {
         Square[,] Squares = new Square[8, 8];
-        bool isBlack;
 
         public Square this[int File, int Rank]
         {
@@ -25,7 +24,7 @@ namespace SimpleChessApp.Chess
         {
             #region Build Squares
             int count = 1;
-
+            bool isBlack;
             for (int rank = 0; rank < 8; rank++)
             {
                 isBlack = (count++ % 2) == 0;
@@ -41,7 +40,26 @@ namespace SimpleChessApp.Chess
             #endregion
 
             setBlackPieces();
+
             setWhitePieces();
+        }
+
+        internal void Restart()
+        {
+            ClearBoard();
+            setBlackPieces();
+            setWhitePieces();
+        }
+
+        internal void ClearBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    Squares[i, x].SetPiece(Pieces.None, PieceColor.White);
+                }
+            }
         }
 
         private void setWhitePieces()
@@ -59,42 +77,6 @@ namespace SimpleChessApp.Chess
             Squares[7, 7].SetPiece(Pieces.Rook, PieceColor.White);
         }
 
-        internal void Restart()
-        {
-            clearBoard();
-            setBlackPieces();
-            setWhitePieces();
-        }
-
-        internal void TestPassant()
-        {
-            clearBoard();
-            Squares[1, 6].SetPiece(Pieces.Pawn, PieceColor.White);
-            Squares[2, 4].SetPiece(Pieces.Pawn, PieceColor.Black);
-            Squares[3, 6].SetPiece(Pieces.Pawn, PieceColor.White);
-
-            Squares[4, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
-            Squares[5, 3].SetPiece(Pieces.Pawn, PieceColor.White);
-            Squares[6, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
-        }
-
-        private void clearBoard()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int x = 0; x < 8; x++)
-                {
-                    Squares[i, x].SetPiece(Pieces.None, PieceColor.White);
-                }
-            }
-        }
-
-        internal void TestSinglePiece(Pieces x)
-        {
-            clearBoard();
-            Squares[4, 4].SetPiece(x, PieceColor.Black);
-        }
-
         private void setBlackPieces()
         {
             for (int i = 0; i < 8; i++)
@@ -110,9 +92,28 @@ namespace SimpleChessApp.Chess
             Squares[7, 0].SetPiece(Pieces.Rook, PieceColor.Black);
         }
 
+        #region DEBUG
+        internal void TestPassant()
+        {
+            ClearBoard();
+            Squares[1, 6].SetPiece(Pieces.Pawn, PieceColor.White);
+            Squares[2, 4].SetPiece(Pieces.Pawn, PieceColor.Black);
+            Squares[3, 6].SetPiece(Pieces.Pawn, PieceColor.White);
+
+            Squares[4, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
+            Squares[5, 3].SetPiece(Pieces.Pawn, PieceColor.White);
+            Squares[6, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
+        }
+
+        internal void TestSinglePiece(Pieces x)
+        {
+            ClearBoard();
+            Squares[4, 4].SetPiece(x, PieceColor.Black);
+        }
+
         internal void TestCastling()
         {
-            clearBoard();
+            ClearBoard();
             Squares[0, 0].SetPiece(Pieces.Rook, PieceColor.Black);
             Squares[4, 0].SetPiece(Pieces.King, PieceColor.Black);
             Squares[7, 0].SetPiece(Pieces.Rook, PieceColor.Black);
@@ -121,5 +122,6 @@ namespace SimpleChessApp.Chess
             Squares[4, 7].SetPiece(Pieces.King, PieceColor.White);
             Squares[7, 7].SetPiece(Pieces.Rook, PieceColor.White);
         }
+        #endregion
     }
 }
