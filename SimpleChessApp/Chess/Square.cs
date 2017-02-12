@@ -19,7 +19,7 @@ namespace SimpleChessApp.Chess
         public Pieces Piece = Pieces.None;
         public PieceColor PieceColor;
 
-        
+
 
         // Just used to draw the board
         bool isBlackSquare;
@@ -153,7 +153,7 @@ namespace SimpleChessApp.Chess
 
                                 lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                fromSquare.clearSquare();
+                                fromSquare.ClearSquare();
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }
@@ -175,34 +175,27 @@ namespace SimpleChessApp.Chess
                                 fromSquare.Piece == Pieces.Pawn).Validate)
                             {
                                 // Avoid capture of same piece color
-                                if (fromSquare.PieceColor != toSquare.PieceColor || toSquare.Piece == Pieces.GhostPawn)
+                                if (fromSquare.PieceColor != toSquare.PieceColor)
                                 {
-                                    #region Handle Passant
-                                    if (fromSquare.Piece == Pieces.Pawn)
+                                    if (handlePassant)
                                     {
-                                        if (toSquare.Piece == Pieces.GhostPawn)
+                                        if (lastMove.PieceColor != fromSquare.PieceColor)
+                                            lastMove.SetPiece(Pieces.None, PieceColor.None);
+                                        else
                                         {
-                                            if (ChessContext.Core.IsPassantActive)
-                                            {
-                                                if (lastMove.PieceColor != fromSquare.PieceColor)
-                                                    lastMove.SetPiece(Pieces.None, PieceColor.None);
-                                                else
-                                                {
-                                                    MoveValidation.GhostSquare.Piece = Pieces.None;                                 return;
-                                                }
-                                            }
+                                            MoveValidation.GhostSquare.ClearSquare();
+                                            return;
                                         }
                                     }
-                                    #endregion
 
                                     if (fromSquare.Piece != Pieces.Pawn)
                                     {
                                         if (toSquare.Piece == Pieces.GhostPawn)
-                                            toSquare.Piece = Pieces.None;
+                                            toSquare.ClearSquare();
                                     }
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                    fromSquare.clearSquare();
+                                    fromSquare.ClearSquare();
                                     ChessContext.Core.ChangeTurn();
                                     return;
                                 }
@@ -218,10 +211,20 @@ namespace SimpleChessApp.Chess
             fromSquare = toSquare;
         }
 
-        private void clearSquare()
+        private static bool handlePassant
+        {
+            get
+            {
+                return ChessContext.Core.IsPassantActive &&
+                       fromSquare.Piece == Pieces.Pawn && toSquare.Piece == Pieces.GhostPawn;
+            }
+        }
+
+        private void ClearSquare()
         {
             BackgroundImage = null;
             Piece = Pieces.None;
+            PieceColor = PieceColor.None;
         }
     }
 }
