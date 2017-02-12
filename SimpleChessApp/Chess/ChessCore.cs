@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -19,6 +20,8 @@ namespace SimpleChessApp.Chess
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
+        public BindingList<Annotattion> MoveList = new BindingList<Annotattion>();
+        public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
 
         public ChessCore()
         {
@@ -74,6 +77,8 @@ namespace SimpleChessApp.Chess
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
             IsPassantActive = false;
+            MoveList.Clear();
+            MoveList2.Clear();
             GameStatus?.Invoke(this, null);
         }
 

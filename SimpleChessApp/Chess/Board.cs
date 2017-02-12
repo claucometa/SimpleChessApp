@@ -30,7 +30,7 @@ namespace SimpleChessApp.Chess
                 isBlack = (count++ % 2) == 0;
                 for (int file = 0; file < 8; file++)
                 {
-                    var x = new Square(rank, file);
+                    var x = new Square(rank, file, makeName(rank, file));
                     x.IsBlackSquare = isBlack;
                     isBlack = (count++ % 2) == 0;
                     Squares[rank, file] = x;
@@ -42,6 +42,11 @@ namespace SimpleChessApp.Chess
             setBlackPieces();
 
             setWhitePieces();
+        }
+
+        private string makeName(int file, int rank)
+        {
+            return "abcdefgh"[file] + Math.Abs(rank - 8).ToString();
         }
 
         internal void Restart()

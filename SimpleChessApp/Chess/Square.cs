@@ -8,10 +8,12 @@ namespace SimpleChessApp.Chess
         static Square fromSquare;
         static Square toSquare;
         static Square lastMove;
+
         public static Square PromotedSquare;
 
         public int File { get; set; }
         public int Rank { get; set; }
+        public string Name { get; set; }
 
         private bool IsSelected;
 
@@ -67,10 +69,11 @@ namespace SimpleChessApp.Chess
             MouseUp += Square_Click;
         }
 
-        public Square(int file, int rank) : this()
+        public Square(int file, int rank, string n) : this()
         {
             File = file;
             Rank = rank;
+            Name = n;
         }
 
         private void Square_Click(object sender, System.EventArgs e)
@@ -152,6 +155,7 @@ namespace SimpleChessApp.Chess
                                 lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
                                 fromSquare.clearSquare();
+                                addMoveAnnotation();
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }
@@ -194,6 +198,7 @@ namespace SimpleChessApp.Chess
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
                                     fromSquare.clearSquare();
+                                    addMoveAnnotation();
                                     ChessContext.Core.ChangeTurn();
                                     return;
                                 }
@@ -207,6 +212,15 @@ namespace SimpleChessApp.Chess
             toSquare.IsSelected = true;
 
             fromSquare = toSquare;
+        }
+
+        private static void addMoveAnnotation()
+        {
+            if (ChessContext.Core.WhosPlaying == PieceColor.White)
+                ChessContext.Core.MoveList.Add(new Annotattion(fromSquare, toSquare));
+
+            if (ChessContext.Core.WhosPlaying == PieceColor.Black)
+                ChessContext.Core.MoveList2.Add(new Annotattion(fromSquare, toSquare));
         }
 
         bool handlePassant

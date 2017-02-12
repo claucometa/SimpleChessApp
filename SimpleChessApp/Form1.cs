@@ -29,6 +29,8 @@ namespace SimpleChessApp
         {
             panel1.Controls.Add(Chess.ChessContext.Core.ChessBoard);
             Chess.ChessContext.Core.GameStatus += Core_GameStatus;
+            listBox1.DataSource = Chess.ChessContext.Core.MoveList;
+            listBox2.DataSource = Chess.ChessContext.Core.MoveList2;
             describe();
         }
 
@@ -60,6 +62,16 @@ namespace SimpleChessApp
                 radioButton2.Checked = false;
                 radioButton1.Checked = false;
             }
+
+            listBox1.SelectedIndex = listBox1.Items.Count - 1;
+            listBox2.SelectedIndex = listBox2.Items.Count - 1;
+
+            if (Chess.ChessContext.Core.WhosPlaying == Chess.PieceColor.Black)
+                listBox2.ClearSelected();
+
+            if (Chess.ChessContext.Core.WhosPlaying == Chess.PieceColor.White)
+                listBox1.ClearSelected();
+
         }
 
         private void button1_Click(object sender, EventArgs e)

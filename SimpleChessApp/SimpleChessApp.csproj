@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chess\Annotattion.cs" />
     <Compile Include="Chess\Board.cs">
       <SubType>UserControl</SubType>
     </Compile>
