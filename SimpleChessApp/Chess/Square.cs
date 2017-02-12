@@ -86,7 +86,7 @@ namespace SimpleChessApp.Chess
                 fromSquare.BackColor = fromSquare.DefaultColor;
                 fromSquare.IsSelected = false;
 
-                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack) // Controls player turn
+                if (ChessContext.Core.IsBlackPlaying == fromSquare.IsBlack || ChessContext.Core.SwitchTurnOff) // Controls player turn
                 {
                     if (toSquare.Piece == Pieces.None)
                     {

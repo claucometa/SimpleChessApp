@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -36,9 +37,16 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.bishopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -47,6 +55,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -61,6 +70,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button3);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
@@ -131,12 +141,15 @@
             this.dataGridView1.Size = new System.Drawing.Size(422, 513);
             this.dataGridView1.TabIndex = 0;
             // 
-            // panel1
+            // button2
             // 
-            this.panel1.Location = new System.Drawing.Point(107, 95);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 360);
-            this.panel1.TabIndex = 0;
+            this.button2.Location = new System.Drawing.Point(116, 14);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 35);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Test Passant";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -148,15 +161,64 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // panel1
             // 
-            this.button2.Location = new System.Drawing.Point(116, 14);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 35);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Passant";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.panel1.Location = new System.Drawing.Point(107, 95);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(360, 360);
+            this.panel1.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.ContextMenuStrip = this.contextMenuStrip1;
+            this.button3.Location = new System.Drawing.Point(252, 14);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(143, 35);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Test single Piece";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bishopToolStripMenuItem,
+            this.rookToolStripMenuItem,
+            this.queenToolStripMenuItem,
+            this.knightToolStripMenuItem,
+            this.kingToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(111, 114);
+            // 
+            // bishopToolStripMenuItem
+            // 
+            this.bishopToolStripMenuItem.Name = "bishopToolStripMenuItem";
+            this.bishopToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.bishopToolStripMenuItem.Text = "Bishop";
+            // 
+            // rookToolStripMenuItem
+            // 
+            this.rookToolStripMenuItem.Name = "rookToolStripMenuItem";
+            this.rookToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.rookToolStripMenuItem.Text = "Rook";
+            // 
+            // queenToolStripMenuItem
+            // 
+            this.queenToolStripMenuItem.Name = "queenToolStripMenuItem";
+            this.queenToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.queenToolStripMenuItem.Text = "Queen";
+            // 
+            // knightToolStripMenuItem
+            // 
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            // 
+            // kingToolStripMenuItem
+            // 
+            this.kingToolStripMenuItem.Name = "kingToolStripMenuItem";
+            this.kingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.kingToolStripMenuItem.Text = "King";
             // 
             // Form1
             // 
@@ -179,6 +241,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -193,6 +256,13 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem bishopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kingToolStripMenuItem;
     }
 }
 

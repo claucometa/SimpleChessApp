@@ -42,7 +42,7 @@ namespace SimpleChessApp
                 x.Add(new TodoItem(false, Difficulty.Hard, "3.1 Stale Mate"));
                 x.Add(new TodoItem(false, Difficulty.Hard, "3.2 Check Mate"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "3.3 Draw by repetition"));
-                x.Add(new TodoItem(false, Difficulty.Medium, "4 El Passant"));
+                x.Add(new TodoItem(true, Difficulty.Medium, "4 El Passant"));
                 x.Add(new TodoItem(false, Difficulty.Easy, "5 Chess annotation"));
 
                 return x;

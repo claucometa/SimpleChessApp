@@ -14,6 +14,7 @@ namespace SimpleChessApp.Chess
 
         public bool AllowPassant;
         public bool IsPassantActive;
+        public bool SwitchTurnOff;
 
         // White always starts so it makes sense to
         // call this variable like this once it's false
@@ -56,14 +57,25 @@ namespace SimpleChessApp.Chess
         internal void RestartGame()
         {
             ChessBoard.Restart();
+            SwitchTurnOff = false;
             IsBlackPlaying = false;
             IsPassantActive = false;
             GameStatus?.Invoke(this, null);
         }
 
-        internal void PassantTest()
+        internal void TestPassant()
         {
-            ChessBoard.PassantSetup();
+            ChessBoard.TestPassant();
+            SwitchTurnOff = true;
+            IsBlackPlaying = false;
+            IsPassantActive = false;
+            GameStatus?.Invoke(this, null);
+        }
+
+        internal void TestSinglePiece(Pieces x)
+        {
+            ChessBoard.TestSinglePiece(x);
+            SwitchTurnOff = true;
             IsBlackPlaying = false;
             IsPassantActive = false;
             GameStatus?.Invoke(this, null);

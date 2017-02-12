@@ -9,6 +9,16 @@ namespace SimpleChessApp
         public Form1()
         {
             InitializeComponent();
+
+            #region SinglePiece test
+            knightToolStripMenuItem.Tag = Chess.Pieces.Knight;
+            queenToolStripMenuItem.Tag = Chess.Pieces.Queen;
+            kingToolStripMenuItem.Tag = Chess.Pieces.King;
+            bishopToolStripMenuItem.Tag = Chess.Pieces.Bishop;
+            rookToolStripMenuItem.Tag = Chess.Pieces.Rook;
+            contextMenuStrip1.ItemClicked += ContextMenuStrip1_ItemClicked;
+            #endregion  
+
             #region Fill Todo List
             dataGridView1.DataSource = TodoItem.Items;
             dataGridView1.RowTemplate.Height = 21;
@@ -16,6 +26,11 @@ namespace SimpleChessApp
             dataGridView1.Columns[1].Width = 80;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             #endregion
+        }
+
+        private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Chess.ChessContext.Core.TestSinglePiece((Chess.Pieces)e.ClickedItem.Tag);            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -34,7 +49,8 @@ namespace SimpleChessApp
         {
             var x = new StringBuilder();
             var turno = Chess.ChessContext.Core.IsBlackPlaying ? "Pretas jogam" : "Brancas jogam";
-            x.AppendLine($"Turno: {turno}");
+            if(!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
+            x.AppendLine($"Turno desativado: {Chess.ChessContext.Core.SwitchTurnOff}");
             x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
             textBox1.Text = x.ToString();
         }
@@ -46,7 +62,12 @@ namespace SimpleChessApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Chess.ChessContext.Core.PassantTest();
+            Chess.ChessContext.Core.TestPassant();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {            
+            contextMenuStrip1.Show(button3, 0,0);            
         }
     }
 }

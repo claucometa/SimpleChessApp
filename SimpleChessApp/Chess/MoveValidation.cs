@@ -1,10 +1,8 @@
-﻿
-using System;
+﻿using System;
 
 namespace SimpleChessApp.Chess
 {
     // TODO 2. Movement rules for each piece
-
     internal class MoveValidation
     {
         Square from;
@@ -45,22 +43,22 @@ namespace SimpleChessApp.Chess
 
         private bool handleQueen()
         {
-            return true;
+            return isMovingHorizontally || isMovingVertically || isMovingDiagonally;
         }
 
         private bool handleKing()
         {
-            return true;
+            return isMovingHorizontally || isMovingVertically || isMovingDiagonally;
         }
 
         private bool handleRook()
         {
-            return true;
+            return isMovingHorizontally || isMovingVertically;
         }
 
         private bool handleBishop()
         {
-            return true;
+            return isMovingDiagonally;
         }
 
         private bool handleKnight()
@@ -125,9 +123,43 @@ namespace SimpleChessApp.Chess
 
         #region Logic Devices
         bool isMovingVertically { get { return from.File == to.File; } }
-        bool isMovingHorizontally { get { return from.Rank == to.Rank; } } // Not in use yet
-        bool isMovingDiagonally { get { return true; } } // Not implemented
+        bool isMovingHorizontally { get { return from.Rank == to.Rank; } }
+        bool isMovingDiagonally
+        {
+            get
+            {
+                var a = from.Rank;
+                var b = from.File;
+                var c = to.Rank;
+                var d = to.File;
 
+                while (a < b && c < d)
+                {
+                    a++;
+                    c++;
+                }
+
+                while (a > b && c > d)
+                {
+                    a--;
+                    c--;
+                }
+
+                while (a < c && b > d)
+                {
+                    a++;
+                    b--;
+                }
+
+                while (a > c && b < d)
+                {
+                    a--;
+                    b++;
+                }
+
+                return (a == b && c == d) || (a == c && b == d);
+            }
+        }
         bool isHomeRank
         {
             get

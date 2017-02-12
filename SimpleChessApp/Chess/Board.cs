@@ -58,7 +58,7 @@ namespace SimpleChessApp.Chess
             setWhitePieces();
         }
 
-        internal void PassantSetup()
+        internal void TestPassant()
         {
             clearBoard();
             Squares[1, 6].SetPiece(Pieces.Pawn, false);
@@ -79,6 +79,12 @@ namespace SimpleChessApp.Chess
                     Squares[i, x].SetPiece(Pieces.None, false);
                 }
             }
+        }
+
+        internal void TestSinglePiece(Pieces x)
+        {
+            clearBoard();
+            Squares[4, 4].SetPiece(x, true);
         }
 
         private void setBlackPieces()
