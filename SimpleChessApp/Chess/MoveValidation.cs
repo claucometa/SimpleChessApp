@@ -48,7 +48,8 @@ namespace SimpleChessApp.Chess
 
         private bool handleKing()
         {
-            return isMovingHorizontally || isMovingVertically || isMovingDiagonally;
+            var x = Math.Abs(from.Rank - to.Rank) == 1 || Math.Abs(from.File - to.File) == 1;
+            return x;
         }
 
         private bool handleRook()

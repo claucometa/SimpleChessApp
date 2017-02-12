@@ -15,6 +15,8 @@ namespace SimpleChessApp.Chess
         public bool AllowPassant;
         public bool IsPassantActive;
         public bool SwitchTurnOff;
+        public bool WhiteCanCastle = true;
+        public bool BlackCanCastle = true;
 
         // White always starts so it makes sense to
         // call this variable like this once it's false
@@ -59,6 +61,8 @@ namespace SimpleChessApp.Chess
             SwitchTurnOff = false;
             IsBlackPlaying = false;
             IsPassantActive = false;
+            WhiteCanCastle = true;
+            BlackCanCastle = true;
             GameStatus?.Invoke(this, null);
         }
 

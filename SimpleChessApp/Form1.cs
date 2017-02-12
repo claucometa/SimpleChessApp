@@ -52,6 +52,8 @@ namespace SimpleChessApp
             if(!Chess.ChessContext.Core.SwitchTurnOff) x.AppendLine($"{turno}");
             x.AppendLine($"Turno desativado: {Chess.ChessContext.Core.SwitchTurnOff}");
             x.AppendLine($"Passante ativo: {Chess.ChessContext.Core.IsPassantActive}");
+            x.AppendLine($"Brancas podem rocar: {Chess.ChessContext.Core.WhiteCanCastle}");
+            x.AppendLine($"Pretas podem rocar: {Chess.ChessContext.Core.BlackCanCastle}");
             textBox1.Text = x.ToString();
         }
 
