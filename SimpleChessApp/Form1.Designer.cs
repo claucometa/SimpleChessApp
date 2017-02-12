@@ -32,6 +32,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -46,8 +48,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -55,6 +58,8 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -69,6 +74,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown2);
+            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown1);
+            this.splitContainer1.Panel2.Controls.Add(this.button5);
             this.splitContainer1.Panel2.Controls.Add(this.radioButton2);
             this.splitContainer1.Panel2.Controls.Add(this.radioButton1);
             this.splitContainer1.Panel2.Controls.Add(this.button4);
@@ -103,6 +111,30 @@
             this.tabPage1.Text = "Debug Info";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // listBox1
+            // 
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listBox1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 17;
+            this.listBox1.Location = new System.Drawing.Point(267, 3);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(79, 508);
+            this.listBox1.TabIndex = 1;
+            // 
+            // listBox2
+            // 
+            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listBox2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 17;
+            this.listBox2.Location = new System.Drawing.Point(346, 3);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(79, 508);
+            this.listBox2.TabIndex = 2;
+            // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -115,7 +147,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(496, 502);
+            this.radioButton2.Location = new System.Drawing.Point(542, 521);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(14, 13);
             this.radioButton2.TabIndex = 6;
@@ -125,7 +157,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(496, 75);
+            this.radioButton1.Location = new System.Drawing.Point(542, 55);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(14, 13);
             this.radioButton1.TabIndex = 5;
@@ -135,9 +167,9 @@
             // button4
             // 
             this.button4.ContextMenuStrip = this.contextMenuStrip1;
-            this.button4.Location = new System.Drawing.Point(401, 14);
+            this.button4.Location = new System.Drawing.Point(3, 137);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(143, 35);
+            this.button4.Size = new System.Drawing.Size(107, 35);
             this.button4.TabIndex = 4;
             this.button4.Text = "Test Castling";
             this.button4.UseVisualStyleBackColor = true;
@@ -187,9 +219,9 @@
             // button3
             // 
             this.button3.ContextMenuStrip = this.contextMenuStrip1;
-            this.button3.Location = new System.Drawing.Point(252, 14);
+            this.button3.Location = new System.Drawing.Point(3, 96);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 35);
+            this.button3.Size = new System.Drawing.Size(107, 35);
             this.button3.TabIndex = 3;
             this.button3.Text = "Test single Piece";
             this.button3.UseVisualStyleBackColor = true;
@@ -197,9 +229,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(116, 14);
+            this.button2.Location = new System.Drawing.Point(3, 55);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 35);
+            this.button2.Size = new System.Drawing.Size(107, 35);
             this.button2.TabIndex = 2;
             this.button2.Text = "Test Passant";
             this.button2.UseVisualStyleBackColor = true;
@@ -207,9 +239,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(15, 14);
+            this.button1.Location = new System.Drawing.Point(21, 14);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 35);
+            this.button1.Size = new System.Drawing.Size(69, 35);
             this.button1.TabIndex = 1;
             this.button1.Text = "Restart";
             this.button1.UseVisualStyleBackColor = true;
@@ -217,34 +249,65 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(50, 75);
+            this.panel1.Location = new System.Drawing.Point(116, 75);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(440, 440);
             this.panel1.TabIndex = 0;
             // 
-            // listBox1
+            // button5
             // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.listBox1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(267, 3);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(79, 508);
-            this.listBox1.TabIndex = 1;
+            this.button5.ContextMenuStrip = this.contextMenuStrip1;
+            this.button5.Location = new System.Drawing.Point(3, 178);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(107, 35);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Signal square";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // listBox2
+            // numericUpDown1
             // 
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.listBox2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 17;
-            this.listBox2.Location = new System.Drawing.Point(346, 3);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(79, 508);
-            this.listBox2.TabIndex = 2;
+            this.numericUpDown1.Location = new System.Drawing.Point(3, 219);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(61, 219);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown2.TabIndex = 9;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Form1
             // 
@@ -267,6 +330,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -291,6 +356,9 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button button5;
     }
 }
 

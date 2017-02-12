@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimpleChessApp.Chess
@@ -13,7 +14,7 @@ namespace SimpleChessApp.Chess
 
         public int File { get; set; }
         public int Rank { get; set; }
-        public string Name { get; set; }
+        public new string Name { get; set; }
 
         private bool IsSelected;
 
@@ -66,14 +67,15 @@ namespace SimpleChessApp.Chess
         {
             InitializeComponent();
             BackgroundImageLayout = ImageLayout.Center;
+            
             MouseUp += Square_Click;
         }
 
-        public Square(int file, int rank, string n) : this()
+        public Square(int file, int rank) : this()
         {
             File = file;
             Rank = rank;
-            Name = n;
+            Name = "abcdefgh"[file] + Math.Abs(rank - 8).ToString();
         }
 
         private void Square_Click(object sender, System.EventArgs e)

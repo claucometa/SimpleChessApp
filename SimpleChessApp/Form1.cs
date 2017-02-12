@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
@@ -92,6 +93,31 @@ namespace SimpleChessApp
         private void button4_Click(object sender, EventArgs e)
         {
             Chess.ChessContext.Core.TestCastling();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Chess.ChessContext.Core.ChessBoard
+                [(int)numericUpDown1.Value,(int)numericUpDown2.Value].BackColor = Color.Green;
+
+            var x = new Timer();
+            x.Tick += X_Tick;
+            x.Interval = 300;
+            x.Start();
+
+            button5.Enabled = false;
+        }
+
+        private void X_Tick(object sender, EventArgs e)
+        {
+            (sender as Timer).Stop();
+
+            var s = Chess.ChessContext.Core.ChessBoard
+                [(int)numericUpDown1.Value, (int)numericUpDown2.Value];
+
+            s.BackColor = s.DefaultColor;
+
+            button5.Enabled = true;
         }
     }
 }
