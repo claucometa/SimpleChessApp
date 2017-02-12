@@ -107,7 +107,7 @@ namespace SimpleChessApp.Chess
                         {
                             if (new MoveValidation(fromSquare, toSquare).Validate)
                             {
-                                #region Set Castling Flags
+                                #region Set Castling Flags For Black
                                 if (fromSquare.IsBlack)
                                 {
                                     if (ChessContext.Core.BlackCanCastleKingSide || ChessContext.Core.BlackCanCastleQueenSide)
@@ -126,7 +126,9 @@ namespace SimpleChessApp.Chess
 
                                     }
                                 }
+                                #endregion
 
+                                #region Set Castling Flags For White
                                 if (!fromSquare.IsBlack)
                                 {
                                     if (ChessContext.Core.WhiteCanCastleKingSide || ChessContext.Core.WhiteCanCastleQueenSide)
@@ -179,9 +181,15 @@ namespace SimpleChessApp.Chess
                                         if (toSquare.Piece == Pieces.GhostPawn)
                                         {
                                             if (ChessContext.Core.IsPassantActive)
-                                                lastMove.SetPiece(Pieces.None, false);
-                                            else
-                                                return;
+                                            {
+                                                if (lastMove.IsBlack != fromSquare.IsBlack)
+                                                    lastMove.SetPiece(Pieces.None, false);
+                                                else
+                                                {
+                                                    MoveValidation.GhostSquare.Piece = Pieces.None;
+                                                    return;
+                                                }
+                                            }
                                         }
                                     }
 

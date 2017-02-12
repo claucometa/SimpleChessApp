@@ -44,14 +44,7 @@ namespace SimpleChessApp.Chess
         {
             IsPassantActive = AllowPassant;
             if (!AllowPassant)
-            {
                 IsPassantActive = false;
-                // Assure the ghost square will be cleared
-                //if (MoveValidation.GhostSquare != null)
-                //    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
-                //        MoveValidation.GhostSquare.Piece = Pieces.None;
-            }
-
             AllowPassant = false;
             IsBlackPlaying = !IsBlackPlaying;
             GameStatus?.Invoke(this, null);
@@ -91,7 +84,7 @@ namespace SimpleChessApp.Chess
             GameStatus?.Invoke(this, null);
         }
 
-        void resetFlags(bool turn =false)
+        void resetFlags(bool turn = false)
         {
             SwitchTurnOff = turn;
             WhiteCanCastleKingSide = true;
