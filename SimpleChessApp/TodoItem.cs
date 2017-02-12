@@ -36,7 +36,7 @@ namespace SimpleChessApp
                 x.Add(new TodoItem(true, Difficulty.Medium, "2.1 Movement rules for each piece"));
                 x.Add(new TodoItem(true, Difficulty.Hard, "2.2 Handle move interception"));
                 x.Add(new TodoItem(false, null, "2.3 Special moves"));
-                x.Add(new TodoItem(false, Difficulty.Medium, "2.3.1 King castle"));
+                x.Add(new TodoItem(true, Difficulty.Medium, "2.3.1 King castle"));
                 x.Add(new TodoItem(false, Difficulty.Hard, "2.3.2 Check"));
                 x.Add(new TodoItem(false, null, "3. End Game"));
                 x.Add(new TodoItem(false, Difficulty.Hard, "3.1 Stale Mate"));

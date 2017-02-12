@@ -48,7 +48,48 @@ namespace SimpleChessApp.Chess
 
         bool handleKing()
         {
+            #region Check Castling
+            if (from.IsBlack)
+            {
+                if (ChessContext.Core.BlackCanCastleKingSide)
+                    if (from.Rank == 0 && from.File - to.File == -2)
+                    {
+                        ChessContext.Core.ChessBoard[7, 0].SetPiece(Pieces.None, true);
+                        ChessContext.Core.ChessBoard[5, 0].SetPiece(Pieces.Rook, true);
+                        return true;
+                    }
+
+                if (ChessContext.Core.BlackCanCastleQueenSide)
+                    if (from.Rank == 0 && from.File - to.File == 2)
+                    {
+                        ChessContext.Core.ChessBoard[0, 0].SetPiece(Pieces.None, true);
+                        ChessContext.Core.ChessBoard[3, 0].SetPiece(Pieces.Rook, true);
+                        return true;
+                    }
+            }
+
+            if (!from.IsBlack)
+            {
+                if (ChessContext.Core.WhiteCanCastleKingSide)
+                    if (from.Rank == 7 && from.File - to.File == -2)
+                    {
+                        ChessContext.Core.ChessBoard[7, 7].SetPiece(Pieces.None, false);
+                        ChessContext.Core.ChessBoard[5, 7].SetPiece(Pieces.Rook, false);
+                        return true;
+                    }
+
+                if (ChessContext.Core.WhiteCanCastleQueenSide)
+                    if (from.Rank == 7 && from.File - to.File == 2)
+                    {
+                        ChessContext.Core.ChessBoard[0, 7].SetPiece(Pieces.None, false);
+                        ChessContext.Core.ChessBoard[3, 7].SetPiece(Pieces.Rook, false);
+                        return true;
+                    }
+            }
+            #endregion
+
             var x = Math.Abs(from.Rank - to.Rank) == 1 || Math.Abs(from.File - to.File) == 1;
+
             return x;
         }
 
