@@ -5,8 +5,16 @@ namespace SimpleChessApp.Chess
 {
     public partial class Board : UserControl
     {
-        public Square[,] Squares = new Square[8, 8];
+        Square[,] Squares = new Square[8, 8];
         bool isBlack;
+
+        public Square this[int File, int Rank]
+        {
+            get
+            {
+                return Squares[File, Rank];
+            }
+        }
 
         public Board()
         {

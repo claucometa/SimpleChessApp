@@ -43,13 +43,12 @@ namespace SimpleChessApp.Chess
             {
                 IsPassantActive = false;
                 // Assure the ghost square will be cleared
-                if (MoveValidation.GhostSquare != null)
-                    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
-                        MoveValidation.GhostSquare.Piece = Pieces.None;
+                //if (MoveValidation.GhostSquare != null)
+                //    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+                //        MoveValidation.GhostSquare.Piece = Pieces.None;
             }
 
             AllowPassant = false;
-
             IsBlackPlaying = !IsBlackPlaying;
             GameStatus?.Invoke(this, null);
         }

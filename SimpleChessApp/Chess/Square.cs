@@ -37,6 +37,14 @@ namespace SimpleChessApp.Chess
             BackColor = DefaultColor;
         }
 
+        public bool IsEmpty
+        {
+            get
+            {
+                return Piece != Pieces.None && Piece != Pieces.GhostPawn;
+            }
+        }
+
         public void SetPiece(Pieces piece, bool side)
         {
             Piece = piece;
@@ -119,13 +127,21 @@ namespace SimpleChessApp.Chess
                                 fromSquare.Piece == Pieces.Pawn).Validate)
                             {
                                 // Avoid capture of same piece color
-                                if (fromSquare.IsBlack != toSquare.IsBlack)
+                                if (fromSquare.IsBlack != toSquare.IsBlack || toSquare.Piece == Pieces.GhostPawn )
                                 {
                                     // Handles passant
                                     if (fromSquare.Piece == Pieces.Pawn)
+                                    {
                                         if (ChessContext.Core.IsPassantActive)
                                             if (toSquare.Piece == Pieces.GhostPawn)
                                                 lastMove.SetPiece(Pieces.None, false);
+                                    }
+
+                                    if (fromSquare.Piece != Pieces.Pawn)
+                                    {
+                                        if (toSquare.Piece == Pieces.GhostPawn)
+                                            toSquare.Piece = Pieces.None;
+                                    }
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.IsBlack);
                                     fromSquare.clearSquare();

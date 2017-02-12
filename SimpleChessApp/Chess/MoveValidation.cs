@@ -91,7 +91,7 @@ namespace SimpleChessApp.Chess
 
                         if (ok)
                         {
-                            GhostSquare = ChessContext.Core.ChessBoard.Squares[from.File, from.Rank - mult];
+                            GhostSquare = ChessContext.Core.ChessBoard[from.File, from.Rank - mult];
                             GhostSquare.Piece = Pieces.GhostPawn;
                             GhostSquare.IsBlack = isBlack;
                         }
@@ -110,9 +110,25 @@ namespace SimpleChessApp.Chess
             return false;
         }
 
-        private bool isPathFree()
+        bool isPathFree()
         {
-            return new MoveInterception(from, to).Validate;
+            var init = from.Rank + (from.IsBlack ? 1 : -1);
+            var end = to.Rank;
+            if (init > end)
+            {
+                end = init;
+                init = to.Rank;
+            }
+
+            // Navigates from point A to B vertically
+            for (int i = init; i <= end; i++)
+            {
+                var square = ChessContext.Core.ChessBoard[from.File, i];
+                if (square.Piece != Pieces.None)
+                    return false;
+            }
+
+            return true;
         }
 
         private void promotePawn()
@@ -122,44 +138,100 @@ namespace SimpleChessApp.Chess
         }
 
         #region Logic Devices
-        bool isMovingVertically { get { return from.File == to.File; } }
-        bool isMovingHorizontally { get { return from.Rank == to.Rank; } }
+        bool isMovingVertically
+        {
+            get
+            {
+                if (from.File != to.File) return false;
+
+                // Check for move interception
+                var a = from.Rank;
+                var b = to.Rank;
+
+                if (a > b)
+                {
+                    a = b + 1;
+                    b = from.Rank + 1;
+                }
+
+                for (int i = a; i < b; i++)
+                    if (i != from.Rank)
+                        if (ChessContext.Core.ChessBoard[from.File, i].IsEmpty) return false;
+
+                return true;
+            }
+        }
+
+        bool isMovingHorizontally
+        {
+            get
+            {
+                if (from.Rank != to.Rank) return false;
+
+                // Check for move interception
+                var a = from.File;
+                var b = to.File;
+
+                if (a > b)
+                {
+                    a = b + 1;
+                    b = from.File + 1;
+                }
+
+                for (int i = a; i < b; i++)
+                    if (i != from.File)
+                        if (ChessContext.Core.ChessBoard[i, from.Rank].IsEmpty) return false;
+
+                return true;
+            }
+        }
+
+
         bool isMovingDiagonally
         {
             get
             {
-                var a = from.Rank;
-                var b = from.File;
+                var a = from.File;
+                var b = from.Rank;
                 var c = to.Rank;
                 var d = to.File;
 
-                while (a < b && c < d)
+                while (b < c && a < d)
                 {
-                    a++;
-                    c++;
-                }
-
-                while (a > b && c > d)
-                {
-                    a--;
-                    c--;
-                }
-
-                while (a < c && b > d)
-                {
-                    a++;
-                    b--;
-                }
-
-                while (a > c && b < d)
-                {
-                    a--;
+                    if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
+                        if (ChessContext.Core.ChessBoard[a, b].IsEmpty) return false;
                     b++;
+                    a++;
                 }
 
-                return (a == b && c == d) || (a == c && b == d);
+                while (b > c && a > d)
+                {
+                    if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
+                        if (ChessContext.Core.ChessBoard[a, b].IsEmpty) return false;
+                    b--;
+                    a--;
+                }
+
+                while (b < c && a > d)
+                {
+                    if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
+                        if (ChessContext.Core.ChessBoard[a, b].IsEmpty) return false;
+                    b++;
+                    a--;
+                }
+
+                while (b > c && a < d)
+                {
+                    if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
+                        if (ChessContext.Core.ChessBoard[a, b].IsEmpty) return false;
+                    b--;
+                    a++;
+                }
+
+                return (b == a && c == d) || (b == c && a == d);
             }
         }
+
         bool isHomeRank
         {
             get
