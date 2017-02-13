@@ -13,12 +13,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                // The board is settled from up-left-down
-                // so it's need to be 'inverted' from down-left-up
-                // reflecting the REAL positions of the squares
-                var f = File - 1;
-                var x = Math.Abs(Rank - 8);
-                return Squares[f, x];
+                return Squares[File - 1, Rank - 1];
             }
         }
 
@@ -61,12 +56,8 @@ namespace SimpleChessApp.Chess
         internal void ClearBoard()
         {
             for (int i = 0; i < 8; i++)
-            {
                 for (int x = 0; x < 8; x++)
-                {
-                    Squares[i, x].SetPiece(Pieces.None, PieceColor.White);
-                }
-            }
+                    Squares[i, x].SetPiece(Pieces.None, PieceColor.None);
         }
 
         private void setWhitePieces()

@@ -6,14 +6,19 @@ namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
+        public static event EventHandler ClickMe;
+
         static Square fromSquare;
         static Square toSquare;
         static Square lastMove;
 
         public static Square PromotedSquare;
 
-        public int File { get; set; }
-        public int Rank { get; set; }
+        //TODO: CHALLENGE
+        public int file, rank;
+        public int File { get { return file; } set { file = value + 1; } }
+        public int Rank { get { return rank; } set { rank = (value - 8) * -1; } }
+
         public new string Name { get; set; }
 
         private bool IsSelected;
@@ -67,7 +72,7 @@ namespace SimpleChessApp.Chess
         {
             InitializeComponent();
             BackgroundImageLayout = ImageLayout.Center;
-            
+
             MouseUp += Square_Click;
         }
 
@@ -75,11 +80,13 @@ namespace SimpleChessApp.Chess
         {
             File = file;
             Rank = rank;
-            Name = "abcdefgh"[file] + Math.Abs(rank - 8).ToString();
+            Name = "abcdefgh"[file] + Rank.ToString();
         }
 
-        private void Square_Click(object sender, System.EventArgs e)
+        private void Square_Click(object sender, EventArgs e)
         {
+            ClickMe?.Invoke(sender, e);
+
             toSquare = (Square)sender;
 
             if (toSquare.IsSelected)
@@ -158,6 +165,7 @@ namespace SimpleChessApp.Chess
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
                                 fromSquare.clearSquare();
                                 addMoveAnnotation();
+
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }

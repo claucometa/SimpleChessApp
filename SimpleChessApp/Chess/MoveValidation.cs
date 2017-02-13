@@ -115,7 +115,7 @@ namespace SimpleChessApp.Chess
         bool handlePawn()
         {
             var isBlack = from.PieceColor == PieceColor.Black;
-            var mult = isBlack ? -1 : 1;
+            var mult = isBlack ? 1 : -1;
 
             if (isMovingVertically)
             {
@@ -123,7 +123,7 @@ namespace SimpleChessApp.Chess
                 if (from.Rank - to.Rank == 1 * mult)
                 {
                     // promotes when reach last rank 
-                    if (to.Rank == (isBlack ? 7 : 0)) promotePawn();
+                    if (to.Rank == (isBlack ? 1 : 8)) promotePawn();
 
                     return isPawnPathFree(mult);
                 }
@@ -280,7 +280,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                return from.Rank == (from.PieceColor == PieceColor.Black ? 1 : 6);
+                return from.Rank == (from.PieceColor == PieceColor.White ? 2 : 7);
             }
         }
         #endregion

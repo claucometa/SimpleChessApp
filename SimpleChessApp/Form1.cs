@@ -11,6 +11,8 @@ namespace SimpleChessApp
         {
             InitializeComponent();
 
+            Chess.Square.ClickMe += Square_ClickMe;
+
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Chess.Pieces.Knight;
             queenToolStripMenuItem.Tag = Chess.Pieces.Queen;
@@ -19,6 +21,13 @@ namespace SimpleChessApp
             rookToolStripMenuItem.Tag = Chess.Pieces.Rook;
             contextMenuStrip1.ItemClicked += ContextMenuStrip1_ItemClicked;
             #endregion  
+        }
+
+        private void Square_ClickMe(object sender, EventArgs e)
+        {
+            var x = (Chess.Square)sender;
+            numericUpDown1.Value = x.File;
+            numericUpDown2.Value = x.Rank;
         }
 
         private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -97,27 +106,7 @@ namespace SimpleChessApp
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Chess.ChessContext.Core.ChessBoard
-                [(int)numericUpDown1.Value,(int)numericUpDown2.Value].BackColor = Color.Green;
-
-            var x = new Timer();
-            x.Tick += X_Tick;
-            x.Interval = 300;
-            x.Start();
-
-            button5.Enabled = false;
-        }
-
-        private void X_Tick(object sender, EventArgs e)
-        {
-            (sender as Timer).Stop();
-
-            var s = Chess.ChessContext.Core.ChessBoard
-                [(int)numericUpDown1.Value, (int)numericUpDown2.Value];
-
-            s.BackColor = s.DefaultColor;
-
-            button5.Enabled = true;
+            Chess.ChessContext.Core.ChessBoard.ClearBoard();
         }
     }
 }
