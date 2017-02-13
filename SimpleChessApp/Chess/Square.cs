@@ -78,7 +78,7 @@ namespace SimpleChessApp.Chess
         {
             File = file;
             Rank = rank;
-            Name = "abcdefgh"[file] + Rank.ToString();
+            Name = "abcdefgh"[file] + (Rank + 1).ToString();
         }
 
         private void Square_Click(object sender, EventArgs e)

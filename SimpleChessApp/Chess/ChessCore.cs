@@ -25,7 +25,7 @@ namespace SimpleChessApp.Chess
 
         public ChessCore()
         {
-            InitializeComponent();
+            InitializeComponent();            
 
             #region Pawn Promotion Menu Initializer
             queenToolStripMenuItem.Tag = Pieces.Queen;
@@ -39,6 +39,11 @@ namespace SimpleChessApp.Chess
             #endregion
 
             resetFlags();
+        }
+
+        public void BuildBoard()
+        {
+            ChessBoard.Build();
         }
 
         public void ChangeTurn()

@@ -47,10 +47,7 @@
   <ItemGroup>
     <Compile Include="Chess\Annotattion.cs" />
     <Compile Include="Chess\Board.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Chess\Board.Designer.cs">
-      <DependentUpon>Board.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Chess\ChessContext.cs" />
     <Compile Include="Chess\ChessCore.cs">
@@ -74,9 +71,6 @@
     <Compile Include="Chess\Square.Designer.cs">
       <DependentUpon>Square.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Chess\Board.resx">
-      <DependentUpon>Board.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Chess\ChessCore.resx">
       <DependentUpon>ChessCore.cs</DependentUpon>
     </EmbeddedResource>

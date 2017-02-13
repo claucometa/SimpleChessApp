@@ -37,6 +37,7 @@ namespace SimpleChessApp
 
         protected override void OnLoad(EventArgs e)
         {
+            Chess.ChessContext.Core.BuildBoard();
             panel1.Controls.Add(Chess.ChessContext.Core.ChessBoard);
             Chess.ChessContext.Core.GameStatus += Core_GameStatus;
             listBox1.DataSource = Chess.ChessContext.Core.MoveList;

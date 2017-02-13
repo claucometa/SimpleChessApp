@@ -52,19 +52,19 @@ namespace SimpleChessApp.Chess
             if (from.PieceColor == PieceColor.Black)
             {
                 if (ChessContext.Core.BlackCanCastleKingSide)
-                    if (from.Rank == 0 && from.File - to.File == -2)
+                    if (from.Rank == 7 && from.File - to.File == -2)
                     {
-                        square(7, 0).SetPiece(Pieces.None, PieceColor.Black);
-                        square(5, 0).SetPiece(Pieces.Rook, PieceColor.Black);
+                        square(7, 7).SetPiece(Pieces.None, PieceColor.Black);
+                        square(5, 7).SetPiece(Pieces.Rook, PieceColor.Black);
                         
                         return true;
                     }
 
                 if (ChessContext.Core.BlackCanCastleQueenSide)
-                    if (from.Rank == 0 && from.File - to.File == 2)
+                    if (from.Rank == 7 && from.File - to.File == 2)
                     {
-                        square(0, 0).SetPiece(Pieces.None, PieceColor.Black);
-                        square(3, 0).SetPiece(Pieces.Rook, PieceColor.Black);
+                        square(0, 7).SetPiece(Pieces.None, PieceColor.Black);
+                        square(3, 7).SetPiece(Pieces.Rook, PieceColor.Black);
 
                         return true;
                     }
@@ -73,18 +73,18 @@ namespace SimpleChessApp.Chess
             if (from.PieceColor == PieceColor.White)
             {
                 if (ChessContext.Core.WhiteCanCastleKingSide)
-                    if (from.Rank == 7 && from.File - to.File == -2)
+                    if (from.Rank == 0 && from.File - to.File == -2)
                     {
-                        square(7, 7).SetPiece(Pieces.None, PieceColor.White);
-                        square(5, 7).SetPiece(Pieces.Rook, PieceColor.White);
+                        square(7, 0).SetPiece(Pieces.None, PieceColor.White);
+                        square(5, 0).SetPiece(Pieces.Rook, PieceColor.White);
                         return true;
                     }
 
                 if (ChessContext.Core.WhiteCanCastleQueenSide)
-                    if (from.Rank == 7 && from.File - to.File == 2)
+                    if (from.Rank == 0 && from.File - to.File == 2)
                     {
-                        square(0, 7).SetPiece(Pieces.None, PieceColor.White);
-                        square(3, 7).SetPiece(Pieces.Rook, PieceColor.White);
+                        square(0, 0).SetPiece(Pieces.None, PieceColor.White);
+                        square(3, 0).SetPiece(Pieces.Rook, PieceColor.White);
                         
                         return true;
                     }
@@ -118,7 +118,7 @@ namespace SimpleChessApp.Chess
         bool handlePawn()
         {
             var isBlack = from.PieceColor == PieceColor.Black;
-            var mult = isBlack ? -1 : 1;
+            var mult = isBlack ? 1 : -1;
 
             if (isMovingVertically)
             {
@@ -283,7 +283,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                return from.Rank == (from.PieceColor == PieceColor.White ? 6 : 1);
+                return from.Rank == (from.PieceColor == PieceColor.White ? 1 : 6);
             }
         }
         #endregion
