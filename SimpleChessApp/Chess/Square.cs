@@ -50,7 +50,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                return Piece != Pieces.None && Piece != Pieces.GhostPawn;
+                return PieceColor == PieceColor.None;
             }
         }
 

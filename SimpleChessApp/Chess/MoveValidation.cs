@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace SimpleChessApp.Chess
 {
@@ -56,7 +57,7 @@ namespace SimpleChessApp.Chess
                     {
                         square(7, 7).SetPiece(Pieces.None, PieceColor.Black);
                         square(5, 7).SetPiece(Pieces.Rook, PieceColor.Black);
-                        
+
                         return true;
                     }
 
@@ -85,7 +86,7 @@ namespace SimpleChessApp.Chess
                     {
                         square(0, 0).SetPiece(Pieces.None, PieceColor.White);
                         square(3, 0).SetPiece(Pieces.Rook, PieceColor.White);
-                        
+
                         return true;
                     }
             }
@@ -204,7 +205,7 @@ namespace SimpleChessApp.Chess
 
                 for (int i = a; i < b; i++)
                     if (i != from.Rank)
-                        if (square(from.File, i).IsEmpty) return false;
+                        if (!square(from.File, i).IsEmpty) return false;
 
                 return true;
             }
@@ -228,11 +229,11 @@ namespace SimpleChessApp.Chess
 
                 for (int i = a; i < b; i++)
                     if (i != from.File)
-                        if (square(i, from.Rank).IsEmpty) return false;
+                        if (!square(i, from.Rank).IsEmpty) return false;
 
                 return true;
             }
-        }        
+        }
 
         bool isMovingDiagonally
         {
@@ -246,7 +247,7 @@ namespace SimpleChessApp.Chess
                 while (b < c && a < d)
                 {
                     if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
-                        if (square(a, b).IsEmpty) return false;
+                        if (!square(a, b).IsEmpty) return false;
                     b++;
                     a++;
                 }
@@ -254,7 +255,7 @@ namespace SimpleChessApp.Chess
                 while (b > c && a > d)
                 {
                     if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
-                        if (square(a, b).IsEmpty) return false;
+                        if (!square(a, b).IsEmpty) return false;
                     b--;
                     a--;
                 }
@@ -262,7 +263,7 @@ namespace SimpleChessApp.Chess
                 while (b < c && a > d)
                 {
                     if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
-                        if (square(a, b).IsEmpty) return false;
+                        if (!square(a, b).IsEmpty) return false;
                     b++;
                     a--;
                 }
@@ -270,7 +271,7 @@ namespace SimpleChessApp.Chess
                 while (b > c && a < d)
                 {
                     if ((b != from.Rank && a != from.File) && (b != to.Rank && a != to.File))
-                        if (square(a, b).IsEmpty) return false;
+                        if (!square(a, b).IsEmpty) return false;
                     b--;
                     a++;
                 }
