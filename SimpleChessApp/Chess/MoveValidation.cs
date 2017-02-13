@@ -54,16 +54,18 @@ namespace SimpleChessApp.Chess
                 if (ChessContext.Core.BlackCanCastleKingSide)
                     if (from.Rank == 0 && from.File - to.File == -2)
                     {
-                        xSquare(8, 8).SetPiece(Pieces.None, PieceColor.Black);
-                        xSquare(6, 8).SetPiece(Pieces.Rook, PieceColor.Black);
+                        square(7, 0).SetPiece(Pieces.None, PieceColor.Black);
+                        square(5, 0).SetPiece(Pieces.Rook, PieceColor.Black);
+                        
                         return true;
                     }
 
                 if (ChessContext.Core.BlackCanCastleQueenSide)
                     if (from.Rank == 0 && from.File - to.File == 2)
                     {
-                        xSquare(1, 8).SetPiece(Pieces.None, PieceColor.Black);
-                        xSquare(4, 8).SetPiece(Pieces.Rook, PieceColor.Black);
+                        square(0, 0).SetPiece(Pieces.None, PieceColor.Black);
+                        square(3, 0).SetPiece(Pieces.Rook, PieceColor.Black);
+
                         return true;
                     }
             }
@@ -73,16 +75,17 @@ namespace SimpleChessApp.Chess
                 if (ChessContext.Core.WhiteCanCastleKingSide)
                     if (from.Rank == 7 && from.File - to.File == -2)
                     {
-                        xSquare(8, 1).SetPiece(Pieces.None, PieceColor.White);
-                        xSquare(6, 1).SetPiece(Pieces.Rook, PieceColor.White);
+                        square(7, 7).SetPiece(Pieces.None, PieceColor.White);
+                        square(5, 7).SetPiece(Pieces.Rook, PieceColor.White);
                         return true;
                     }
 
                 if (ChessContext.Core.WhiteCanCastleQueenSide)
                     if (from.Rank == 7 && from.File - to.File == 2)
                     {
-                        xSquare(1, 1).SetPiece(Pieces.None, PieceColor.White);
-                        xSquare(4, 1).SetPiece(Pieces.Rook, PieceColor.White);
+                        square(0, 7).SetPiece(Pieces.None, PieceColor.White);
+                        square(3, 7).SetPiece(Pieces.Rook, PieceColor.White);
+                        
                         return true;
                     }
             }
@@ -115,7 +118,7 @@ namespace SimpleChessApp.Chess
         bool handlePawn()
         {
             var isBlack = from.PieceColor == PieceColor.Black;
-            var mult = isBlack ? 1 : -1;
+            var mult = isBlack ? -1 : 1;
 
             if (isMovingVertically)
             {
@@ -123,7 +126,7 @@ namespace SimpleChessApp.Chess
                 if (from.Rank - to.Rank == 1 * mult)
                 {
                     // promotes when reach last rank 
-                    if (to.Rank == (isBlack ? 1 : 8)) promotePawn();
+                    if (to.Rank == (isBlack ? 0 : 7)) promotePawn();
 
                     return isPawnPathFree(mult);
                 }
@@ -280,18 +283,12 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                return from.Rank == (from.PieceColor == PieceColor.White ? 2 : 7);
+                return from.Rank == (from.PieceColor == PieceColor.White ? 6 : 1);
             }
         }
         #endregion
 
         Square square(int x, int y)
-        {
-            return ChessContext.Core.ChessBoard.Squares[x, y];
-        }
-
-        // TODO Challenge: implement this one instead of the one above to check the move validation
-        Square xSquare(int x, int y)
         {
             return ChessContext.Core.ChessBoard[x, y];
         }

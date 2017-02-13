@@ -13,7 +13,7 @@ namespace SimpleChessApp.Chess
         {
             get
             {
-                return Squares[File - 1, Rank - 1];
+                return Squares[File, Rank];
             }
         }
 
@@ -60,34 +60,34 @@ namespace SimpleChessApp.Chess
                     Squares[i, x].SetPiece(Pieces.None, PieceColor.None);
         }
 
-        private void setWhitePieces()
-        {
-            for (int i = 1; i < 9; i++)
-                this[i, 2].SetPiece(Pieces.Pawn, PieceColor.White);
-
-            this[1, 1].SetPiece(Pieces.Rook, PieceColor.White);
-            this[2, 1].SetPiece(Pieces.Knight, PieceColor.White);
-            this[3, 1].SetPiece(Pieces.Bishop, PieceColor.White);
-            this[4, 1].SetPiece(Pieces.Queen, PieceColor.White);
-            this[5, 1].SetPiece(Pieces.King, PieceColor.White);
-            this[6, 1].SetPiece(Pieces.Bishop, PieceColor.White);
-            this[7, 1].SetPiece(Pieces.Knight, PieceColor.White);
-            this[8, 1].SetPiece(Pieces.Rook, PieceColor.White);
-        }
-
         private void setBlackPieces()
         {
-            for (int i = 1; i < 9; i++)
-                this[i, 7].SetPiece(Pieces.Pawn, PieceColor.Black);
+            for (int i = 0; i < 8; i++)
+                this[i, 1].SetPiece(Pieces.Pawn, PieceColor.Black);
 
-            this[1, 8].SetPiece(Pieces.Rook, PieceColor.Black);
-            this[2, 8].SetPiece(Pieces.Knight, PieceColor.Black);
-            this[3, 8].SetPiece(Pieces.Bishop, PieceColor.Black);
-            this[4, 8].SetPiece(Pieces.Queen, PieceColor.Black);
-            this[5, 8].SetPiece(Pieces.King, PieceColor.Black);
-            this[6, 8].SetPiece(Pieces.Bishop, PieceColor.Black);
-            this[7, 8].SetPiece(Pieces.Knight, PieceColor.Black);
-            this[8, 8].SetPiece(Pieces.Rook, PieceColor.Black);
+            this[0, 0].SetPiece(Pieces.Rook, PieceColor.Black);
+            this[1, 0].SetPiece(Pieces.Knight, PieceColor.Black);
+            this[2, 0].SetPiece(Pieces.Bishop, PieceColor.Black);
+            this[3, 0].SetPiece(Pieces.Queen, PieceColor.Black);
+            this[4, 0].SetPiece(Pieces.King, PieceColor.Black);
+            this[5, 0].SetPiece(Pieces.Bishop, PieceColor.Black);
+            this[6, 0].SetPiece(Pieces.Knight, PieceColor.Black);
+            this[7, 0].SetPiece(Pieces.Rook, PieceColor.Black);
+        }
+
+        private void setWhitePieces()
+        {
+            for (int i = 0; i < 8; i++)
+                this[i, 6].SetPiece(Pieces.Pawn, PieceColor.White);
+
+            this[0, 7].SetPiece(Pieces.Rook, PieceColor.White);
+            this[1, 7].SetPiece(Pieces.Knight, PieceColor.White);
+            this[2, 7].SetPiece(Pieces.Bishop, PieceColor.White);
+            this[3, 7].SetPiece(Pieces.Queen, PieceColor.White);
+            this[4, 7].SetPiece(Pieces.King, PieceColor.White);
+            this[5, 7].SetPiece(Pieces.Bishop, PieceColor.White);
+            this[6, 7].SetPiece(Pieces.Knight, PieceColor.White);
+            this[7, 7].SetPiece(Pieces.Rook, PieceColor.White);
         }
 
         #region DEBUG

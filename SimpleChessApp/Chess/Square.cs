@@ -15,9 +15,7 @@ namespace SimpleChessApp.Chess
         public static Square PromotedSquare;
 
         //TODO: CHALLENGE
-        public int file, rank;
-        public int File { get { return file; } set { file = value + 1; } }
-        public int Rank { get { return rank; } set { rank = (value - 8) * -1; } }
+        public int File, Rank;
 
         public new string Name { get; set; }
 
