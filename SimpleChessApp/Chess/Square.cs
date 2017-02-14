@@ -14,7 +14,7 @@ namespace SimpleChessApp.Chess
         public Color DefaultColor;
         public Pieces Piece;
         public PieceColor PieceColor;
-        bool isBlackSquare; 
+        bool isBlackSquare;
         public bool IsBlackSquare
         {
             get
@@ -34,7 +34,7 @@ namespace SimpleChessApp.Chess
         {
             InitializeComponent();
             BackgroundImageLayout = ImageLayout.Center;
-            MouseUp += Square_Click;
+            label1.MouseUp += Square_Click;
         }
 
         public Square(int file, int rank) : this()
@@ -65,11 +65,16 @@ namespace SimpleChessApp.Chess
             BackgroundImage = piece == Pieces.None ? null : ChessContext.Core.GetPiece(piece, color);
         }
 
+        public void HighLight(bool ok)
+        {
+            label1.Text = ok ? "ö" : null;
+        }
+
         private void Square_Click(object sender, EventArgs e)
         {
-            CliquedSquare?.Invoke(sender, e);
+            CliquedSquare?.Invoke(this, e);
 
-            toSquare = (Square)sender;
+            toSquare = this;
 
             if (toSquare.IsSelected)
             {
@@ -90,7 +95,7 @@ namespace SimpleChessApp.Chess
             {
                 fromSquare.BackColor = fromSquare.DefaultColor;
                 fromSquare.IsSelected = false;
-                ChessContext.Core.HandleUserAction(fromSquare, toSquare);                
+                ChessContext.Core.HandleUserAction(fromSquare, toSquare);
             }
 
             toSquare.BackColor = Color.LightGreen;

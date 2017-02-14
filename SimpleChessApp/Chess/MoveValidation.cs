@@ -111,7 +111,6 @@ namespace SimpleChessApp.Chess
             var x = Math.Abs(from.File - to.File);
             var y = Math.Abs(from.Rank - to.Rank);
             var c = x + y;
-
             return (x == 1 && y == 2 || x == 2 && y == 1);
         }
 
