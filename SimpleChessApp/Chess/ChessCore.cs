@@ -25,7 +25,7 @@ namespace SimpleChessApp.Chess
 
         public ChessCore()
         {
-            InitializeComponent();            
+            InitializeComponent();
 
             #region Pawn Promotion Menu Initializer
             queenToolStripMenuItem.Tag = Pieces.Queen;
@@ -50,7 +50,12 @@ namespace SimpleChessApp.Chess
         {
             IsPassantActive = AllowPassant;
             if (!AllowPassant)
+            {
+                if (MoveValidation.GhostSquare != null)
+                    MoveValidation.GhostSquare.ClearSquare();
                 IsPassantActive = false;
+            }
+
             AllowPassant = false;
 
             if (WhosPlaying == PieceColor.Black)

@@ -138,14 +138,7 @@ namespace SimpleChessApp.Chess
                     if (from.Rank - to.Rank == 2 * mult)
                     {
                         var ok = isPawnPathFree(mult);
-
-                        if (ok)
-                        {
-                            GhostSquare = square(from.File, from.Rank - mult);
-                            GhostSquare.Piece = Pieces.GhostPawn;
-                            GhostSquare.PieceColor = PieceColor.None;
-                        }
-
+                        if (ok) square(from.File, from.Rank - mult).MakeGhost();
                         ChessContext.Core.AllowPassant = ok;
                         return ok;
                     }

@@ -38,7 +38,6 @@
             this.Name = "Square";
             this.Size = new System.Drawing.Size(78, 76);
             this.ResumeLayout(false);
-
         }
 
         #endregion

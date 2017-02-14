@@ -22,7 +22,8 @@ namespace SimpleChessApp.Chess
         private bool IsSelected;
 
         public Color DefaultColor;
-        public Pieces Piece = Pieces.None;
+
+        public Pieces Piece;
         public PieceColor PieceColor;
 
         // Just used to draw the board
@@ -161,9 +162,8 @@ namespace SimpleChessApp.Chess
 
                                 lastMove = toSquare;
                                 toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                fromSquare.clearSquare();
+                                fromSquare.ClearSquare();
                                 addMoveAnnotation();
-
                                 ChessContext.Core.ChangeTurn();
                                 return;
                             }
@@ -193,7 +193,7 @@ namespace SimpleChessApp.Chess
                                             lastMove.SetPiece(Pieces.None, PieceColor.None);
                                         else
                                         {
-                                            MoveValidation.GhostSquare.clearSquare();
+                                            MoveValidation.GhostSquare.ClearSquare();
                                             return;
                                         }
                                     }
@@ -201,12 +201,30 @@ namespace SimpleChessApp.Chess
                                     if (fromSquare.Piece != Pieces.Pawn)
                                     {
                                         if (toSquare.Piece == Pieces.GhostPawn)
-                                            toSquare.clearSquare();
+                                            toSquare.ClearSquare();
                                     }
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
-                                    fromSquare.clearSquare();
+                                    fromSquare.ClearSquare();
                                     addMoveAnnotation();
+
+                                    if (toSquare.Piece == Pieces.Pawn)
+                                    {
+                                        if (toSquare.PieceColor == PieceColor.Black
+                                            && toSquare.Rank == 0)
+                                        {
+                                            ChessContext.Core.ShowPieceSelector(fromSquare);
+                                            Square.PromotedSquare = toSquare;
+                                        }
+
+                                        if (toSquare.PieceColor == PieceColor.White
+                                            && toSquare.Rank == 7)
+                                        {
+                                            ChessContext.Core.ShowPieceSelector(fromSquare);
+                                            Square.PromotedSquare = toSquare;
+                                        }
+                                    }
+
                                     ChessContext.Core.ChangeTurn();
                                     return;
                                 }
@@ -220,6 +238,19 @@ namespace SimpleChessApp.Chess
             toSquare.IsSelected = true;
 
             fromSquare = toSquare;
+        }
+
+        // Handles Passant
+        internal void MakeGhost()
+        {
+            if (MoveValidation.GhostSquare != null)
+                if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+                    MoveValidation.GhostSquare.ClearSquare();
+
+            Piece = Pieces.GhostPawn;
+            PieceColor = PieceColor.None;
+            BackColor = Color.Gray;
+            MoveValidation.GhostSquare = this;            
         }
 
         private static void addMoveAnnotation()
@@ -240,9 +271,11 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        void clearSquare()
+
+        public void ClearSquare()
         {
             BackgroundImage = null;
+            BackColor = DefaultColor;
             Piece = Pieces.None;
             PieceColor = PieceColor.None;
         }
