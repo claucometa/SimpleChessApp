@@ -5,9 +5,6 @@ using System.Windows.Forms;
 
 namespace SimpleChessApp.Chess
 {
-    /// <summary>
-    /// Has mostly everything
-    /// </summary>      
     public partial class ChessCore : Component
     {
         public event EventHandler GameStatus;
@@ -22,16 +19,8 @@ namespace SimpleChessApp.Chess
         static Square lastMove;
         public BindingList<Annotattion> MoveList = new BindingList<Annotattion>();
         public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
-
-        private static void addMoveAnnotation(Square from, Square to)
-        {
-            if (ChessContext.Core.WhosPlaying == PieceColor.White)
-                ChessContext.Core.MoveList.Add(new Annotattion(from, to));
-
-            if (ChessContext.Core.WhosPlaying == PieceColor.Black)
-                ChessContext.Core.MoveList2.Add(new Annotattion(from, to));
-        }
-
+       
+        #region Contructors
         public ChessCore()
         {
             InitializeComponent();
@@ -50,6 +39,16 @@ namespace SimpleChessApp.Chess
             resetFlags();
         }
 
+        public ChessCore(IContainer container)
+        {
+            container.Add(this);
+            InitializeComponent();
+        }
+        #endregion
+
+        /// <summary>
+        /// Call it first to build the board, then add the ChessBoard to a panel
+        /// </summary>
         public void BuildBoard()
         {
             ChessBoard.Build();
@@ -76,13 +75,7 @@ namespace SimpleChessApp.Chess
             GameStatus?.Invoke(this, null);
         }
 
-        public ChessCore(IContainer container)
-        {
-            container.Add(this);
-            InitializeComponent();
-        }
-
-        internal void RestartGame()
+        public void RestartGame()
         {
             ChessBoard.Restart();
             resetFlags();
@@ -241,6 +234,16 @@ namespace SimpleChessApp.Chess
             return color == PieceColor.Black ? imageList1.Images[i] : imageList2.Images[i];
         }
 
+        void addMoveAnnotation(Square from, Square to)
+        {
+            if (ChessContext.Core.WhosPlaying == PieceColor.White)
+                ChessContext.Core.MoveList.Add(new Annotattion(from, to));
+
+            if (ChessContext.Core.WhosPlaying == PieceColor.Black)
+                ChessContext.Core.MoveList2.Add(new Annotattion(from, to));
+        }
+
+        #region Pawn Promotion
         internal void ShowPieceSelector(Control x)
         {
             PawnPromotionDialog.Show(x.Parent, x.Location);
@@ -251,6 +254,7 @@ namespace SimpleChessApp.Chess
             var square = Square.PromotedSquare;
             square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.PieceColor);
         }
+        #endregion
 
         #region DEBUG 
         internal void TestPassant()
@@ -275,7 +279,7 @@ namespace SimpleChessApp.Chess
 
     public enum PieceColor
     {
-        None, // <-- Required by GhostPawn
+        None, // <-- Used by empty squares or GhostPawn
         Black,
         White
     }

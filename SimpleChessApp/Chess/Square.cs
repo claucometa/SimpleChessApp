@@ -6,7 +6,7 @@ namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
-        public static event EventHandler ClickMe;
+        public static event EventHandler CliquedSquare;
         public static Square PromotedSquare;
         public int File, Rank;
         public new string Name;
@@ -26,7 +26,7 @@ namespace SimpleChessApp.Chess
                 isBlackSquare = value;
                 colorSquare();
             }
-        } // Just used to draw the board
+        } // Used just and only to draw the board
         static Square fromSquare;
         static Square toSquare;
 
@@ -67,7 +67,7 @@ namespace SimpleChessApp.Chess
 
         private void Square_Click(object sender, EventArgs e)
         {
-            ClickMe?.Invoke(sender, e);
+            CliquedSquare?.Invoke(sender, e);
 
             toSquare = (Square)sender;
 

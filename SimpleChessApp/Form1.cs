@@ -11,7 +11,7 @@ namespace SimpleChessApp
         {
             InitializeComponent();
 
-            Chess.Square.ClickMe += Square_ClickMe;
+            Chess.Square.CliquedSquare += Square_ClickMe;
 
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Chess.Pieces.Knight;
