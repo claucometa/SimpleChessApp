@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -20,8 +19,18 @@ namespace SimpleChessApp.Chess
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
+        static Square lastMove;
         public BindingList<Annotattion> MoveList = new BindingList<Annotattion>();
         public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
+
+        private static void addMoveAnnotation(Square from, Square to)
+        {
+            if (ChessContext.Core.WhosPlaying == PieceColor.White)
+                ChessContext.Core.MoveList.Add(new Annotattion(from, to));
+
+            if (ChessContext.Core.WhosPlaying == PieceColor.Black)
+                ChessContext.Core.MoveList2.Add(new Annotattion(from, to));
+        }
 
         public ChessCore()
         {
@@ -52,7 +61,7 @@ namespace SimpleChessApp.Chess
             if (!AllowPassant)
             {
                 if (MoveValidation.GhostSquare != null)
-                    if(MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+                    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
                         MoveValidation.GhostSquare.ClearSquare();
                 IsPassantActive = false;
             }
@@ -91,6 +100,133 @@ namespace SimpleChessApp.Chess
             MoveList.Clear();
             MoveList2.Clear();
             GameStatus?.Invoke(this, null);
+        }
+
+        /// <summary>
+        /// Handles all logic of move and capture
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        internal void HandleUserAction(Square from, Square to)
+        {
+            if (ChessContext.Core.WhosPlaying == from.PieceColor ||
+                        ChessContext.Core.HasNoTurns) // Controls player turn
+            {
+                #region Handle Move
+                if (to.Piece == Pieces.None)
+                {
+                    if (from.Piece != Pieces.None)
+                    {
+                        if (new MoveValidation(from, to).Validate)
+                        {
+                            #region Set Castling Flags For Black
+                            if (from.PieceColor == PieceColor.Black)
+                            {
+                                if (ChessContext.Core.BlackCanCastleKingSide || ChessContext.Core.BlackCanCastleQueenSide)
+                                {
+                                    if (from.Piece == Pieces.King)
+                                    {
+                                        ChessContext.Core.BlackCanCastleKingSide = false;
+                                        ChessContext.Core.BlackCanCastleQueenSide = false;
+                                    }
+
+                                    else if (from.Piece == Pieces.Rook && from.File == 0)
+                                        ChessContext.Core.BlackCanCastleQueenSide = false;
+
+                                    else if (from.Piece == Pieces.Rook && from.File == 7)
+                                        ChessContext.Core.BlackCanCastleKingSide = false;
+
+                                }
+                            }
+                            #endregion
+
+                            #region Set Castling Flags For White
+                            if (from.PieceColor == PieceColor.White)
+                            {
+                                if (ChessContext.Core.WhiteCanCastleKingSide || ChessContext.Core.WhiteCanCastleQueenSide)
+                                {
+                                    if (from.Piece == Pieces.King)
+                                    {
+                                        ChessContext.Core.WhiteCanCastleKingSide = false;
+                                        ChessContext.Core.WhiteCanCastleQueenSide = false;
+                                    }
+
+                                    else if (from.Piece == Pieces.Rook && from.File == 0)
+                                        ChessContext.Core.WhiteCanCastleQueenSide = false;
+
+                                    else if (from.Piece == Pieces.Rook && from.File == 7)
+                                        ChessContext.Core.WhiteCanCastleKingSide = false;
+
+                                }
+                            }
+                            #endregion
+
+                            lastMove = to;
+                            to.SetPiece(from.Piece, from.PieceColor);
+                            from.ClearSquare();
+                            addMoveAnnotation(from, to);
+                            ChessContext.Core.ChangeTurn();
+                            return;
+                        }
+                        else
+                        {
+                            //Invalidate square selection if the move is not allowed
+                            //TODO: Display a toast message
+                            return;
+                        }
+                    }
+                }
+                #endregion
+
+                #region Handle Capture
+                if (to.Piece != Pieces.None)
+                {
+                    if (from.Piece != Pieces.None)
+                    {
+                        if (new MoveValidation(from, to,
+                            from.Piece == Pieces.Pawn).Validate)
+                        {
+                            // Avoid capturing piece of same color
+                            if (from.PieceColor != to.PieceColor)
+                            {
+                                #region Handle Passant
+                                if (ChessContext.Core.IsPassantActive &&
+                   from.Piece == Pieces.Pawn && to.Piece == Pieces.GhostPawn)
+                                {
+                                    if (lastMove.PieceColor != from.PieceColor)
+                                        lastMove.SetPiece(Pieces.None, PieceColor.None);
+                                }
+                                #endregion
+
+                                to.SetPiece(from.Piece, from.PieceColor);
+                                from.ClearSquare();
+                                addMoveAnnotation(from, to);
+
+                                if (to.Piece == Pieces.Pawn)
+                                {
+                                    if (to.PieceColor == PieceColor.Black
+                                        && to.Rank == 0)
+                                    {
+                                        ChessContext.Core.ShowPieceSelector(from);
+                                        Square.PromotedSquare = to;
+                                    }
+
+                                    if (to.PieceColor == PieceColor.White
+                                        && to.Rank == 7)
+                                    {
+                                        ChessContext.Core.ShowPieceSelector(from);
+                                        Square.PromotedSquare = to;
+                                    }
+                                }
+
+                                ChessContext.Core.ChangeTurn();
+                                return;
+                            }
+                        }
+                    }
+                }
+                #endregion
+            }
         }
 
         /// <summary>
