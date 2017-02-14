@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
@@ -11,8 +12,6 @@ namespace SimpleChessApp.Chess
         public event EventHandler NextTurn;
         public event EventHandler<ActionEventArgs> ActionChanged;
         public PieceColor WhosPlaying;
-        public bool AllowPassant;
-        public bool IsPassantActive;
         public bool HasNoTurns;
         public bool WhiteCanCastleKingSide;
         public bool BlackCanCastleKingSide;
@@ -23,6 +22,9 @@ namespace SimpleChessApp.Chess
         public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
         public HighLightMoves highLight = new HighLightMoves();
         Square to, from;
+
+        public static List<Square> GhostPawn;
+
 
         public class ActionEventArgs : EventArgs
         {
@@ -52,6 +54,8 @@ namespace SimpleChessApp.Chess
 
             Square.FirstClick += Square_FirstClick;
             Square.SecondClick += Square_SecondClick;
+
+            GhostPawn = new List<Square>();
 
             resetFlags();
         }
@@ -86,9 +90,41 @@ namespace SimpleChessApp.Chess
                 from.ClearSquare();
             }
 
-            ActionChanged(to, new ActionEventArgs(move.Kind));
+            if (to.Piece == Pieces.Pawn)
+            {
+                if (from.Rank == 1 || from.Rank == 6)
+                {
+                    if (to.Rank == 3 || to.Rank == 4)
+                    {
+                        var a = to.File;
+                        var b = to.Rank + (to.PieceColor == PieceColor.White ? -1 : +1);
+                        var sq = ChessContext.Core.ChessBoard[a, b];
+                        GhostPawn.Add(sq);
+                        sq.Piece = Pieces.GhostPawn;
+                        sq.PieceColor = to.PieceColor;
+                        sq.BackColor = Color.Purple;
+                    }
+                    else
+                        destroyGhostPawn();
+                }
+                else
+                    destroyGhostPawn();
+            }
+            else
+                destroyGhostPawn();
 
+            ActionChanged(to, new ActionEventArgs(move.Kind));
             ChangeTurn();
+        }
+
+        private static void destroyGhostPawn()
+        {
+            foreach (var item in ChessCore.GhostPawn)
+            {
+                if (item.Piece == Pieces.GhostPawn)
+                    item.ClearSquare();
+            }
+            ChessCore.GhostPawn.Clear();
         }
 
         private void Square_FirstClick(object sender, EventArgs e)
@@ -119,29 +155,24 @@ namespace SimpleChessApp.Chess
 
         public void ChangeTurn()
         {
-            IsPassantActive = AllowPassant;
-            if (!AllowPassant)
-            {
-                //if (MoveValidation.GhostSquare != null)
-                //    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
-                //        MoveValidation.GhostSquare.ClearSquare();
-                IsPassantActive = false;
-            }
-
-            AllowPassant = false;
-
             if (WhosPlaying == PieceColor.Black)
                 WhosPlaying = PieceColor.White;
             else
                 WhosPlaying = PieceColor.Black;
+
+            if (GhostPawn.Count == 2)
+            {
+                GhostPawn[0].ClearSquare();
+                GhostPawn.Remove(GhostPawn[0]);
+            }
 
             NextTurn?.Invoke(this, null);
         }
 
         public void RestartGame()
         {
+            resetFlags(); // always first
             ChessBoard.Restart();
-            resetFlags();
         }
 
         void resetFlags(bool turn = false)
@@ -152,7 +183,8 @@ namespace SimpleChessApp.Chess
             WhiteCanCastleQueenSide = true;
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
-            IsPassantActive = false;
+            highLight.Clear();
+            destroyGhostPawn();
             MoveList.Clear();
             MoveList2.Clear();
         }

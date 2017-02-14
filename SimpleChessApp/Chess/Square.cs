@@ -68,9 +68,11 @@ namespace SimpleChessApp.Chess
             BackgroundImage = piece == Pieces.None ? null : ChessContext.Core.GetPiece(piece, color);
         }
 
+
         public void HighLight(bool ok)
         {
-            label1.Text = ok ? "ö" : null;
+            // ³¤Ç
+            label1.Text = ok ? "Ç" : null;
         }
 
         private void Square_Click(object sender, EventArgs e)
@@ -112,18 +114,6 @@ namespace SimpleChessApp.Chess
                 ChessContext.Core.highLight.Clear();
             }
         }
-
-        internal void MakeGhost()
-        {
-            //if (MoveValidation.GhostSquare != null)
-            //    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
-            //        MoveValidation.GhostSquare.ClearSquare();
-
-            Piece = Pieces.GhostPawn;
-            PieceColor = PieceColor.None;
-            //BackColor = Color.Gray; Indicator for debugging purposes
-            //MoveValidation.GhostSquare = this;
-        } // Handles Passant 
 
         public void ClearSquare()
         {

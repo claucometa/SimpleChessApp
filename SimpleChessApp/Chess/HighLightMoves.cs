@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace SimpleChessApp.Chess
 {
@@ -61,7 +62,11 @@ namespace SimpleChessApp.Chess
             }
 
             // Move from home rank
-            if (x.Rank == homeRank) addMove(a, x.Rank + 2 * m, x);
+            if (x.Rank == homeRank)
+            {
+                b = x.Rank + 2 * m;
+                addMove(a, b, x);            
+            }
 
             // Captures
             a = x.File - 1;

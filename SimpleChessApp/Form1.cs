@@ -60,7 +60,7 @@ namespace SimpleChessApp
             var turno = Core.WhosPlaying == PieceColor.Black ? "Black's turn" : "White's turn";
             if (!Core.HasNoTurns) x.AppendLine($"{turno}");
             x.AppendLine($"Turn enabled: {!Core.HasNoTurns}");
-            x.AppendLine($"Passant enabled: {Core.IsPassantActive}");
+            //x.AppendLine($"Passant enabled: {Core.IsPassantActive}");
             x.AppendLine($"White castling king side: {Core.WhiteCanCastleKingSide}");
             x.AppendLine($"White castling queen side: {Core.WhiteCanCastleQueenSide}");
             x.AppendLine($"Black castling king side: {Core.BlackCanCastleKingSide}");
