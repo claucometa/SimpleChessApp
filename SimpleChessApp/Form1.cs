@@ -48,12 +48,12 @@ namespace SimpleChessApp
         protected override void OnLoad(EventArgs e)
         {
             Core.BuildBoard();
-            panel1.Controls.Add(Core.ChessBoard);            
-            listBox1.DataSource = Core.MoveList;
-            listBox2.DataSource = Core.MoveList2;
+            panel1.Controls.Add(Core.ChessBoard);
+            listBox1.DataSource = Core.notes.MoveList;
+            listBox2.DataSource = Core.notes.MoveList2;
             describe();
         }
-        
+
         private void describe()
         {
             var x = new StringBuilder();

@@ -17,13 +17,11 @@ namespace SimpleChessApp.Chess
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
-        //static Square lastMove;
-        public BindingList<Annotattion> MoveList = new BindingList<Annotattion>();
-        public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
         public HighLightMoves highLight = new HighLightMoves();
         Square to, from;
-
-        public static List<Square> GhostPawn;
+        public Square PromotedSquare;
+        public List<Square> GhostPawn;
+        public NotationManager notes = new NotationManager();
 
         #region Contructors
         public ChessCore()
@@ -73,6 +71,8 @@ namespace SimpleChessApp.Chess
                 from.ClearSquare();
             }
 
+            destroyGhostPawn();
+
             if (move.Kind == UserAction.Capture)
             {
                 to.SetPiece(from.Piece, from.PieceColor);
@@ -91,29 +91,30 @@ namespace SimpleChessApp.Chess
                         GhostPawn.Add(sq);
                         sq.Piece = Pieces.GhostPawn;
                         sq.PieceColor = to.PieceColor;
-                        // sq.BackColor = Color.Purple; Debug purposes
+                        // Debug purposes
+                        // sq.BackColor = Color.Purple;
                     }
-                    else
-                        destroyGhostPawn();
                 }
-                else
-                    destroyGhostPawn();
+
+                if (to.Rank == 0 || to.Rank == 7)
+                {
+                    PromotedSquare = to;
+                    ShowPieceSelector(from);
+                }
             }
-            else
-                destroyGhostPawn();
 
             ActionChanged(to, new ActionEventArgs(move.Kind));
             ChangeTurn();
         }
 
-        private static void destroyGhostPawn()
+        private void destroyGhostPawn()
         {
-            foreach (var item in ChessCore.GhostPawn)
+            foreach (var item in GhostPawn)
             {
                 if (item.Piece == Pieces.GhostPawn)
                     item.ClearSquare();
             }
-            ChessCore.GhostPawn.Clear();
+            GhostPawn.Clear();
         }
 
         private void Square_FirstClick(object sender, EventArgs e)
@@ -174,8 +175,7 @@ namespace SimpleChessApp.Chess
             WhosPlaying = PieceColor.White;
             highLight.Clear();
             destroyGhostPawn();
-            MoveList.Clear();
-            MoveList2.Clear();
+            notes.Clear();            
         }
 
         /// <summary>
@@ -193,10 +193,10 @@ namespace SimpleChessApp.Chess
         void addMoveAnnotation(Square from, Square to)
         {
             if (ChessContext.Core.WhosPlaying == PieceColor.White)
-                ChessContext.Core.MoveList.Add(new Annotattion(from, to));
+                notes.MoveList.Add(new Notation(from, to));
 
             if (ChessContext.Core.WhosPlaying == PieceColor.Black)
-                ChessContext.Core.MoveList2.Add(new Annotattion(from, to));
+                notes.MoveList2.Add(new Notation(from, to));
         }
 
         #region Pawn Promotion
@@ -207,7 +207,7 @@ namespace SimpleChessApp.Chess
 
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var square = Square.PromotedSquare;
+            var square = PromotedSquare;
             square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.PieceColor);
         }
         #endregion

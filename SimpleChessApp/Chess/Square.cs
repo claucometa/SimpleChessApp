@@ -7,8 +7,7 @@ namespace SimpleChessApp.Chess
     public partial class Square : UserControl
     {
         public static event EventHandler FirstClick;
-        public static event EventHandler SecondClick;
-        public static Square PromotedSquare;
+        public static event EventHandler SecondClick;        
         static bool firstClick = true;
         public int File, Rank;
         public new string Name;
