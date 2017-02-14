@@ -18,7 +18,7 @@ namespace SimpleChessApp.Chess
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
-        static Square lastMove;
+        //static Square lastMove;
         public BindingList<Annotattion> MoveList = new BindingList<Annotattion>();
         public BindingList<Annotattion> MoveList2 = new BindingList<Annotattion>();
         public HighLightMoves highLight = new HighLightMoves();

@@ -44,12 +44,12 @@ namespace SimpleChessApp.Chess
         void handlePawn(Square x)
         {
             Square sq;
-            int a, b;
+            int a = 0;
+            int b = 0;
 
-            // Decide if is black or white
+            // black or white?
             int homeRank = x.PieceColor == PieceColor.White ? 1 : 6;
             int m = x.PieceColor == PieceColor.White ? 1 : -1;
-
 
             // Moves
             a = x.File;
@@ -60,6 +60,7 @@ namespace SimpleChessApp.Chess
                 if (sq.IsEmpty) addMove(a, b, x);
             }
 
+            // Move from home rank
             if (x.Rank == homeRank) addMove(a, x.Rank + 2 * m, x);
 
             // Captures
@@ -191,7 +192,7 @@ namespace SimpleChessApp.Chess
             }
             else
                 return true;
-            return false;
+            return false; // Valid move
         }
     }
 
