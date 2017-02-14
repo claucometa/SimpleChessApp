@@ -259,19 +259,19 @@ namespace SimpleChessApp.Chess
         #region DEBUG 
         internal void TestPassant()
         {
-            ChessBoard.TestPassant();
+            new DebugChess(ChessBoard).TestPassant();
             resetFlags(true);
         }
 
         internal void TestSinglePiece(Pieces x)
         {
-            ChessBoard.TestSinglePiece(x);
+            new DebugChess(ChessBoard).TestSinglePiece(x);
             resetFlags(true);
         }
 
         internal void TestCastling()
         {
-            ChessBoard.TestCastling();
+            new DebugChess(ChessBoard).TestCastling();
             resetFlags(true);
         }
         #endregion

@@ -6,9 +6,7 @@ namespace SimpleChessApp.Chess
 {
     public class Board : Panel
     {
-        // Avoid accessing directly, use this[,]
-        // instead, with indexes ranging from 1 to 8
-        public Square[,] Squares = new Square[8, 8];
+        Square[,] Squares = new Square[8, 8];
 
         public Square this[int File, int Rank]
         {
@@ -91,37 +89,5 @@ namespace SimpleChessApp.Chess
             this[6, 0].SetPiece(Pieces.Knight, PieceColor.White);
             this[7, 0].SetPiece(Pieces.Rook, PieceColor.White);
         }
-
-        #region DEBUG
-        internal void TestPassant()
-        {
-            ClearBoard();
-            Squares[1, 1].SetPiece(Pieces.Pawn, PieceColor.White);
-            Squares[2, 3].SetPiece(Pieces.Pawn, PieceColor.Black);
-            Squares[3, 1].SetPiece(Pieces.Pawn, PieceColor.White);
-
-            Squares[4, 6].SetPiece(Pieces.Pawn, PieceColor.Black);
-            Squares[5, 4].SetPiece(Pieces.Pawn, PieceColor.White);
-            Squares[6, 6].SetPiece(Pieces.Pawn, PieceColor.Black);
-        }
-
-        internal void TestSinglePiece(Pieces x)
-        {
-            ClearBoard();
-            Squares[4, 4].SetPiece(x, PieceColor.Black);
-        }
-
-        internal void TestCastling()
-        {
-            ClearBoard();
-            Squares[0, 7].SetPiece(Pieces.Rook, PieceColor.Black);
-            Squares[4, 7].SetPiece(Pieces.King, PieceColor.Black);
-            Squares[7, 7].SetPiece(Pieces.Rook, PieceColor.Black);
-
-            Squares[0, 0].SetPiece(Pieces.Rook, PieceColor.White);
-            Squares[4, 0].SetPiece(Pieces.King, PieceColor.White);
-            Squares[7, 0].SetPiece(Pieces.Rook, PieceColor.White);
-        }
-        #endregion
     }
 }
