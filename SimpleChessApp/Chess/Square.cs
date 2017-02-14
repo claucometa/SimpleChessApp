@@ -6,11 +6,16 @@ namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
-        public static event EventHandler CliquedSquare;
+        public static event EventHandler FirstClick;
+        public static event EventHandler SecondClick;
         public static Square PromotedSquare;
+        static bool firstClick = true;
         public int File, Rank;
         public new string Name;
-        private bool IsSelected;
+        static Square lastSquare;
+
+        //private bool IsSelected;
+
         public Color DefaultColor;
         public Pieces Piece;
         public PieceColor PieceColor;
@@ -27,8 +32,6 @@ namespace SimpleChessApp.Chess
                 colorSquare();
             }
         } // Used just and only to draw the board
-        static Square fromSquare;
-        static Square toSquare;
 
         public Square()
         {
@@ -72,47 +75,54 @@ namespace SimpleChessApp.Chess
 
         private void Square_Click(object sender, EventArgs e)
         {
-            CliquedSquare?.Invoke(this, e);
-
-            toSquare = this;
-
-            if (toSquare.IsSelected)
+            if (firstClick)
             {
-                toSquare.IsSelected = false;
-                toSquare.BackColor = toSquare.DefaultColor;
-                fromSquare = null;
-                return;
-            }
+                var x = this;
 
-            if (toSquare == fromSquare)
+                if (ChessContext.Core.WhosPlaying == x.PieceColor || ChessContext.Core.HasNoTurns)
+                {
+                    x.BackColor = Color.LightGreen;
+                    lastSquare = x;
+                    ChessContext.Core.highLight.Go(x);
+                    FirstClick?.Invoke(this, e);
+                    firstClick = !firstClick;
+                }
+            }
+            else
             {
-                toSquare.IsSelected = !toSquare.IsSelected;
-                if (toSquare.IsSelected) toSquare.BackColor = Color.LightGreen;
-                return;
-            }
+                var x = this;
+                lastSquare.BackColor = lastSquare.DefaultColor;
 
-            if (fromSquare != null)
-            {
-                fromSquare.BackColor = fromSquare.DefaultColor;
-                fromSquare.IsSelected = false;
-                ChessContext.Core.HandleUserAction(fromSquare, toSquare);
-            }
+                if (lastSquare == x)
+                    ChessContext.Core.highLight.Clear();
 
-            toSquare.BackColor = Color.LightGreen;
-            toSquare.IsSelected = true;
-            fromSquare = toSquare;
+                if (!x.IsEmpty)
+                    if(x.PieceColor == lastSquare.PieceColor)
+                    {
+                        ChessContext.Core.highLight.Clear();
+                        x.BackColor = Color.LightGreen;
+                        lastSquare = x;
+                        ChessContext.Core.highLight.Go(x);
+                        FirstClick?.Invoke(this, e);
+                        return;
+                    }
+
+                SecondClick?.Invoke(this, e);
+                firstClick = !firstClick;
+                ChessContext.Core.highLight.Clear();
+            }
         }
 
         internal void MakeGhost()
         {
-            if (MoveValidation.GhostSquare != null)
-                if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
-                    MoveValidation.GhostSquare.ClearSquare();
+            //if (MoveValidation.GhostSquare != null)
+            //    if (MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+            //        MoveValidation.GhostSquare.ClearSquare();
 
             Piece = Pieces.GhostPawn;
             PieceColor = PieceColor.None;
             //BackColor = Color.Gray; Indicator for debugging purposes
-            MoveValidation.GhostSquare = this;
+            //MoveValidation.GhostSquare = this;
         } // Handles Passant 
 
         public void ClearSquare()

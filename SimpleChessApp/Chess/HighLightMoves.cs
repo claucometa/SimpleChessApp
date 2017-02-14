@@ -1,43 +1,162 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
-    class HighLightMoves
+    public class HighLightMoves
     {
-        List<Square> highlightedSquares = new List<Square>();
+        public List<PossibleMoves> MoveList = new List<PossibleMoves>();
 
         public void Go(Square x)
         {
-            foreach (var item in highlightedSquares) item.HighLight(false);
-            highlightedSquares.Clear();
-
             switch (x.Piece)
             {
-                case Pieces.None:
-                    break;
                 case Pieces.Pawn:
+                    handlePawn(x);
                     break;
                 case Pieces.Knight:
                     handleKnight(x);
                     break;
                 case Pieces.Bishop:
+                    handleBishop(x);
                     break;
                 case Pieces.Rook:
+                    handleRook(x);
                     break;
                 case Pieces.King:
+                    handleKing(x);
                     break;
                 case Pieces.Queen:
-                    break;
-                case Pieces.GhostPawn:
-                    break;
-                default:
+                    handleQueen(x);
                     break;
             }
 
-            foreach (var item in highlightedSquares) item.HighLight(true);
+            foreach (var item in MoveList) item.Square.HighLight(true);
         }
 
-        private void handleKnight(Square x)
+        public void Clear()
+        {
+            foreach (var item in MoveList)
+                item.Square.HighLight(false);
+            MoveList.Clear();
+        }
+
+        void handlePawn(Square x)
+        {
+            Square sq;
+            int a, b;
+
+            // Decide if is black or white
+            int homeRank = x.PieceColor == PieceColor.White ? 1 : 6;
+            int m = x.PieceColor == PieceColor.White ? 1 : -1;
+
+
+            // Moves
+            a = x.File;
+            b = x.Rank + 1 * m;
+            if (b >= 0 && b < 8)
+            {
+                sq = ChessContext.Core.ChessBoard[a, b];
+                if (sq.IsEmpty) addMove(a, b, x);
+            }
+
+            if (x.Rank == homeRank) addMove(a, x.Rank + 2 * m, x);
+
+            // Captures
+            a = x.File - 1;
+            b = x.Rank + 1 * m;
+            if (a >= 0 && b >= 0 && b < 8)
+            {
+                sq = ChessContext.Core.ChessBoard[a, b];
+                if (!sq.IsEmpty) addMove(a, b, x);
+            }
+
+            a = x.File + 1;
+            b = x.Rank + 1 * m;
+            if (a < 8 && b >= 0 && b < 8)
+            {
+                sq = ChessContext.Core.ChessBoard[a, b];
+                if (!sq.IsEmpty) addMove(a, b, x);
+            }
+        }
+
+        void handleQueen(Square x)
+        {
+            handleRook(x);
+            handleBishop(x);
+        }
+
+        void handleKing(Square x)
+        {
+            addMove(x.File + 1, x.Rank + 1, x);
+            addMove(x.File + 1, x.Rank - 1, x);
+            addMove(x.File - 1, x.Rank + 1, x);
+            addMove(x.File - 1, x.Rank - 1, x);
+            addMove(x.File + 1, x.Rank, x);
+            addMove(x.File - 1, x.Rank, x);
+            addMove(x.File, x.Rank + 1, x);
+            addMove(x.File, x.Rank - 1, x);
+        }
+
+        void handleRook(Square x)
+        {
+            for (int i = 1; i < 8; i++)
+            {
+                var b = x.Rank + i;
+                if (addMove(x.File, b, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var b = x.Rank - i;
+                if (addMove(x.File, b, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var b = x.File + i;
+                if (addMove(b, x.Rank, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var b = x.File - i;
+                if (addMove(b, x.Rank, x)) break;
+            }
+        }
+
+        void handleBishop(Square x)
+        {
+            for (int i = 1; i < 8; i++)
+            {
+                var a = x.File + i;
+                var b = x.Rank + i;
+                if (addMove(a, b, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var a = x.File + i;
+                var b = x.Rank - i;
+                if (addMove(a, b, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var a = x.File - i;
+                var b = x.Rank - i;
+                if (addMove(a, b, x)) break;
+            }
+
+            for (int i = 1; i < 8; i++)
+            {
+                var a = x.File - i;
+                var b = x.Rank + i;
+                if (addMove(a, b, x)) break;
+            }
+        }
+
+        void handleKnight(Square x)
         {
             int[] w = new int[] { +1, +1, -1, -1, +2, +2, -2, -2 };
             int[] z = new int[] { +2, -2, +2, -2, +1, -1, +1, -1 };
@@ -47,11 +166,53 @@ namespace SimpleChessApp.Chess
                 var a = x.File + w[i];
                 var b = x.Rank + z[i];
 
+                // Avoid going out of the board (overflow)
                 if (a < 0 || b < 0 || a > 7 || b > 7) continue;
 
-                highlightedSquares.Add(
-                ChessContext.Core.ChessBoard[a, b]);
+                var sq = ChessContext.Core.ChessBoard[a, b];
+                if (sq.IsEmpty)
+                    MoveList.Add(new PossibleMoves(sq, UserAction.Move));
+                else if (sq.PieceColor != x.PieceColor)
+                    MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
             }
         }
+
+        bool addMove(int a, int b, Square x)
+        {
+            if (a < 0 || a > 7 || b < 0 || b > 7) return true;
+
+            var sq = ChessContext.Core.ChessBoard[a, b];
+            if (sq.IsEmpty)
+                MoveList.Add(new PossibleMoves(sq, UserAction.Move));
+            else if (sq.PieceColor != x.PieceColor)
+            {
+                MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
+                return true;
+            }
+            else
+                return true;
+            return false;
+        }
+    }
+
+    public class PossibleMoves
+    {
+        public Square Square;
+        public UserAction Kind;
+
+        public PossibleMoves(Square sq, UserAction kind)
+        {
+            Square = sq;
+            Kind = kind;
+        }
+    }
+
+    public enum UserAction
+    {
+        None,
+        Move,
+        Capture,
+        Invalid_Move,
+        Piece_Selected
     }
 }

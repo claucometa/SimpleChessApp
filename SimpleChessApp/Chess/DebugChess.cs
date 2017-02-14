@@ -1,4 +1,7 @@
-﻿namespace SimpleChessApp.Chess
+﻿using System.Text;
+
+
+namespace SimpleChessApp.Chess
 {
     class DebugChess
     {
@@ -23,8 +26,8 @@
 
         internal void TestSinglePiece(Pieces x)
         {
-            this.b.ClearBoard();
-            this.b[4, 4].SetPiece(x, PieceColor.Black);
+            b.ClearBoard();
+            b[4, 4].SetPiece(x, PieceColor.White);
         }
 
         internal void TestCastling()

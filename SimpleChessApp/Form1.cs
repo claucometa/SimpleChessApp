@@ -1,21 +1,21 @@
 ﻿using SimpleChessApp.Chess;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using static SimpleChessApp.Chess.ChessContext;
+using static SimpleChessApp.Chess.ChessCore;
 
 namespace SimpleChessApp
 {
     public partial class Form1 : Form
     {
-        HighLightMoves highLight = new HighLightMoves();
-
         public Form1()
         {
             InitializeComponent();
 
-            Square.CliquedSquare += Square_ClickMe;
+            Core.NextTurn += Core_NextTurn;
+            Core.ActionChanged += Core_ActionChanged;
+            label1.Text = "None";
 
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Pieces.Knight;
@@ -27,12 +27,17 @@ namespace SimpleChessApp
             #endregion  
         }
 
-        private void Square_ClickMe(object sender, EventArgs e)
+        private void Core_NextTurn(object sender, EventArgs e)
+        {
+            describe();
+        }
+
+        private void Core_ActionChanged(object sender, ActionEventArgs e)
         {
             var x = (Square)sender;
             numericUpDown1.Value = x.File;
             numericUpDown2.Value = x.Rank;
-            highLight.Go(x);
+            label1.Text = e.Action.ToString();
         }
 
         private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -43,18 +48,12 @@ namespace SimpleChessApp
         protected override void OnLoad(EventArgs e)
         {
             Core.BuildBoard();
-            panel1.Controls.Add(Core.ChessBoard);
-            Core.GameStatus += Core_GameStatus;
+            panel1.Controls.Add(Core.ChessBoard);            
             listBox1.DataSource = Core.MoveList;
             listBox2.DataSource = Core.MoveList2;
             describe();
         }
-
-        private void Core_GameStatus(object sender, EventArgs e)
-        {
-            describe();
-        }
-
+        
         private void describe()
         {
             var x = new StringBuilder();
@@ -82,12 +81,11 @@ namespace SimpleChessApp
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             listBox2.SelectedIndex = listBox2.Items.Count - 1;
 
-            if (Core.WhosPlaying == PieceColor.Black)
-                listBox2.ClearSelected();
-
             if (Core.WhosPlaying == PieceColor.White)
                 listBox1.ClearSelected();
 
+            if (Core.WhosPlaying == PieceColor.Black)
+                listBox2.ClearSelected();
         }
 
         private void button1_Click(object sender, EventArgs e)

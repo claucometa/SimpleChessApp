@@ -35,31 +35,32 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.button5 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.bishopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -74,6 +75,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.button5);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.Controls.Add(this.numericUpDown2);
@@ -144,29 +146,16 @@
             this.textBox1.Size = new System.Drawing.Size(235, 508);
             this.textBox1.TabIndex = 0;
             // 
-            // numericUpDown2
+            // button5
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(61, 219);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(49, 24);
-            this.numericUpDown2.TabIndex = 9;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 219);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(49, 24);
-            this.numericUpDown1.TabIndex = 8;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.button5.ContextMenuStrip = this.contextMenuStrip1;
+            this.button5.Location = new System.Drawing.Point(3, 178);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(107, 35);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "Clear Board";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // contextMenuStrip1
             // 
@@ -208,6 +197,37 @@
             this.kingToolStripMenuItem.Name = "kingToolStripMenuItem";
             this.kingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.kingToolStripMenuItem.Text = "King";
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(116, 75);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(440, 440);
+            this.panel1.TabIndex = 0;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(61, 219);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown2.TabIndex = 9;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(3, 219);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // radioButton2
             // 
@@ -271,23 +291,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // panel1
+            // label1
             // 
-            this.panel1.Location = new System.Drawing.Point(116, 75);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 440);
-            this.panel1.TabIndex = 0;
-            // 
-            // button5
-            // 
-            this.button5.ContextMenuStrip = this.contextMenuStrip1;
-            this.button5.Location = new System.Drawing.Point(3, 178);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(107, 35);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Clear Board";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 246);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 18);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
             // 
             // Form1
             // 
@@ -309,9 +320,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -339,6 +350,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label1;
     }
 }
 
