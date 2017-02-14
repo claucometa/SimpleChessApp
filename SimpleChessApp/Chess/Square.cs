@@ -191,17 +191,6 @@ namespace SimpleChessApp.Chess
                                     {
                                         if (lastMove.PieceColor != fromSquare.PieceColor)
                                             lastMove.SetPiece(Pieces.None, PieceColor.None);
-                                        else
-                                        {
-                                            MoveValidation.GhostSquare.ClearSquare();
-                                            return;
-                                        }
-                                    }
-
-                                    if (fromSquare.Piece != Pieces.Pawn)
-                                    {
-                                        if (toSquare.Piece == Pieces.GhostPawn)
-                                            toSquare.ClearSquare();
                                     }
 
                                     toSquare.SetPiece(fromSquare.Piece, fromSquare.PieceColor);
@@ -249,7 +238,7 @@ namespace SimpleChessApp.Chess
 
             Piece = Pieces.GhostPawn;
             PieceColor = PieceColor.None;
-            BackColor = Color.Gray;
+            //BackColor = Color.Gray; Indicator for debugging purposes
             MoveValidation.GhostSquare = this;            
         }
 

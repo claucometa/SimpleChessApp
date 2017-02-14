@@ -52,7 +52,8 @@ namespace SimpleChessApp.Chess
             if (!AllowPassant)
             {
                 if (MoveValidation.GhostSquare != null)
-                    MoveValidation.GhostSquare.ClearSquare();
+                    if(MoveValidation.GhostSquare.Piece == Pieces.GhostPawn)
+                        MoveValidation.GhostSquare.ClearSquare();
                 IsPassantActive = false;
             }
 
