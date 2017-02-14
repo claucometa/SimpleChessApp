@@ -19,6 +19,7 @@ namespace SimpleChessApp.Chess
         public Color DefaultColor;
         public Pieces Piece;
         public PieceColor PieceColor;
+
         bool isBlackSquare;
         public bool IsBlackSquare
         {

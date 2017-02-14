@@ -25,17 +25,6 @@ namespace SimpleChessApp.Chess
 
         public static List<Square> GhostPawn;
 
-
-        public class ActionEventArgs : EventArgs
-        {
-            public UserAction Action;
-
-            public ActionEventArgs(UserAction u)
-            {
-                Action = u;
-            }
-        }
-
         #region Contructors
         public ChessCore()
         {
@@ -102,7 +91,7 @@ namespace SimpleChessApp.Chess
                         GhostPawn.Add(sq);
                         sq.Piece = Pieces.GhostPawn;
                         sq.PieceColor = to.PieceColor;
-                        sq.BackColor = Color.Purple;
+                        // sq.BackColor = Color.Purple; Debug purposes
                     }
                     else
                         destroyGhostPawn();
@@ -242,6 +231,16 @@ namespace SimpleChessApp.Chess
             resetFlags(true);
         }
         #endregion
+    }
+
+    public class ActionEventArgs : EventArgs
+    {
+        public UserAction Action;
+
+        public ActionEventArgs(UserAction u)
+        {
+            Action = u;
+        }
     }
 
     public enum PieceColor
