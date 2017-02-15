@@ -1,4 +1,6 @@
-﻿namespace SimpleChessApp.Chess
+﻿using SimpleChessApp.Chess;
+
+namespace SimpleChessApp
 {
     /// <summary>
     /// Creates a instance of ChessCore

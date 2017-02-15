@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
-using static SimpleChessApp.Chess.ChessContext;
+using static SimpleChessApp.ChessContext;
 
 namespace SimpleChessApp
 {
@@ -15,7 +15,6 @@ namespace SimpleChessApp
             Core.NextTurn += Core_NextTurn;
             Core.ActionChanged += Core_ActionChanged;
             label1.Text = "None";
-
 
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Pieces.Knight;
@@ -78,8 +77,8 @@ namespace SimpleChessApp
         {
             var x = new StringBuilder();
             var turno = Core.WhosPlaying == PieceColor.Black ? "Black's turn" : "White's turn";
-            if (!Core.HasNoTurns) x.AppendLine($"{turno}");
-            x.AppendLine($"Turn enabled: {!Core.HasNoTurns}");
+            if (!Core.DisableTurns) x.AppendLine($"{turno}");
+            x.AppendLine($"Turn enabled: {!Core.DisableTurns}");
             //x.AppendLine($"Passant enabled: {Core.IsPassantActive}");
             x.AppendLine($"White castling king side: {Core.WhiteCanCastleKingSide}");
             x.AppendLine($"White castling queen side: {Core.WhiteCanCastleQueenSide}");
@@ -87,7 +86,7 @@ namespace SimpleChessApp
             x.AppendLine($"Black castling queen side: {Core.BlackCanCastleQueenSide}");
             textBox1.Text = x.ToString();
 
-            if (!Core.HasNoTurns)
+            if (!Core.DisableTurns)
             {
                 radioButton1.Checked = Core.WhosPlaying == PieceColor.Black;
                 radioButton2.Checked = Core.WhosPlaying == PieceColor.White;

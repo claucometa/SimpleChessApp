@@ -35,4 +35,21 @@
             }
         }
     }
+
+    public enum PieceColor
+    {
+        Black,
+        White
+    }
+
+    public enum Pieces
+    {
+        None,
+        Pawn,
+        Knight,
+        Bishop,
+        Rook,
+        King,
+        Queen
+    }
 }

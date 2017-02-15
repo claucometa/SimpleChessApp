@@ -45,19 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chess\Notation.cs" />
+    <Compile Include="Extras\Notation.cs" />
     <Compile Include="Chess\Board.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Chess\ChessContext.cs" />
+    <Compile Include="ChessContext.cs" />
     <Compile Include="Chess\ChessCore.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Chess\ChessCore.Designer.cs">
       <DependentUpon>ChessCore.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chess\DebugChess.cs" />
-    <Compile Include="Chess\Notify.cs" />
+    <Compile Include="Extras\DebugChess.cs" />
+    <Compile Include="Extras\Notify.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

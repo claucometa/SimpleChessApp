@@ -13,7 +13,7 @@ namespace SimpleChessApp.Chess
         public event EventHandler<ActionEventArgs> ActionChanged;
         public PieceColor WhosPlaying;
         PossibleMoves move;
-        public bool HasNoTurns;
+        public bool DisableTurns;
         public int TurnId = 1;
         public List<Square> PieceWhoChecked;
         public bool WhiteCanCastleKingSide;
@@ -118,10 +118,9 @@ namespace SimpleChessApp.Chess
 
             if (move.Kind == UserAction.Capture)
             {
-                ChessBoard.RemovePiece(to);
+                ChessBoard.RemovePiece(to.Piece);
                 to.Piece = from.Piece;
                 to.Piece.Current = to;
-                ChessBoard.AddCaptured(from.Piece);
                 addMoveNote();
                 from.Piece = null;
             }
@@ -306,7 +305,7 @@ namespace SimpleChessApp.Chess
 
         void resetFlags(bool turn = false)
         {
-            HasNoTurns = turn;
+            DisableTurns = turn;
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
             WhiteCanCastleQueenSide = true;
@@ -333,7 +332,7 @@ namespace SimpleChessApp.Chess
 
         void addMoveNote()
         {
-            if (!ChessContext.Core.HasNoTurns)
+            if (!ChessContext.Core.DisableTurns)
             {
                 if (ChessContext.Core.WhosPlaying == PieceColor.White)
                     notes.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, x = new Notation(from, to) });
@@ -384,22 +383,5 @@ namespace SimpleChessApp.Chess
         {
             Action = u;
         }
-    }
-
-    public enum PieceColor
-    {
-        Black,
-        White
-    }
-
-    public enum Pieces
-    {
-        None,
-        Pawn,
-        Knight,
-        Bishop,
-        Rook,
-        King,
-        Queen
     }
 }

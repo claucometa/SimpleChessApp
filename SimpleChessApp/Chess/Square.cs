@@ -123,7 +123,7 @@ namespace SimpleChessApp.Chess
 
                 if (x.Piece == null) return;
 
-                if (ChessContext.Core.WhosPlaying == x.Piece.Color || ChessContext.Core.HasNoTurns)
+                if (ChessContext.Core.WhosPlaying == x.Piece.Color || ChessContext.Core.DisableTurns)
                 {
                     x.BackColor = Color.LightGreen;
                     lastSquare = x;
