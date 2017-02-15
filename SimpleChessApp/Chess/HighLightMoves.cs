@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
     public class HighLightMoves
     {
         public List<PossibleMoves> MoveList = new List<PossibleMoves>();
+
 
         public void Go(Square x)
         {
@@ -65,6 +67,28 @@ namespace SimpleChessApp.Chess
             {
                 sq = ChessContext.Core.ChessBoard[a, b];
                 if (sq.IsEmpty) addMove(a, b, x);
+            }
+
+            // Passant
+            sq = ChessContext.Core.LastMove;
+            if (sq != null)
+            {
+                if (sq.Piece.Passant)
+                {
+                    if (x.Piece.Color == PieceColor.White && x.Rank == 4)
+                    {
+                        if (sq.Rank == 4 && Math.Abs(sq.File - x.File) == 1)
+                            addMove(sq.File, 5, x);
+                    }
+
+                    if (x.Piece.Color == PieceColor.Black && x.Rank == 3)
+                    {
+                        if (sq.Rank == 3 && Math.Abs(sq.File - x.File) == 1)
+                            addMove(sq.File, 2, x);
+                    }
+
+                    sq.Piece.Passant = false;
+                }
             }
 
             // Move from home rank

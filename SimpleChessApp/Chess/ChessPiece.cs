@@ -6,6 +6,7 @@
         public Pieces Name { get; set; }
         public PieceColor Color { get; set; }
         public Square Home { get; set; }
+        public bool Passant { get; set; }
 
         public Square c;
         public Square Current

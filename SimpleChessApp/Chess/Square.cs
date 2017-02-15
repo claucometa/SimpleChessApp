@@ -101,10 +101,6 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public bool IsGhost;
-
-        
-
         public void HighCheck(bool ok)
         {
             label1.Text = ok ? "K" : null;

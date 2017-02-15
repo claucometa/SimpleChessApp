@@ -20,9 +20,9 @@ namespace SimpleChessApp.Chess
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
+        public Square LastMove;
         Square to, from;
         public Square PromotedSquare;
-        public List<Square> GhostPawn;
         public NotationManager Turns = new NotationManager();
         //HighLightMoves checkDetector = new HighLightMoves();
 
@@ -44,8 +44,6 @@ namespace SimpleChessApp.Chess
 
             Square.FirstClick += Square_FirstClick;
             Square.SecondClick += Square_SecondClick;
-
-            GhostPawn = new List<Square>();
 
             resetFlags();
         }
@@ -109,43 +107,30 @@ namespace SimpleChessApp.Chess
                 if (to.Piece.Name == Pieces.Rook)
                     shutOffCastling();
 
-                from.Piece = null;
+                if (to.Piece.Name == Pieces.Pawn)
+                {
+                    if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
+                        to.Piece.Passant = true;
 
-                addMoveNote();
+                    if (to.Rank == 0 || to.Rank == 7)
+                    {
+                        PromotedSquare = to;
+                        ShowPieceSelector(from);
+                    }
+
+                    // Capture passant
+                    if (Math.Abs(from.File - to.File) == 1)
+                    {
+                        LastMove.Piece = null;
+                        move.Kind = UserAction.Capture;
+                    }
+                }
             }
-
-            destroyGhostPawn();
-
-            if (move.Kind == UserAction.Capture)
+            else if (move.Kind == UserAction.Capture)
             {
                 ChessBoard.RemovePiece(to.Piece);
                 to.Piece = from.Piece;
                 to.Piece.Current = to;
-                addMoveNote();
-                from.Piece = null;
-            }
-
-            if (to.Piece.Name == Pieces.Pawn)
-            {
-                if (from.Rank == 1 || from.Rank == 6)
-                {
-                    if (to.Rank == 3 || to.Rank == 4)
-                    {
-                        var a = to.File;
-                        var b = to.Rank + (to.Piece.Color == PieceColor.White ? -1 : +1);
-                        var sq = ChessContext.Core.ChessBoard[a, b];
-                        GhostPawn.Add(sq);
-                        sq.IsGhost = true;
-                        // Debug purposes
-                        // sq.BackColor = Color.Purple;
-                    }
-                }
-
-                if (to.Rank == 0 || to.Rank == 7)
-                {
-                    PromotedSquare = to;
-                    ShowPieceSelector(from);
-                }
             }
 
             #region Check Detection
@@ -177,16 +162,21 @@ namespace SimpleChessApp.Chess
             //}
             #endregion
 
+            if (move.Kind == UserAction.Capture || move.Kind == UserAction.Move)
+            {
+                addMoveNote();
+                LastMove = to;
+                from.Piece = null;
+            }
+
             ActionChanged(to, new ActionEventArgs(move.Kind));
 
             ChangeTurn();
         }
 
-        int count;
-
         internal void MoveTurnBack()
         {
-        
+
         }
 
         private bool blackCanCastle
@@ -248,16 +238,6 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        private void destroyGhostPawn()
-        {
-            foreach (var item in GhostPawn)
-            {
-                if (item.IsGhost == true)
-                    item.Piece = null;
-            }
-            GhostPawn.Clear();
-        }
-
         private void Square_FirstClick(object sender, EventArgs e)
         {
             from = (Square)sender;
@@ -294,13 +274,6 @@ namespace SimpleChessApp.Chess
                 TurnId++;
             }
 
-            if (GhostPawn.Count == 2)
-            {
-                GhostPawn[0].Piece = null;
-                GhostPawn.Remove(GhostPawn[0]);
-            }
-
-
             NextTurn?.Invoke(this, null);
         }
 
@@ -321,7 +294,6 @@ namespace SimpleChessApp.Chess
             TurnId = 1;
             Square.light.Clear();
             PieceWhoChecked = new List<Square>();
-            destroyGhostPawn();
             Turns.Clear();
         }
 
@@ -349,6 +321,10 @@ namespace SimpleChessApp.Chess
         }
 
         #region Pawn Promotion
+        /// <summary>
+        /// The param x is just for location purpuses
+        /// </summary>
+        /// <param name="x"></param>
         internal void ShowPieceSelector(Control x)
         {
             PawnPromotionDialog.Show(x.Parent, x.Location);
@@ -356,7 +332,7 @@ namespace SimpleChessApp.Chess
 
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var x = (Pieces)((Control)sender).Tag;
+            var x = (Pieces)((ToolStripMenuItem)sender).Tag;
             PromotedSquare.Piece = new ChessPiece(PromotedSquare, x, ChessContext.Core.WhosPlaying);
         }
         #endregion
