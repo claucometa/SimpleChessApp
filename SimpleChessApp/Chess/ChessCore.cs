@@ -12,16 +12,18 @@ namespace SimpleChessApp.Chess
         public event EventHandler NextTurn;
         public event EventHandler<ActionEventArgs> ActionChanged;
         public PieceColor WhosPlaying;
+        PossibleMoves move;
         public bool HasNoTurns;
+        public List<Square> PieceWhoChecked;
         public bool WhiteCanCastleKingSide;
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
-        public HighLightMoves highLight = new HighLightMoves();
         Square to, from;
         public Square PromotedSquare;
         public List<Square> GhostPawn;
         public NotationManager notes = new NotationManager();
+        //HighLightMoves checkDetector = new HighLightMoves();
 
         #region Contructors
         public ChessCore()
@@ -51,13 +53,39 @@ namespace SimpleChessApp.Chess
         {
             to = (Square)sender;
 
-            if (highLight.MoveList.Count == 0)
+            #region CheckDetection
+            //if (PieceWhoChecked.Count > 0)
+            //{
+            //    var checkDetector = new HighLightMoves();
+            //    var sq = ChessBoard[to.File, to.Rank];
+            //    var old = sq.PieceColor;
+            //    sq.PieceColor = PieceWhoChecked[0].PieceColor;
+            //    // Debug Purposes
+            //    sq.BackColor = Color.Purple;
+            //    foreach (var item in PieceWhoChecked)
+            //    {
+            //        checkDetector.Go(item);
+            //    }
+
+            //    sq.PieceColor = old;
+            //    var x = checkDetector.MoveList.FirstOrDefault(t => t.Square.Piece == Pieces.King);
+            //    if (x != null)
+            //    {
+            //        move.Kind = UserAction.Check;
+            //        return;
+            //    }
+            //}
+            #endregion
+
+            //checkDetector = new HighLightMoves();
+
+            if (Square.light.MoveList.Count == 0)
             {
                 ActionChanged(to, new ActionEventArgs(UserAction.None));
                 return;
             }
 
-            var move = highLight.MoveList.FirstOrDefault(t => t.Square == to);
+            move = Square.light.MoveList.FirstOrDefault(t => t.Square == to);
 
             if (move == null)
             {
@@ -67,7 +95,7 @@ namespace SimpleChessApp.Chess
 
             if (move.Kind == UserAction.Move)
             {
-                to.SetPiece(from.Piece, from.PieceColor);
+                to.SetPiece(from.Piece);
                 from.ClearSquare();
             }
 
@@ -75,22 +103,22 @@ namespace SimpleChessApp.Chess
 
             if (move.Kind == UserAction.Capture)
             {
-                to.SetPiece(from.Piece, from.PieceColor);
+                ChessBoard.RemovePiece(to);
+                to.SetPiece(from.Piece);
                 from.ClearSquare();
             }
 
-            if (to.Piece == Pieces.Pawn)
+            if (to.Piece.Name == Pieces.Pawn)
             {
                 if (from.Rank == 1 || from.Rank == 6)
                 {
                     if (to.Rank == 3 || to.Rank == 4)
                     {
                         var a = to.File;
-                        var b = to.Rank + (to.PieceColor == PieceColor.White ? -1 : +1);
+                        var b = to.Rank + (to.Piece.Color == PieceColor.White ? -1 : +1);
                         var sq = ChessContext.Core.ChessBoard[a, b];
                         GhostPawn.Add(sq);
-                        sq.Piece = Pieces.GhostPawn;
-                        sq.PieceColor = to.PieceColor;
+                        sq.IsGhost = true;
                         // Debug purposes
                         // sq.BackColor = Color.Purple;
                     }
@@ -103,6 +131,35 @@ namespace SimpleChessApp.Chess
                 }
             }
 
+            #region Check Detection
+            //if (to.PieceColor == PieceColor.Black)
+            //{
+            //    PieceWhoChecked = new List<Square>();
+            //    var z = ChessBoard.WhitePieces.Where(t => t.PieceColor == PieceColor.White);
+            //    foreach (var item in z)
+            //    {
+            //        // Check detector
+            //        if (item.Piece != Pieces.King)
+            //        {
+            //            var checkDetector = new HighLightMoves();
+            //            checkDetector.Go(item);
+            //            // Debug Purposes
+            //            // checkDetector.HighLightCheck();
+            //            var x = checkDetector.MoveList.FirstOrDefault(t => t.Square.Piece == Pieces.King);
+            //            if (x != null)
+            //            {
+            //                PieceWhoChecked.Add(item);
+            //                move.Kind = UserAction.Check;
+            //            }
+            //        }
+            //    }
+
+            //    if (PieceWhoChecked.Count > 0)
+            //        if (PieceWhoChecked.First().PieceColor != WhosPlaying)
+            //            MessageBox.Show("oops");
+            //}
+            #endregion
+
             ActionChanged(to, new ActionEventArgs(move.Kind));
             ChangeTurn();
         }
@@ -111,7 +168,7 @@ namespace SimpleChessApp.Chess
         {
             foreach (var item in GhostPawn)
             {
-                if (item.Piece == Pieces.GhostPawn)
+                if (item.IsGhost == true)
                     item.ClearSquare();
             }
             GhostPawn.Clear();
@@ -173,9 +230,10 @@ namespace SimpleChessApp.Chess
             WhiteCanCastleQueenSide = true;
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
-            highLight.Clear();
+            Square.light.Clear();
+            PieceWhoChecked = new List<Square>();
             destroyGhostPawn();
-            notes.Clear();            
+            notes.Clear();
         }
 
         /// <summary>
@@ -208,7 +266,7 @@ namespace SimpleChessApp.Chess
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var square = PromotedSquare;
-            square.SetPiece((Pieces)((ToolStripMenuItem)sender).Tag, square.PieceColor);
+            square.SetPiece(square.Piece);
         }
         #endregion
 
@@ -245,7 +303,6 @@ namespace SimpleChessApp.Chess
 
     public enum PieceColor
     {
-        None, // <-- Used by empty squares or GhostPawn
         Black,
         White
     }
@@ -258,7 +315,6 @@ namespace SimpleChessApp.Chess
         Bishop,
         Rook,
         King,
-        Queen,
-        GhostPawn // <-- Receives None Color
+        Queen
     }
 }

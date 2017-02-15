@@ -16,6 +16,10 @@ namespace SimpleChessApp
             Core.NextTurn += Core_NextTurn;
             Core.ActionChanged += Core_ActionChanged;
             label1.Text = "None";
+            listBox3.DataSource = Core.ChessBoard.WhitePieces;
+            listBox4.DataSource = Core.ChessBoard.BlackPieces;
+            listBox3.DisplayMember = "SpecialName";
+            listBox4.DisplayMember = "SpecialName";
 
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Pieces.Knight;

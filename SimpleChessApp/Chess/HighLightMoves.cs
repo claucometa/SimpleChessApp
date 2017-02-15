@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
@@ -10,7 +8,7 @@ namespace SimpleChessApp.Chess
 
         public void Go(Square x)
         {
-            switch (x.Piece)
+            switch (x.Piece.Name)
             {
                 case Pieces.Pawn:
                     handlePawn(x);
@@ -31,8 +29,16 @@ namespace SimpleChessApp.Chess
                     handleQueen(x);
                     break;
             }
+        }
 
+        public void HighLightSquares()
+        {
             foreach (var item in MoveList) item.Square.HighLight(true);
+        }
+
+        public void HighLightCheck()
+        {
+            foreach (var item in MoveList) item.Square.HighCheck(true);
         }
 
         public void Clear()
@@ -49,8 +55,8 @@ namespace SimpleChessApp.Chess
             int b = 0;
 
             // black or white?
-            int homeRank = x.PieceColor == PieceColor.White ? 1 : 6;
-            int m = x.PieceColor == PieceColor.White ? 1 : -1;
+            int homeRank = x.Piece.Color == PieceColor.White ? 1 : 6;
+            int m = x.Piece.Color == PieceColor.White ? 1 : -1;
 
             // Moves
             a = x.File;
@@ -65,7 +71,7 @@ namespace SimpleChessApp.Chess
             if (x.Rank == homeRank)
             {
                 b = x.Rank + 2 * m;
-                addMove(a, b, x);            
+                addMove(a, b, x);
             }
 
             // Captures
@@ -178,7 +184,7 @@ namespace SimpleChessApp.Chess
                 var sq = ChessContext.Core.ChessBoard[a, b];
                 if (sq.IsEmpty)
                     MoveList.Add(new PossibleMoves(sq, UserAction.Move));
-                else if (sq.PieceColor != x.PieceColor)
+                else if (sq.Piece.Color != x.Piece.Color)
                     MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
             }
         }
@@ -190,7 +196,7 @@ namespace SimpleChessApp.Chess
             var sq = ChessContext.Core.ChessBoard[a, b];
             if (sq.IsEmpty)
                 MoveList.Add(new PossibleMoves(sq, UserAction.Move));
-            else if (sq.PieceColor != x.PieceColor)
+            else if (sq.Piece.Color != x.Piece.Color)
             {
                 MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
                 return true;
@@ -219,6 +225,7 @@ namespace SimpleChessApp.Chess
         Move,
         Capture,
         Invalid_Move,
-        Piece_Selected
+        Piece_Selected,
+        Check
     }
 }

@@ -7,17 +7,48 @@ namespace SimpleChessApp.Chess
     public partial class Square : UserControl
     {
         public static event EventHandler FirstClick;
-        public static event EventHandler SecondClick;        
+        public static event EventHandler SecondClick;
         static bool firstClick = true;
         public int File, Rank;
         public new string Name;
         static Square lastSquare;
+        static ChessPiece lastPiece;
+        public static HighLightMoves light = new HighLightMoves();
 
         //private bool IsSelected;
 
         public Color DefaultColor;
-        public Pieces Piece;
-        public PieceColor PieceColor;
+
+        ChessPiece piece;
+        public ChessPiece Piece
+        {
+            get
+            {
+                return piece;
+            }
+            set
+            {
+                piece = value;
+                SetPiece(piece);
+            }
+        }
+
+        public string SpecialName
+        {
+            get
+            {
+                return CurrentSquare + " " + Piece.ToString();
+            }
+        }
+
+        public string CurrentSquare
+        {
+            get
+            {
+                return "abcdefgh"[File] + (Rank + 1).ToString();
+            }
+        }
+
 
         bool isBlackSquare;
         public bool IsBlackSquare
@@ -51,27 +82,32 @@ namespace SimpleChessApp.Chess
         {
             DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
             BackColor = DefaultColor;
+            label1.ForeColor = IsBlackSquare ? Color.White : Color.Black;
         }
 
         public bool IsEmpty
         {
             get
             {
-                return PieceColor == PieceColor.None;
+                return Piece == null;
             }
         }
 
-        public void SetPiece(Pieces piece, PieceColor color)
+        public bool IsGhost;
+
+        public void SetPiece(ChessPiece p)
         {
-            Piece = piece;
-            PieceColor = color;
-            BackgroundImage = piece == Pieces.None ? null : ChessContext.Core.GetPiece(piece, color);
+            Piece = p;
+            BackgroundImage = ChessContext.Core.GetPiece(p.Name, p.Color);
         }
 
+        public void HighCheck(bool ok)
+        {
+            label1.Text = ok ? "K" : null;
+        }
 
         public void HighLight(bool ok)
         {
-            // ³¤Ç
             label1.Text = ok ? "Ç" : null;
         }
 
@@ -81,11 +117,12 @@ namespace SimpleChessApp.Chess
             {
                 var x = this;
 
-                if (ChessContext.Core.WhosPlaying == x.PieceColor || ChessContext.Core.HasNoTurns)
+                if (ChessContext.Core.WhosPlaying == x.Piece.Color || ChessContext.Core.HasNoTurns)
                 {
                     x.BackColor = Color.LightGreen;
                     lastSquare = x;
-                    ChessContext.Core.highLight.Go(x);
+                    light.Go(x);
+                    light.HighLightSquares();
                     FirstClick?.Invoke(this, e);
                     firstClick = !firstClick;
                 }
@@ -96,22 +133,22 @@ namespace SimpleChessApp.Chess
                 lastSquare.BackColor = lastSquare.DefaultColor;
 
                 if (lastSquare == x)
-                    ChessContext.Core.highLight.Clear();
+                    light.Clear();
 
                 if (!x.IsEmpty)
-                    if(x.PieceColor == lastSquare.PieceColor)
+                    if (x.Piece.Color == lastSquare.Piece.Color)
                     {
-                        ChessContext.Core.highLight.Clear();
+                        light.Clear();
                         x.BackColor = Color.LightGreen;
                         lastSquare = x;
-                        ChessContext.Core.highLight.Go(x);
+                        light.Go(x);
                         FirstClick?.Invoke(this, e);
                         return;
                     }
 
                 SecondClick?.Invoke(this, e);
                 firstClick = !firstClick;
-                ChessContext.Core.highLight.Clear();
+                light.Clear();
             }
         }
 
@@ -119,8 +156,12 @@ namespace SimpleChessApp.Chess
         {
             BackgroundImage = null;
             BackColor = DefaultColor;
-            Piece = Pieces.None;
-            PieceColor = PieceColor.None;
+            Piece = null;
+        }
+
+        internal static void ClearLightMoves(PossibleMoves[] high)
+        {
+
         }
     }
 }
