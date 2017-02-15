@@ -13,6 +13,9 @@ namespace SimpleChessApp.Chess
         public BindingList<ChessPiece> WhitePieces = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackPieces = new BindingList<ChessPiece>();
 
+        public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
+        public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
+
         int idd = 0;
         public int id
         {
@@ -70,7 +73,7 @@ namespace SimpleChessApp.Chess
         {
             for (int i = 0; i < 8; i++)
                 for (int x = 0; x < 8; x++)
-                    Squares[i, x].ClearSquare();
+                    Squares[i, x].Piece = null;
 
             WhitePieces.Clear();
             BlackPieces.Clear();
@@ -80,19 +83,18 @@ namespace SimpleChessApp.Chess
         {
             for (int i = 0; i < 8; i++)
             {
-                var p = new ChessPiece(Pieces.Pawn, PieceColor.Black);
-                this[i, 6].SetPiece(p);
-                BlackPieces.Add(p);
+                this[i, 6].Piece = new ChessPiece(this[i, 6], Pieces.Pawn, PieceColor.Black);
+                BlackPieces.Add(this[i, 6].Piece);
             }
 
-            this[0, 7].SetPiece(new ChessPiece(Pieces.Rook, PieceColor.Black));
-            this[1, 7].SetPiece(new ChessPiece(Pieces.Knight, PieceColor.Black));
-            this[3, 7].SetPiece(new ChessPiece(Pieces.Bishop, PieceColor.Black));
-            this[4, 7].SetPiece(new ChessPiece(Pieces.Queen, PieceColor.Black));
-            this[5, 7].SetPiece(new ChessPiece(Pieces.King, PieceColor.Black));
-            this[6, 7].SetPiece(new ChessPiece(Pieces.Bishop, PieceColor.Black));
-            this[2, 7].SetPiece(new ChessPiece(Pieces.Knight, PieceColor.Black));
-            this[7, 7].SetPiece(new ChessPiece(Pieces.Rook, PieceColor.Black));
+            this[0, 7].Piece = new ChessPiece(this[0, 7], Pieces.Rook, PieceColor.Black);
+            this[1, 7].Piece = new ChessPiece(this[1, 7], Pieces.Knight, PieceColor.Black);
+            this[2, 7].Piece = new ChessPiece(this[2, 7], Pieces.Bishop, PieceColor.Black);
+            this[3, 7].Piece = new ChessPiece(this[3, 7], Pieces.Queen, PieceColor.Black);
+            this[4, 7].Piece = new ChessPiece(this[4, 7], Pieces.King, PieceColor.Black);
+            this[5, 7].Piece = new ChessPiece(this[5, 7], Pieces.Bishop, PieceColor.Black);
+            this[6, 7].Piece = new ChessPiece(this[6, 7], Pieces.Knight, PieceColor.Black);
+            this[7, 7].Piece = new ChessPiece(this[7, 7], Pieces.Rook, PieceColor.Black);
 
             for (int i = 0; i < 8; i++) BlackPieces.Add(this[i, 7].Piece);
         }
@@ -101,21 +103,28 @@ namespace SimpleChessApp.Chess
         {
             for (int i = 0; i < 8; i++)
             {
-                var p = new ChessPiece(Pieces.Pawn, PieceColor.White);
-                this[i, 1].SetPiece(p);
-                WhitePieces.Add(p);
+                this[i, 1].Piece = new ChessPiece(this[i, 1], Pieces.Pawn, PieceColor.White);
+                WhitePieces.Add(this[i, 1].Piece);
             }
 
-            this[0, 0].SetPiece(new ChessPiece(Pieces.Rook, PieceColor.White));
-            this[1, 0].SetPiece(new ChessPiece(Pieces.Knight, PieceColor.White));
-            this[3, 0].SetPiece(new ChessPiece(Pieces.Bishop, PieceColor.White));
-            this[4, 0].SetPiece(new ChessPiece(Pieces.Queen, PieceColor.White));
-            this[5, 0].SetPiece(new ChessPiece(Pieces.King, PieceColor.White));
-            this[6, 0].SetPiece(new ChessPiece(Pieces.Bishop, PieceColor.White));
-            this[2, 0].SetPiece(new ChessPiece(Pieces.Knight, PieceColor.White));
-            this[7, 0].SetPiece(new ChessPiece(Pieces.Rook, PieceColor.White));
+            this[0, 0].Piece = new ChessPiece(this[0, 0], Pieces.Rook, PieceColor.White);
+            this[1, 0].Piece = new ChessPiece(this[1, 0], Pieces.Knight, PieceColor.White);
+            this[2, 0].Piece = new ChessPiece(this[2, 0], Pieces.Bishop, PieceColor.White);
+            this[3, 0].Piece = new ChessPiece(this[3, 0], Pieces.Queen, PieceColor.White);
+            this[4, 0].Piece = new ChessPiece(this[4, 0], Pieces.King, PieceColor.White);
+            this[5, 0].Piece = new ChessPiece(this[5, 0], Pieces.Bishop, PieceColor.White);
+            this[6, 0].Piece = new ChessPiece(this[6, 0], Pieces.Knight, PieceColor.White);
+            this[7, 0].Piece = new ChessPiece(this[7, 0], Pieces.Rook, PieceColor.White);
 
             for (int i = 0; i < 8; i++) WhitePieces.Add(this[i, 0].Piece);
+        }
+
+        internal void AddCaptured(ChessPiece p)
+        {
+            if (p.Color == PieceColor.Black)
+                BlackCaptured.Add(p);
+            else
+                WhiteCaptured.Add(p);
         }
 
         internal void RemovePiece(Square from)

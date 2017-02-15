@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
@@ -108,6 +109,45 @@ namespace SimpleChessApp.Chess
             addMove(x.File - 1, x.Rank, x);
             addMove(x.File, x.Rank + 1, x);
             addMove(x.File, x.Rank - 1, x);
+
+            if (x.Piece.Color == PieceColor.White)
+            {
+                if (ChessContext.Core.WhiteCanCastleKingSide)
+                    handleSmallCastling(x);
+
+                if (ChessContext.Core.WhiteCanCastleQueenSide)
+                    handleBigCastling(x);
+            }
+
+            if (x.Piece.Color == PieceColor.Black)
+            {
+                if (ChessContext.Core.BlackCanCastleKingSide)
+                    handleSmallCastling(x);
+
+                if (ChessContext.Core.BlackCanCastleQueenSide)
+                    handleBigCastling(x);
+            }
+        }
+
+        private void handleBigCastling(Square x)
+        {
+            var s1 = ChessContext.Core.ChessBoard[x.File - 1, x.Rank];
+            var s2 = ChessContext.Core.ChessBoard[x.File - 2, x.Rank];
+            var s3 = ChessContext.Core.ChessBoard[x.File - 3, x.Rank];
+            if (s1.IsEmpty && s2.IsEmpty && s3.IsEmpty)
+            {
+                addMove(x.File - 2, x.Rank, x);
+            }
+        }
+
+        private void handleSmallCastling(Square x)
+        {
+            var s1 = ChessContext.Core.ChessBoard[x.File + 1, x.Rank];
+            var s2 = ChessContext.Core.ChessBoard[x.File + 2, x.Rank];
+            if (s1.IsEmpty && s2.IsEmpty)
+            {
+                addMove(x.File + 2, x.Rank, x);
+            }
         }
 
         void handleRook(Square x)

@@ -3,7 +3,6 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using static SimpleChessApp.Chess.ChessContext;
-using static SimpleChessApp.Chess.ChessCore;
 
 namespace SimpleChessApp
 {
@@ -16,10 +15,7 @@ namespace SimpleChessApp
             Core.NextTurn += Core_NextTurn;
             Core.ActionChanged += Core_ActionChanged;
             label1.Text = "None";
-            listBox3.DataSource = Core.ChessBoard.WhitePieces;
-            listBox4.DataSource = Core.ChessBoard.BlackPieces;
-            listBox3.DisplayMember = "SpecialName";
-            listBox4.DisplayMember = "SpecialName";
+
 
             #region SinglePiece test
             knightToolStripMenuItem.Tag = Pieces.Knight;
@@ -53,9 +49,29 @@ namespace SimpleChessApp
         {
             Core.BuildBoard();
             panel1.Controls.Add(Core.ChessBoard);
-            listBox1.DataSource = Core.notes.MoveList;
-            listBox2.DataSource = Core.notes.MoveList2;
+
+            listBox1.DataSource = Core.notes.Moves;
+
+            Core.notes.Moves.ListChanged += Moves_ListChanged;
+
+            listBox3.DataSource = Core.ChessBoard.WhitePieces;
+            listBox4.DataSource = Core.ChessBoard.BlackPieces;
+            listBox2.DataSource = Core.ChessBoard.BlackCaptured;
+            listBox5.DataSource = Core.ChessBoard.WhiteCaptured;
+            listBox3.DisplayMember = "SpecialName";
+            listBox4.DisplayMember = "SpecialName";
+            listBox2.DisplayMember = "SpecialName";
+            listBox5.DisplayMember = "SpecialName";
+
             describe();
+        }
+
+        private void Moves_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == System.ComponentModel.ListChangedType.ItemAdded)
+            {
+                listBox1.SelectedIndex = listBox1.Items.Count - 1;
+            }
         }
 
         private void describe()
@@ -81,15 +97,6 @@ namespace SimpleChessApp
                 radioButton2.Checked = false;
                 radioButton1.Checked = false;
             }
-
-            listBox1.SelectedIndex = listBox1.Items.Count - 1;
-            listBox2.SelectedIndex = listBox2.Items.Count - 1;
-
-            if (Core.WhosPlaying == PieceColor.White)
-                listBox1.ClearSelected();
-
-            if (Core.WhosPlaying == PieceColor.Black)
-                listBox2.ClearSelected();
         }
 
         private void button1_Click(object sender, EventArgs e)

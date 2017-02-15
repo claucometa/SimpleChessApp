@@ -14,6 +14,7 @@ namespace SimpleChessApp.Chess
         public PieceColor WhosPlaying;
         PossibleMoves move;
         public bool HasNoTurns;
+        public int TurnId = 1;
         public List<Square> PieceWhoChecked;
         public bool WhiteCanCastleKingSide;
         public bool BlackCanCastleKingSide;
@@ -95,8 +96,22 @@ namespace SimpleChessApp.Chess
 
             if (move.Kind == UserAction.Move)
             {
-                to.SetPiece(from.Piece);
-                from.ClearSquare();
+                to.Piece = from.Piece;
+                to.Piece.Current = to;
+
+                if (to.Piece.Name == Pieces.King)
+                {
+                    if (blackCanCastle || whiteCanCastle)
+                        handleCastling();
+                    shutOffCastling();
+                }
+
+                if (to.Piece.Name == Pieces.Rook)
+                    shutOffCastling();
+
+                from.Piece = null;
+
+                addMoveNote();
             }
 
             destroyGhostPawn();
@@ -104,8 +119,11 @@ namespace SimpleChessApp.Chess
             if (move.Kind == UserAction.Capture)
             {
                 ChessBoard.RemovePiece(to);
-                to.SetPiece(from.Piece);
-                from.ClearSquare();
+                to.Piece = from.Piece;
+                to.Piece.Current = to;
+                ChessBoard.AddCaptured(from.Piece);
+                addMoveNote();
+                from.Piece = null;
             }
 
             if (to.Piece.Name == Pieces.Pawn)
@@ -161,7 +179,67 @@ namespace SimpleChessApp.Chess
             #endregion
 
             ActionChanged(to, new ActionEventArgs(move.Kind));
+
             ChangeTurn();
+        }
+
+        private bool blackCanCastle
+        {
+            get
+            {
+                return to.Piece.Color == PieceColor.Black
+                            && BlackCanCastleQueenSide || BlackCanCastleKingSide;
+            }
+        }
+
+        private bool whiteCanCastle
+        {
+            get
+            {
+                return to.Piece.Color == PieceColor.White && WhiteCanCastleKingSide || WhiteCanCastleQueenSide;
+            }
+        }
+
+        private void handleCastling()
+        {
+            var isBlack = to.Piece.Color == PieceColor.Black;
+            var m = isBlack ? 7 : 0;
+            var castledKingSide = from.File - to.File == -2;
+            var castledQueenSide = from.File - to.File == 2;
+
+            if (castledKingSide)
+            {
+                var rook = ChessBoard[7, m].Piece;
+                ChessBoard[7, m].Piece = null;
+                ChessBoard[5, m].Piece = rook;
+            }
+
+            if (castledQueenSide)
+            {
+                var rook = ChessBoard[0, m].Piece;
+                ChessBoard[0, m].Piece = null;
+                ChessBoard[3, m].Piece = rook;
+            }
+        }
+
+        private void shutOffCastling()
+        {
+            if (to.Piece.Color == PieceColor.Black)
+            {
+                if (blackCanCastle)
+                {
+                    BlackCanCastleQueenSide = false;
+                    BlackCanCastleKingSide = false;
+                }
+            }
+            else
+            {
+                if (whiteCanCastle)
+                {
+                    WhiteCanCastleQueenSide = false;
+                    WhiteCanCastleKingSide = false;
+                }
+            }
         }
 
         private void destroyGhostPawn()
@@ -169,7 +247,7 @@ namespace SimpleChessApp.Chess
             foreach (var item in GhostPawn)
             {
                 if (item.IsGhost == true)
-                    item.ClearSquare();
+                    item.Piece = null;
             }
             GhostPawn.Clear();
         }
@@ -205,13 +283,17 @@ namespace SimpleChessApp.Chess
             if (WhosPlaying == PieceColor.Black)
                 WhosPlaying = PieceColor.White;
             else
+            {
                 WhosPlaying = PieceColor.Black;
+                TurnId++;
+            }
 
             if (GhostPawn.Count == 2)
             {
-                GhostPawn[0].ClearSquare();
+                GhostPawn[0].Piece = null;
                 GhostPawn.Remove(GhostPawn[0]);
             }
+
 
             NextTurn?.Invoke(this, null);
         }
@@ -230,6 +312,7 @@ namespace SimpleChessApp.Chess
             WhiteCanCastleQueenSide = true;
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
+            TurnId = 1;
             Square.light.Clear();
             PieceWhoChecked = new List<Square>();
             destroyGhostPawn();
@@ -248,13 +331,15 @@ namespace SimpleChessApp.Chess
             return color == PieceColor.Black ? imageList1.Images[i] : imageList2.Images[i];
         }
 
-        void addMoveAnnotation(Square from, Square to)
+        void addMoveNote()
         {
-            if (ChessContext.Core.WhosPlaying == PieceColor.White)
-                notes.MoveList.Add(new Notation(from, to));
-
-            if (ChessContext.Core.WhosPlaying == PieceColor.Black)
-                notes.MoveList2.Add(new Notation(from, to));
+            if (!ChessContext.Core.HasNoTurns)
+            {
+                if (ChessContext.Core.WhosPlaying == PieceColor.White)
+                    notes.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, x = new Notation(from, to) });
+                else
+                    notes.Moves.Last().y = new Notation(from, to);
+            }
         }
 
         #region Pawn Promotion
@@ -265,8 +350,8 @@ namespace SimpleChessApp.Chess
 
         private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var square = PromotedSquare;
-            square.SetPiece(square.Piece);
+            var x = (Pieces)((Control)sender).Tag;
+            PromotedSquare.Piece = new ChessPiece(PromotedSquare, x, ChessContext.Core.WhosPlaying);
         }
         #endregion
 

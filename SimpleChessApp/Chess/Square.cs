@@ -12,7 +12,7 @@ namespace SimpleChessApp.Chess
         public int File, Rank;
         public new string Name;
         static Square lastSquare;
-        static ChessPiece lastPiece;
+        //static ChessPiece lastPiece;
         public static HighLightMoves light = new HighLightMoves();
 
         //private bool IsSelected;
@@ -29,7 +29,15 @@ namespace SimpleChessApp.Chess
             set
             {
                 piece = value;
-                SetPiece(piece);
+
+                if(piece == null)
+                {
+                    piece = null;
+                    BackgroundImage = null;
+                    return;
+                }
+
+                BackgroundImage = ChessContext.Core.GetPiece(piece.Name, piece.Color);
             }
         }
 
@@ -95,11 +103,7 @@ namespace SimpleChessApp.Chess
 
         public bool IsGhost;
 
-        public void SetPiece(ChessPiece p)
-        {
-            Piece = p;
-            BackgroundImage = ChessContext.Core.GetPiece(p.Name, p.Color);
-        }
+        
 
         public void HighCheck(bool ok)
         {
@@ -116,6 +120,8 @@ namespace SimpleChessApp.Chess
             if (firstClick)
             {
                 var x = this;
+
+                if (x.Piece == null) return;
 
                 if (ChessContext.Core.WhosPlaying == x.Piece.Color || ChessContext.Core.HasNoTurns)
                 {
@@ -150,13 +156,6 @@ namespace SimpleChessApp.Chess
                 firstClick = !firstClick;
                 light.Clear();
             }
-        }
-
-        public void ClearSquare()
-        {
-            BackgroundImage = null;
-            BackColor = DefaultColor;
-            Piece = null;
         }
 
         internal static void ClearLightMoves(PossibleMoves[] high)
