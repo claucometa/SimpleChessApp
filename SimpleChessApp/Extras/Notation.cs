@@ -7,7 +7,7 @@ namespace SimpleChessApp.Chess
         public BindingList<Turn> Moves { get; set; }
 
         public NotationManager()
-        {            
+        {
             Moves = new BindingList<Turn>();
         }
 
@@ -20,32 +20,43 @@ namespace SimpleChessApp.Chess
     public class Turn : Notify
     {
         public int Id;
-        public Notation x;
+        public Notation White;
 
-        Notation k;
-        public Notation y
+        Notation black;
+        public Notation Black
         {
-            get { return k; }
-            set { SetField(ref k, value, "y"); }
+            get { return black; }
+            set { SetField(ref black, value, "y"); }
         }
 
         public override string ToString()
         {
-            return $"{Id} {x}-{y}";
+            return $"{Id} {White}-{Black}";
         }
     }
 
     public class Notation
     {
-        public string Move { get; set; }
-
-        public Notation(Square from, Square to)
+        public string Move
         {
-            var a = from.File;
-            var b = from.Rank - 4;
-            var c = to.File;
-            var d = to.Rank;
-            Move += from.Name + " " + to.Name;
+            get
+            {
+
+                return from.CurrentSquare + " " + to.CurrentSquare;
+            }
+        }
+
+        public Square from;
+        public Square to;
+
+        public Notation(Square f, Square t)
+        {
+            var a = new Square(f.File, f.Rank);
+            var b = new Square(t.File, t.Rank);
+            a.Piece = new ChessPiece(f, t.Piece.Name, t.Piece.Color);
+            b.Piece = new ChessPiece(t, t.Piece.Name, t.Piece.Color);
+            from = a;
+            to = b;
         }
 
         public override string ToString()

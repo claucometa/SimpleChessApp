@@ -36,9 +36,17 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.listBox3 = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listBox5 = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.listBox4 = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -57,14 +65,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.listBox5 = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -76,17 +78,18 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -129,6 +132,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
@@ -142,14 +146,14 @@
             // listBox1
             // 
             this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.listBox1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(244, 3);
+            this.listBox1.Location = new System.Drawing.Point(238, 3);
             this.listBox1.MultiColumn = true;
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(181, 508);
+            this.listBox1.Size = new System.Drawing.Size(187, 255);
             this.listBox1.TabIndex = 1;
             // 
             // textBox1
@@ -165,10 +169,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.splitContainer2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(428, 514);
+            this.tabPage2.Size = new System.Drawing.Size(428, 519);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pieces";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -188,9 +192,28 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer2.Panel2.Controls.Add(this.label3);
-            this.splitContainer2.Size = new System.Drawing.Size(422, 508);
+            this.splitContainer2.Size = new System.Drawing.Size(422, 513);
             this.splitContainer2.SplitterDistance = 209;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 18);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.listBox3);
+            this.splitContainer4.Panel1.Controls.Add(this.label4);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.listBox5);
+            this.splitContainer4.Panel2.Controls.Add(this.label5);
+            this.splitContainer4.Size = new System.Drawing.Size(209, 495);
+            this.splitContainer4.SplitterDistance = 103;
+            this.splitContainer4.TabIndex = 2;
             // 
             // listBox3
             // 
@@ -200,8 +223,39 @@
             this.listBox3.Location = new System.Drawing.Point(0, 18);
             this.listBox3.Name = "listBox3";
             this.listBox3.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox3.Size = new System.Drawing.Size(103, 472);
+            this.listBox3.Size = new System.Drawing.Size(103, 477);
             this.listBox3.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 18);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Active";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listBox5
+            // 
+            this.listBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox5.FormattingEnabled = true;
+            this.listBox5.ItemHeight = 18;
+            this.listBox5.Location = new System.Drawing.Point(0, 18);
+            this.listBox5.Name = "listBox5";
+            this.listBox5.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBox5.Size = new System.Drawing.Size(102, 477);
+            this.listBox5.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 18);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Captured";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -213,6 +267,25 @@
             this.label2.Text = "White";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 18);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.listBox4);
+            this.splitContainer3.Panel1.Controls.Add(this.label6);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.listBox2);
+            this.splitContainer3.Panel2.Controls.Add(this.label7);
+            this.splitContainer3.Size = new System.Drawing.Size(209, 495);
+            this.splitContainer3.SplitterDistance = 101;
+            this.splitContainer3.TabIndex = 3;
+            // 
             // listBox4
             // 
             this.listBox4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -221,8 +294,39 @@
             this.listBox4.Location = new System.Drawing.Point(0, 18);
             this.listBox4.Name = "listBox4";
             this.listBox4.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox4.Size = new System.Drawing.Size(101, 472);
+            this.listBox4.Size = new System.Drawing.Size(101, 477);
             this.listBox4.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 18);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Active";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listBox2
+            // 
+            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 18;
+            this.listBox2.Location = new System.Drawing.Point(0, 18);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBox2.Size = new System.Drawing.Size(104, 477);
+            this.listBox2.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(104, 18);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Captured";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -388,105 +492,25 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // splitContainer3
+            // panel2
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 18);
-            this.splitContainer3.Name = "splitContainer3";
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.button6);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(238, 258);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(187, 30);
+            this.panel2.TabIndex = 2;
             // 
-            // splitContainer3.Panel1
+            // button6
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.listBox4);
-            this.splitContainer3.Panel1.Controls.Add(this.label6);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer3.Panel2.Controls.Add(this.label7);
-            this.splitContainer3.Size = new System.Drawing.Size(209, 490);
-            this.splitContainer3.SplitterDistance = 101;
-            this.splitContainer3.TabIndex = 3;
-            // 
-            // listBox2
-            // 
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 18;
-            this.listBox2.Location = new System.Drawing.Point(0, 18);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox2.Size = new System.Drawing.Size(104, 472);
-            this.listBox2.TabIndex = 2;
-            // 
-            // splitContainer4
-            // 
-            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(0, 18);
-            this.splitContainer4.Name = "splitContainer4";
-            // 
-            // splitContainer4.Panel1
-            // 
-            this.splitContainer4.Panel1.Controls.Add(this.listBox3);
-            this.splitContainer4.Panel1.Controls.Add(this.label4);
-            // 
-            // splitContainer4.Panel2
-            // 
-            this.splitContainer4.Panel2.Controls.Add(this.listBox5);
-            this.splitContainer4.Panel2.Controls.Add(this.label5);
-            this.splitContainer4.Size = new System.Drawing.Size(209, 490);
-            this.splitContainer4.SplitterDistance = 103;
-            this.splitContainer4.TabIndex = 2;
-            // 
-            // listBox5
-            // 
-            this.listBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox5.FormattingEnabled = true;
-            this.listBox5.ItemHeight = 18;
-            this.listBox5.Location = new System.Drawing.Point(0, 18);
-            this.listBox5.Name = "listBox5";
-            this.listBox5.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox5.Size = new System.Drawing.Size(102, 472);
-            this.listBox5.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 18);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Active";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 18);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Captured";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 18);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Active";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Location = new System.Drawing.Point(0, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 18);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Captured";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button6.Location = new System.Drawing.Point(3, 4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(32, 23);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "<";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -513,17 +537,18 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -565,6 +590,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button6;
     }
 }
 

@@ -11,7 +11,6 @@ namespace SimpleChessApp.Chess
 
         public BindingList<ChessPiece> WhitePieces = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackPieces = new BindingList<ChessPiece>();
-
         public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
 
@@ -104,22 +103,22 @@ namespace SimpleChessApp.Chess
             addWhite(7, 0, Pieces.Rook);
         }
 
-        void add(int v1, int v2, Pieces rook, PieceColor color)
+        void add(int v1, int v2, Pieces p, PieceColor c)
         {
             var x = this[v1, v2];
-            x.Piece = new ChessPiece(x, Pieces.Rook, color);
-            if (color == PieceColor.White) WhitePieces.Add(x.Piece);
-            if (color == PieceColor.Black) BlackPieces.Add(x.Piece);
+            x.Piece = new ChessPiece(x, p, c);
+            if (c == PieceColor.White) WhitePieces.Add(x.Piece);
+            if (c == PieceColor.Black) BlackPieces.Add(x.Piece);
         }
 
-        void addWhite(int v1, int v2, Pieces rook)
+        void addWhite(int v1, int v2, Pieces p)
         {
-            add(v1, v2, rook, PieceColor.White);
+            add(v1, v2, p, PieceColor.White);
         }
 
-        void addBlack(int v1, int v2, Pieces rook)
+        void addBlack(int v1, int v2, Pieces p)
         {
-            add(v1, v2, rook, PieceColor.Black);
+            add(v1, v2, p, PieceColor.Black);
         }
 
         internal void RemovePiece(ChessPiece x)

@@ -49,9 +49,9 @@ namespace SimpleChessApp
             Core.BuildBoard();
             panel1.Controls.Add(Core.ChessBoard);
 
-            listBox1.DataSource = Core.notes.Moves;
+            listBox1.DataSource = Core.Turns.Moves;
 
-            Core.notes.Moves.ListChanged += Moves_ListChanged;
+            Core.Turns.Moves.ListChanged += Moves_ListChanged;
 
             listBox3.DataSource = Core.ChessBoard.WhitePieces;
             listBox4.DataSource = Core.ChessBoard.BlackPieces;
@@ -121,6 +121,11 @@ namespace SimpleChessApp
         private void button5_Click(object sender, EventArgs e)
         {
             Core.ChessBoard.ClearBoard();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Core.MoveTurnBack();
         }
     }
 }

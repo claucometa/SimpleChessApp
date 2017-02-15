@@ -23,7 +23,7 @@ namespace SimpleChessApp.Chess
         Square to, from;
         public Square PromotedSquare;
         public List<Square> GhostPawn;
-        public NotationManager notes = new NotationManager();
+        public NotationManager Turns = new NotationManager();
         //HighLightMoves checkDetector = new HighLightMoves();
 
         #region Contructors
@@ -182,6 +182,13 @@ namespace SimpleChessApp.Chess
             ChangeTurn();
         }
 
+        int count;
+
+        internal void MoveTurnBack()
+        {
+        
+        }
+
         private bool blackCanCastle
         {
             get
@@ -315,7 +322,7 @@ namespace SimpleChessApp.Chess
             Square.light.Clear();
             PieceWhoChecked = new List<Square>();
             destroyGhostPawn();
-            notes.Clear();
+            Turns.Clear();
         }
 
         /// <summary>
@@ -335,9 +342,9 @@ namespace SimpleChessApp.Chess
             if (!ChessContext.Core.DisableTurns)
             {
                 if (ChessContext.Core.WhosPlaying == PieceColor.White)
-                    notes.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, x = new Notation(from, to) });
+                    Turns.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, White = new Notation(from, to) });
                 else
-                    notes.Moves.Last().y = new Notation(from, to);
+                    Turns.Moves.Last().Black = new Notation(from, to);
             }
         }
 
