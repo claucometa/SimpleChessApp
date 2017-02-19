@@ -9,6 +9,12 @@
             b = board;
         }
 
+        internal void TestSinglePiece(Pieces x)
+        {
+            b.ClearBoard();
+            b[4, 4].Piece = new ChessPiece(b[4, 4], x, PieceColor.White);
+        }
+
         internal void TestPassant()
         {
             b.ClearBoard();
@@ -20,10 +26,13 @@
             b[6, 6].Piece = new ChessPiece(b[6, 6], Pieces.Pawn, PieceColor.Black);
         }
 
-        internal void TestSinglePiece(Pieces x)
+        internal void TestPromotion()
         {
             b.ClearBoard();
-            b[4, 4].Piece = new ChessPiece(b[4, 4], x, PieceColor.White);
+            b[4, 1].Piece = new ChessPiece(b[4, 1], Pieces.Pawn, PieceColor.Black);
+            b[4, 6].Piece = new ChessPiece(b[4, 6], Pieces.Pawn, PieceColor.White);
+            b[3, 7].Piece = new ChessPiece(b[4, 6], Pieces.King, PieceColor.Black);
+            b[3, 0].Piece = new ChessPiece(b[4, 1], Pieces.King, PieceColor.White);
         }
 
         internal void TestCastling()

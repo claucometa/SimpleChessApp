@@ -41,11 +41,12 @@ namespace SimpleChessApp.Chess
 
         public void Build(Panel p)
         {
-            #region Set Board
+            #region Assemble Board
             var w = p.Width / 8;
             var h = p.Height / 8;
             int count = 1;
             bool isBlack;
+            var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
 
             for (int rank = 0; rank < 8; rank++)
             {
@@ -54,6 +55,7 @@ namespace SimpleChessApp.Chess
                 {
                     var x = new Square(file, rank);
                     x.IsBlackSquare = isBlack;
+                    x.BackgroundImageLayout = layout;
                     isBlack = (count++ % 2) == 0;
                     x.Width = w;
                     x.Height = h;

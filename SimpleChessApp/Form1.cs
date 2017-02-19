@@ -16,14 +16,58 @@ namespace SimpleChessApp
             Core.ActionChanged += Core_ActionChanged;
             label1.Text = "None";
 
-            #region SinglePiece test
-            knightToolStripMenuItem.Tag = Pieces.Knight;
-            queenToolStripMenuItem.Tag = Pieces.Queen;
-            kingToolStripMenuItem.Tag = Pieces.King;
-            bishopToolStripMenuItem.Tag = Pieces.Bishop;
-            rookToolStripMenuItem.Tag = Pieces.Rook;
-            contextMenuStrip1.ItemClicked += ContextMenuStrip1_ItemClicked;
-            #endregion  
+            #region Stupid Region
+            // This is stupid to add one event for each item but menustrip sucks :D
+            // and this is the only way
+            knightToolStripMenuItem1.Click += Item_Click;
+            queenToolStripMenuItem1.Click += Item_Click;
+            kingToolStripMenuItem1.Click += Item_Click;
+            bishopToolStripMenuItem1.Click += Item_Click;
+            rookToolStripMenuItem1.Click += Item_Click;
+            restartToolStripMenuItem.Click += Item_Click;
+            clearBoardToolStripMenuItem.Click += Item_Click;
+            promotionToolStripMenuItem.Click += Item_Click;
+            castlingToolStripMenuItem.Click += Item_Click;
+            passantToolStripMenuItem.Click += Item_Click;
+
+            passantToolStripMenuItem.Tag = DebugItems.Passant;
+            castlingToolStripMenuItem.Tag = DebugItems.Castling;
+            promotionToolStripMenuItem.Tag = DebugItems.Promotion;
+
+            restartToolStripMenuItem.Tag = GameControl.Restart;
+            clearBoardToolStripMenuItem.Tag = GameControl.ClearBoard;
+
+            knightToolStripMenuItem1.Tag = Pieces.Knight;
+            queenToolStripMenuItem1.Tag = Pieces.Queen;
+            kingToolStripMenuItem1.Tag = Pieces.King;
+            bishopToolStripMenuItem1.Tag = Pieces.Bishop;
+            rookToolStripMenuItem1.Tag = Pieces.Rook;
+            #endregion
+        }
+
+        private void Item_Click(object sender, EventArgs e)
+        {
+            var x = sender as ToolStripMenuItem;
+
+            if (x.Tag is GameControl)
+            {
+                var z = (GameControl)x.Tag;
+                if (z == GameControl.ClearBoard) Core.ChessBoard.ClearBoard();
+                if (z == GameControl.Restart) Core.RestartGame();
+            }
+
+            if (x.Tag is DebugItems)
+            {
+                var z = (DebugItems)x.Tag;
+                if (z == DebugItems.Passant) Core.TestPassant();
+                if (z == DebugItems.Castling) Core.TestCastling();
+                if (z == DebugItems.Promotion) Core.TestPromotion();
+            }
+
+            if (x.Tag is Pieces)
+            {
+                Core.TestSinglePiece((Pieces)x.Tag);
+            }
         }
 
         private void Core_NextTurn(object sender, EventArgs e)
@@ -37,11 +81,6 @@ namespace SimpleChessApp
             numericUpDown1.Value = x.File;
             numericUpDown2.Value = x.Rank;
             label1.Text = e.Action.ToString();
-        }
-
-        private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            Core.TestSinglePiece((Pieces)e.ClickedItem.Tag);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -78,7 +117,6 @@ namespace SimpleChessApp
             var turno = Core.WhosPlaying == PieceColor.Black ? "Black's turn" : "White's turn";
             if (!Core.DisableTurn) x.AppendLine($"{turno}");
             x.AppendLine($"Turn enabled: {!Core.DisableTurn}");
-            //x.AppendLine($"Passant enabled: {Core.IsPassantActive}");
             x.AppendLine($"White castling king side: {Core.WhiteCanCastleKingSide}");
             x.AppendLine($"White castling queen side: {Core.WhiteCanCastleQueenSide}");
             x.AppendLine($"Black castling king side: {Core.BlackCanCastleKingSide}");
@@ -98,34 +136,19 @@ namespace SimpleChessApp
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        #region Stupid Enums
+        enum GameControl
         {
-            Core.RestartGame();
+            Restart,
+            ClearBoard
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        enum DebugItems
         {
-            Core.TestPassant();
+            Passant,
+            Castling,
+            Promotion
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            contextMenuStrip1.Show(button3, 0, 0);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Core.TestCastling();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Core.ChessBoard.ClearBoard();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Core.MoveTurnBack();
-        }
+        #endregion
     }
 }

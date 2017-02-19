@@ -28,58 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singlePieceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bishopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rookToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.queenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.knightToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.passantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.castlingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.promotionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.listBox5 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.listBox4 = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.bishopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.queenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -88,82 +86,31 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(10, 10);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel3);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.button5);
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown2);
-            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown1);
-            this.splitContainer1.Panel2.Controls.Add(this.radioButton2);
-            this.splitContainer1.Panel2.Controls.Add(this.radioButton1);
-            this.splitContainer1.Panel2.Controls.Add(this.button4);
-            this.splitContainer1.Panel2.Controls.Add(this.button3);
-            this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Size = new System.Drawing.Size(1058, 545);
-            this.splitContainer1.SplitterDistance = 235;
-            this.splitContainer1.TabIndex = 3;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tabControl1.Location = new System.Drawing.Point(10, 34);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(235, 545);
+            this.tabControl1.Size = new System.Drawing.Size(235, 551);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(227, 514);
+            this.tabPage1.Size = new System.Drawing.Size(227, 520);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Debug Info";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 471);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 30);
-            this.panel2.TabIndex = 2;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(32, 23);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "<";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // listBox1
             // 
@@ -178,6 +125,24 @@
             this.listBox1.Size = new System.Drawing.Size(221, 255);
             this.listBox1.TabIndex = 1;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button6);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(3, 487);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(221, 30);
+            this.panel2.TabIndex = 2;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(3, 4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(32, 23);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "<";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -190,38 +155,215 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.splitContainer2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Controls.Add(this.tabControl2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(428, 519);
+            this.tabPage2.Size = new System.Drawing.Size(227, 520);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pieces";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // splitContainer2
+            // label1
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(438, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 18);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
             // 
-            // splitContainer2.Panel1
+            // panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(251, 69);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(440, 440);
+            this.panel1.TabIndex = 0;
             // 
-            // splitContainer2.Panel2
+            // numericUpDown2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Panel2.Controls.Add(this.label3);
-            this.splitContainer2.Size = new System.Drawing.Size(422, 513);
-            this.splitContainer2.SplitterDistance = 209;
-            this.splitContainer2.TabIndex = 0;
+            this.numericUpDown2.Location = new System.Drawing.Point(309, 38);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown2.TabIndex = 9;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(251, 38);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 24);
+            this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(697, 70);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(14, 13);
+            this.radioButton1.TabIndex = 5;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gameToolStripMenuItem,
+            this.testsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(10, 10);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(695, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartToolStripMenuItem,
+            this.clearBoardToolStripMenuItem});
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameToolStripMenuItem.Text = "Game";
+            // 
+            // restartToolStripMenuItem
+            // 
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.restartToolStripMenuItem.Text = "Restart";
+            // 
+            // clearBoardToolStripMenuItem
+            // 
+            this.clearBoardToolStripMenuItem.Name = "clearBoardToolStripMenuItem";
+            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.clearBoardToolStripMenuItem.Text = "ClearBoard";
+            // 
+            // testsToolStripMenuItem
+            // 
+            this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singlePieceToolStripMenuItem,
+            this.passantToolStripMenuItem,
+            this.castlingToolStripMenuItem,
+            this.promotionToolStripMenuItem});
+            this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
+            this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.testsToolStripMenuItem.Text = "Tests";
+            // 
+            // singlePieceToolStripMenuItem
+            // 
+            this.singlePieceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bishopToolStripMenuItem1,
+            this.rookToolStripMenuItem1,
+            this.queenToolStripMenuItem1,
+            this.knightToolStripMenuItem1,
+            this.kingToolStripMenuItem1});
+            this.singlePieceToolStripMenuItem.Name = "singlePieceToolStripMenuItem";
+            this.singlePieceToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.singlePieceToolStripMenuItem.Text = "Single Piece";
+            // 
+            // bishopToolStripMenuItem1
+            // 
+            this.bishopToolStripMenuItem1.Name = "bishopToolStripMenuItem1";
+            this.bishopToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.bishopToolStripMenuItem1.Text = "Bishop";
+            // 
+            // rookToolStripMenuItem1
+            // 
+            this.rookToolStripMenuItem1.Name = "rookToolStripMenuItem1";
+            this.rookToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.rookToolStripMenuItem1.Text = "Rook";
+            // 
+            // queenToolStripMenuItem1
+            // 
+            this.queenToolStripMenuItem1.Name = "queenToolStripMenuItem1";
+            this.queenToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.queenToolStripMenuItem1.Text = "Queen";
+            // 
+            // knightToolStripMenuItem1
+            // 
+            this.knightToolStripMenuItem1.Name = "knightToolStripMenuItem1";
+            this.knightToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.knightToolStripMenuItem1.Text = "Knight";
+            // 
+            // kingToolStripMenuItem1
+            // 
+            this.kingToolStripMenuItem1.Name = "kingToolStripMenuItem1";
+            this.kingToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.kingToolStripMenuItem1.Text = "King";
+            // 
+            // passantToolStripMenuItem
+            // 
+            this.passantToolStripMenuItem.Name = "passantToolStripMenuItem";
+            this.passantToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.passantToolStripMenuItem.Text = "Passant";
+            // 
+            // castlingToolStripMenuItem
+            // 
+            this.castlingToolStripMenuItem.Name = "castlingToolStripMenuItem";
+            this.castlingToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.castlingToolStripMenuItem.Text = "Castling";
+            // 
+            // promotionToolStripMenuItem
+            // 
+            this.promotionToolStripMenuItem.Name = "promotionToolStripMenuItem";
+            this.promotionToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.promotionToolStripMenuItem.Text = "Promotion";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(697, 496);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(14, 13);
+            this.radioButton2.TabIndex = 12;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(3, 3);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(221, 514);
+            this.tabControl2.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.splitContainer4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(213, 483);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "White";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.splitContainer3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(213, 483);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Black";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(0, 18);
+            this.splitContainer4.Location = new System.Drawing.Point(3, 3);
             this.splitContainer4.Name = "splitContainer4";
             // 
             // splitContainer4.Panel1
@@ -233,9 +375,9 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.listBox5);
             this.splitContainer4.Panel2.Controls.Add(this.label5);
-            this.splitContainer4.Size = new System.Drawing.Size(209, 495);
-            this.splitContainer4.SplitterDistance = 103;
-            this.splitContainer4.TabIndex = 2;
+            this.splitContainer4.Size = new System.Drawing.Size(207, 477);
+            this.splitContainer4.SplitterDistance = 98;
+            this.splitContainer4.TabIndex = 3;
             // 
             // listBox3
             // 
@@ -245,7 +387,7 @@
             this.listBox3.Location = new System.Drawing.Point(0, 18);
             this.listBox3.Name = "listBox3";
             this.listBox3.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox3.Size = new System.Drawing.Size(103, 477);
+            this.listBox3.Size = new System.Drawing.Size(98, 459);
             this.listBox3.TabIndex = 0;
             // 
             // label4
@@ -253,7 +395,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 18);
+            this.label4.Size = new System.Drawing.Size(98, 18);
             this.label4.TabIndex = 2;
             this.label4.Text = "Active";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -266,7 +408,7 @@
             this.listBox5.Location = new System.Drawing.Point(0, 18);
             this.listBox5.Name = "listBox5";
             this.listBox5.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox5.Size = new System.Drawing.Size(102, 477);
+            this.listBox5.Size = new System.Drawing.Size(105, 459);
             this.listBox5.TabIndex = 1;
             // 
             // label5
@@ -274,25 +416,15 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 18);
+            this.label5.Size = new System.Drawing.Size(105, 18);
             this.label5.TabIndex = 3;
             this.label5.Text = "Captured";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(209, 18);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "White";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 18);
+            this.splitContainer3.Location = new System.Drawing.Point(3, 3);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -304,9 +436,9 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.listBox2);
             this.splitContainer3.Panel2.Controls.Add(this.label7);
-            this.splitContainer3.Size = new System.Drawing.Size(209, 495);
-            this.splitContainer3.SplitterDistance = 101;
-            this.splitContainer3.TabIndex = 3;
+            this.splitContainer3.Size = new System.Drawing.Size(207, 477);
+            this.splitContainer3.SplitterDistance = 97;
+            this.splitContainer3.TabIndex = 4;
             // 
             // listBox4
             // 
@@ -316,7 +448,7 @@
             this.listBox4.Location = new System.Drawing.Point(0, 18);
             this.listBox4.Name = "listBox4";
             this.listBox4.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox4.Size = new System.Drawing.Size(101, 477);
+            this.listBox4.Size = new System.Drawing.Size(97, 459);
             this.listBox4.TabIndex = 1;
             // 
             // label6
@@ -324,7 +456,7 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 18);
+            this.label6.Size = new System.Drawing.Size(97, 18);
             this.label6.TabIndex = 3;
             this.label6.Text = "Active";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -337,7 +469,7 @@
             this.listBox2.Location = new System.Drawing.Point(0, 18);
             this.listBox2.Name = "listBox2";
             this.listBox2.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox2.Size = new System.Drawing.Size(104, 477);
+            this.listBox2.Size = new System.Drawing.Size(106, 459);
             this.listBox2.TabIndex = 2;
             // 
             // label7
@@ -345,208 +477,43 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Top;
             this.label7.Location = new System.Drawing.Point(0, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 18);
+            this.label7.Size = new System.Drawing.Size(106, 18);
             this.label7.TabIndex = 4;
             this.label7.Text = "Captured";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(209, 18);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Black";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(303, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 18);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "label1";
-            // 
-            // button5
-            // 
-            this.button5.ContextMenuStrip = this.contextMenuStrip1;
-            this.button5.Location = new System.Drawing.Point(3, 178);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(107, 35);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Clear Board";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bishopToolStripMenuItem,
-            this.rookToolStripMenuItem,
-            this.queenToolStripMenuItem,
-            this.knightToolStripMenuItem,
-            this.kingToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(111, 114);
-            // 
-            // bishopToolStripMenuItem
-            // 
-            this.bishopToolStripMenuItem.Name = "bishopToolStripMenuItem";
-            this.bishopToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.bishopToolStripMenuItem.Text = "Bishop";
-            // 
-            // rookToolStripMenuItem
-            // 
-            this.rookToolStripMenuItem.Name = "rookToolStripMenuItem";
-            this.rookToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.rookToolStripMenuItem.Text = "Rook";
-            // 
-            // queenToolStripMenuItem
-            // 
-            this.queenToolStripMenuItem.Name = "queenToolStripMenuItem";
-            this.queenToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.queenToolStripMenuItem.Text = "Queen";
-            // 
-            // knightToolStripMenuItem
-            // 
-            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
-            this.knightToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.knightToolStripMenuItem.Text = "Knight";
-            // 
-            // kingToolStripMenuItem
-            // 
-            this.kingToolStripMenuItem.Name = "kingToolStripMenuItem";
-            this.kingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.kingToolStripMenuItem.Text = "King";
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(116, 75);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 440);
-            this.panel1.TabIndex = 0;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(61, 219);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(49, 24);
-            this.numericUpDown2.TabIndex = 9;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 219);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(49, 24);
-            this.numericUpDown1.TabIndex = 8;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(542, 521);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(14, 13);
-            this.radioButton2.TabIndex = 6;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(542, 55);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(14, 13);
-            this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.ContextMenuStrip = this.contextMenuStrip1;
-            this.button4.Location = new System.Drawing.Point(3, 137);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(107, 35);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Test Castling";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.ContextMenuStrip = this.contextMenuStrip1;
-            this.button3.Location = new System.Drawing.Point(3, 96);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(107, 35);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Test single Piece";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 55);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 35);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Test Passant";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(21, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 35);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Restart";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Location = new System.Drawing.Point(580, 178);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 212);
-            this.panel3.TabIndex = 12;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 565);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(715, 595);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.radioButton1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleChessApp";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
@@ -555,53 +522,52 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem bishopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rookToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem queenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem knightToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem kingToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListBox listBox3;
-        private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.SplitContainer splitContainer4;
-        private System.Windows.Forms.ListBox listBox5;
-        private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem passantToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singlePieceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem castlingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem promotionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bishopToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem rookToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem queenToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem knightToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem kingToolStripMenuItem1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.ToolStripMenuItem clearBoardToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBox5;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Label label7;
     }
 }
 
