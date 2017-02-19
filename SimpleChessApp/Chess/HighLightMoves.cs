@@ -6,9 +6,14 @@ namespace SimpleChessApp.Chess
     public class HighLightMoves
     {
         public List<PossibleMoves> MoveList = new List<PossibleMoves>();
+        public bool checkMode;
 
+        public HighLightMoves(bool check = false)
+        {
+            checkMode = check;
+        }
 
-        public void Go(Square x)
+        public void FindAllMoves(Square x)
         {
             switch (x.Piece.Name)
             {
@@ -33,20 +38,20 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public void HighLightSquares()
+        public void HighLightMoveStyle()
         {
-            foreach (var item in MoveList) item.Square.HighLight(true);
+            foreach (var item in MoveList) item.Square.ShowMove(true);
         }
 
-        public void HighLightCheck()
+        public void HighLightCheckStyle()
         {
-            foreach (var item in MoveList) item.Square.HighCheck(true);
+            foreach (var item in MoveList) item.Square.ShowCheck(true);
         }
 
         public void Clear()
         {
             foreach (var item in MoveList)
-                item.Square.HighLight(false);
+                item.Square.ShowMove(false);
             MoveList.Clear();
         }
 
@@ -55,39 +60,45 @@ namespace SimpleChessApp.Chess
             Square sq;
             int a = 0;
             int b = 0;
-
+            
             // black or white?
             int homeRank = x.Piece.Color == PieceColor.White ? 1 : 6;
             int m = x.Piece.Color == PieceColor.White ? 1 : -1;
 
-            // Moves
-            a = x.File;
-            b = x.Rank + 1 * m;
-            if (b >= 0 && b < 8)
+            if (!checkMode)
             {
-                sq = ChessContext.Core.ChessBoard[a, b];
-                if (sq.IsEmpty) addMove(a, b, x);
+                // Moves
+                a = x.File;
+                b = x.Rank + 1 * m;
+                if (b >= 0 && b < 8)
+                {
+                    sq = ChessContext.Core.ChessBoard[a, b];
+                    if (sq.IsEmpty) addMove(a, b, x);
+                }
             }
 
             // Passant
             sq = ChessContext.Core.LastMove;
             if (sq != null)
             {
-                if (sq.Piece.Passant)
+                if (sq.Piece != null)
                 {
-                    if (x.Piece.Color == PieceColor.White && x.Rank == 4)
+                    if (sq.Piece.Passant)
                     {
-                        if (sq.Rank == 4 && Math.Abs(sq.File - x.File) == 1)
-                            addMove(sq.File, 5, x);
-                    }
+                        if (x.Piece.Color == PieceColor.White && x.Rank == 4)
+                        {
+                            if (sq.Rank == 4 && Math.Abs(sq.File - x.File) == 1)
+                                addMove(sq.File, 5, x);
+                        }
 
-                    if (x.Piece.Color == PieceColor.Black && x.Rank == 3)
-                    {
-                        if (sq.Rank == 3 && Math.Abs(sq.File - x.File) == 1)
-                            addMove(sq.File, 2, x);
-                    }
+                        if (x.Piece.Color == PieceColor.Black && x.Rank == 3)
+                        {
+                            if (sq.Rank == 3 && Math.Abs(sq.File - x.File) == 1)
+                                addMove(sq.File, 2, x);
+                        }
 
-                    sq.Piece.Passant = false;
+                        sq.Piece.Passant = false;
+                    }
                 }
             }
 

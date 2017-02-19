@@ -6,14 +6,10 @@ namespace SimpleChessApp.Chess
 {
     public partial class Square : UserControl
     {
-        public static event EventHandler FirstClick;
-        public static event EventHandler SecondClick;
-        static bool firstClick = true;
         public int File, Rank;
         public new string Name;
-        static Square lastSquare;
-        //static ChessPiece lastPiece;
-        public static HighLightMoves light = new HighLightMoves();
+        public static event EventHandler FirstClick;
+        public static event EventHandler SecondClick;
 
         //private bool IsSelected;
 
@@ -30,14 +26,14 @@ namespace SimpleChessApp.Chess
             {
                 piece = value;
 
-                if(piece == null)
+                if (piece == null)
                 {
                     piece = null;
                     BackgroundImage = null;
                     return;
                 }
 
-                BackgroundImage = ChessContext.Core.GetPiece(piece.Name, piece.Color);
+                BackgroundImage = u.GetPiece(piece.Name, piece.Color);
             }
         }
 
@@ -57,7 +53,6 @@ namespace SimpleChessApp.Chess
             }
         }
 
-
         bool isBlackSquare;
         public bool IsBlackSquare
         {
@@ -72,11 +67,77 @@ namespace SimpleChessApp.Chess
             }
         } // Used just and only to draw the board
 
+        ChessCore u
+        {
+            get
+            {
+                return ChessContext.Core;
+            }
+        }
+
         public Square()
         {
             InitializeComponent();
-            BackgroundImageLayout = ImageLayout.Center;
-            label1.MouseUp += Square_Click;
+            MouseClick += Square_MouseClick;
+            panel1.MouseClick += Square_MouseClick;
+        }
+
+        private void Square_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (u.firstClick)
+                {
+                    var x = this;
+
+                    if (x.Piece == null) return;
+
+                    if (u.WhosPlaying == x.Piece.Color || u.DisableTurn)
+                    {
+                        x.BackColor = Color.LightGreen;
+                        u.lastSquare = x;
+                        u.light.FindAllMoves(x);
+                        u.light.HighLightMoveStyle();
+                        FirstClick?.Invoke(this, e);
+                        u.firstClick = !u.firstClick;
+                    }
+                }
+                else
+                {
+                    var x = this;
+
+                    // If click again on same piece do nothing
+                    if (u.lastSquare == x) return;
+
+                    u.lastSquare.BackColor = u.lastSquare.DefaultColor;
+
+                    if (!x.IsEmpty)
+
+                        if (x.Piece != null)
+                        {
+                            if (x.Piece.Color == u.lastSquare.Piece.Color)
+                            {
+                                u.light.Clear();
+                                x.BackColor = Color.LightGreen;
+
+                                u.lastSquare = x;
+                                u.light.FindAllMoves(x);
+                                u.light.HighLightMoveStyle();
+                                FirstClick?.Invoke(this, e);
+                                return;
+                            }
+                        }
+
+                    SecondClick?.Invoke(this, e);
+                    u.firstClick = !u.firstClick;
+                    u.light.Clear();
+                }
+            }
+
+            if (e.Button == MouseButtons.Right)
+            {
+                MessageBox.Show($"{Piece?.Name}\r\n{File}-{Rank}\r\n{Name}");
+            }
         }
 
         public Square(int file, int rank) : this()
@@ -90,7 +151,6 @@ namespace SimpleChessApp.Chess
         {
             DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
             BackColor = DefaultColor;
-            label1.ForeColor = IsBlackSquare ? Color.White : Color.Black;
         }
 
         public bool IsEmpty
@@ -101,62 +161,14 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public void HighCheck(bool ok)
+        public void ShowCheck(bool ok)
         {
-            label1.Text = ok ? "K" : null;
+            panel1.BackgroundImage = ok ? Properties.Resources.triangle : null;
         }
 
-        public void HighLight(bool ok)
+        public void ShowMove(bool ok)
         {
-            label1.Text = ok ? "Ç" : null;
-        }
-
-        private void Square_Click(object sender, EventArgs e)
-        {
-            if (firstClick)
-            {
-                var x = this;
-
-                if (x.Piece == null) return;
-
-                if (ChessContext.Core.WhosPlaying == x.Piece.Color || ChessContext.Core.DisableTurns)
-                {
-                    x.BackColor = Color.LightGreen;
-                    lastSquare = x;
-                    light.Go(x);
-                    light.HighLightSquares();
-                    FirstClick?.Invoke(this, e);
-                    firstClick = !firstClick;
-                }
-            }
-            else
-            {
-                var x = this;
-                lastSquare.BackColor = lastSquare.DefaultColor;
-
-                if (lastSquare == x)
-                    light.Clear();
-
-                if (!x.IsEmpty)
-                    if (x.Piece.Color == lastSquare.Piece.Color)
-                    {
-                        light.Clear();
-                        x.BackColor = Color.LightGreen;
-                        lastSquare = x;
-                        light.Go(x);
-                        FirstClick?.Invoke(this, e);
-                        return;
-                    }
-
-                SecondClick?.Invoke(this, e);
-                firstClick = !firstClick;
-                light.Clear();
-            }
-        }
-
-        internal static void ClearLightMoves(PossibleMoves[] high)
-        {
-
+            panel1.BackgroundImage = ok ? Properties.Resources.circle : null;
         }
     }
 }

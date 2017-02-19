@@ -46,8 +46,7 @@ namespace SimpleChessApp
 
         protected override void OnLoad(EventArgs e)
         {
-            Core.BuildBoard();
-            panel1.Controls.Add(Core.ChessBoard);
+            Core.BuildBoard(panel1);
 
             listBox1.DataSource = Core.Turns.Moves;
 
@@ -77,16 +76,17 @@ namespace SimpleChessApp
         {
             var x = new StringBuilder();
             var turno = Core.WhosPlaying == PieceColor.Black ? "Black's turn" : "White's turn";
-            if (!Core.DisableTurns) x.AppendLine($"{turno}");
-            x.AppendLine($"Turn enabled: {!Core.DisableTurns}");
+            if (!Core.DisableTurn) x.AppendLine($"{turno}");
+            x.AppendLine($"Turn enabled: {!Core.DisableTurn}");
             //x.AppendLine($"Passant enabled: {Core.IsPassantActive}");
             x.AppendLine($"White castling king side: {Core.WhiteCanCastleKingSide}");
             x.AppendLine($"White castling queen side: {Core.WhiteCanCastleQueenSide}");
             x.AppendLine($"Black castling king side: {Core.BlackCanCastleKingSide}");
             x.AppendLine($"Black castling queen side: {Core.BlackCanCastleQueenSide}");
+            x.AppendLine($"Check Squares:  {Core.checks.MoveList.Count}");
             textBox1.Text = x.ToString();
 
-            if (!Core.DisableTurns)
+            if (!Core.DisableTurn)
             {
                 radioButton1.Checked = Core.WhosPlaying == PieceColor.Black;
                 radioButton2.Checked = Core.WhosPlaying == PieceColor.White;

@@ -3,28 +3,40 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
     public partial class ChessCore : Component
     {
+        // Turn handling
         public event EventHandler NextTurn;
         public event EventHandler<ActionEventArgs> ActionChanged;
         public PieceColor WhosPlaying;
-        PossibleMoves move;
-        public bool DisableTurns;
+        public bool DisableTurn;
         public int TurnId = 1;
-        public List<Square> PieceWhoChecked;
+
+        // Castling handling
         public bool WhiteCanCastleKingSide;
         public bool BlackCanCastleKingSide;
         public bool WhiteCanCastleQueenSide;
         public bool BlackCanCastleQueenSide;
+
+        // Check handling
+        public Square lastCheckPiece;
+        public Square ghostCheckPiece;
+        public HighLightMoves checks = new HighLightMoves(true);
+
+        // Move handling
+        PossibleMoves move;
         public Square LastMove;
-        Square to, from;
         public Square PromotedSquare;
         public NotationManager Turns = new NotationManager();
-        //HighLightMoves checkDetector = new HighLightMoves();
+        Square to, from;
+
+        // Used by Square class
+        public bool firstClick = true;
+        public Square lastSquare;
+        public HighLightMoves light = new HighLightMoves();
 
         #region Contructors
         public ChessCore()
@@ -52,43 +64,17 @@ namespace SimpleChessApp.Chess
         {
             to = (Square)sender;
 
-            #region CheckDetection
-            //if (PieceWhoChecked.Count > 0)
-            //{
-            //    var checkDetector = new HighLightMoves();
-            //    var sq = ChessBoard[to.File, to.Rank];
-            //    var old = sq.PieceColor;
-            //    sq.PieceColor = PieceWhoChecked[0].PieceColor;
-            //    // Debug Purposes
-            //    sq.BackColor = Color.Purple;
-            //    foreach (var item in PieceWhoChecked)
-            //    {
-            //        checkDetector.Go(item);
-            //    }
-
-            //    sq.PieceColor = old;
-            //    var x = checkDetector.MoveList.FirstOrDefault(t => t.Square.Piece == Pieces.King);
-            //    if (x != null)
-            //    {
-            //        move.Kind = UserAction.Check;
-            //        return;
-            //    }
-            //}
-            #endregion
-
-            //checkDetector = new HighLightMoves();
-
-            if (Square.light.MoveList.Count == 0)
+            if (light.MoveList.Count == 0)
             {
-                ActionChanged(to, new ActionEventArgs(UserAction.None));
+                ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.None));
                 return;
             }
 
-            move = Square.light.MoveList.FirstOrDefault(t => t.Square == to);
+            move = light.MoveList.FirstOrDefault(t => t.Square == to);
 
             if (move == null)
             {
-                ActionChanged(to, new ActionEventArgs(UserAction.Invalid_Move));
+                ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.Invalid_Move));
                 return;
             }
 
@@ -133,50 +119,101 @@ namespace SimpleChessApp.Chess
                 to.Piece.Current = to;
             }
 
-            #region Check Detection
-            //if (to.PieceColor == PieceColor.Black)
-            //{
-            //    PieceWhoChecked = new List<Square>();
-            //    var z = ChessBoard.WhitePieces.Where(t => t.PieceColor == PieceColor.White);
-            //    foreach (var item in z)
-            //    {
-            //        // Check detector
-            //        if (item.Piece != Pieces.King)
-            //        {
-            //            var checkDetector = new HighLightMoves();
-            //            checkDetector.Go(item);
-            //            // Debug Purposes
-            //            // checkDetector.HighLightCheck();
-            //            var x = checkDetector.MoveList.FirstOrDefault(t => t.Square.Piece == Pieces.King);
-            //            if (x != null)
-            //            {
-            //                PieceWhoChecked.Add(item);
-            //                move.Kind = UserAction.Check;
-            //            }
-            //        }
-            //    }
+            #region Detect Check
+            if (to.Piece.Name != Pieces.King)
+            {
+                if (lastCheckPiece == null)
+                {
+                    checks.Clear();
+                    checks.FindAllMoves(to);
+                    checks.HighLightCheckStyle();
+                    foreach (var item in checks.MoveList)
+                    {
+                        if (ChessBoard[item.Square].Piece == null) continue;
+                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        {
+                            move.Kind = UserAction.Check;
+                            ghostCheckPiece = lastCheckPiece = to;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    checks.Clear();
+                    checks.FindAllMoves(lastCheckPiece);
+                    checks.HighLightCheckStyle();
+                    lastCheckPiece = null;
 
-            //    if (PieceWhoChecked.Count > 0)
-            //        if (PieceWhoChecked.First().PieceColor != WhosPlaying)
-            //            MessageBox.Show("oops");
-            //}
+                    foreach (var item in checks.MoveList)
+                    {
+                        if (ChessBoard[item.Square].Piece == null) continue;
+                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        {
+                            move.Kind = UserAction.Check;
+
+                            // Move back
+                            from.Piece = to.Piece;
+                            to.Piece = null;
+
+                            checks.Clear();
+                            checks.FindAllMoves(ghostCheckPiece);
+                            checks.HighLightCheckStyle();
+                            lastCheckPiece = null;
+                            foreach (var item2 in checks.MoveList)
+                            {
+                                if (ChessBoard[item2.Square].Piece == null) continue;
+                                if (ChessBoard[item2.Square].Piece.Name == Pieces.King)
+                                {
+                                    move.Kind = UserAction.Check;
+                                    lastCheckPiece = ghostCheckPiece;
+                                    return;
+                                }
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (lastCheckPiece != null)
+                {
+                    // Move King
+                    LastMove = to;
+                    from.Piece = null;
+
+                    checks.Clear();
+                    checks.FindAllMoves(lastCheckPiece);
+                    checks.HighLightCheckStyle();
+
+                    foreach (var item in checks.MoveList)
+                    {
+                        if (ChessBoard[item.Square].Piece == null) continue;
+                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        {
+                            move.Kind = UserAction.Check;
+
+                            // Move back
+                            from.Piece = to.Piece;
+                            to.Piece = null;
+
+                            return;
+                        }
+                    }
+
+                    lastCheckPiece = null;
+                }
+            }
             #endregion
 
-            if (move.Kind == UserAction.Capture || move.Kind == UserAction.Move)
-            {
-                addMoveNote();
-                LastMove = to;
-                from.Piece = null;
-            }
-
-            ActionChanged(to, new ActionEventArgs(move.Kind));
-
+            ActionChanged?.Invoke(to, new ActionEventArgs(move.Kind));
             ChangeTurn();
         }
 
         internal void MoveTurnBack()
         {
-
+            throw new NotImplementedException();
         }
 
         private bool blackCanCastle
@@ -241,12 +278,7 @@ namespace SimpleChessApp.Chess
         private void Square_FirstClick(object sender, EventArgs e)
         {
             from = (Square)sender;
-            callAction(UserAction.Piece_Selected, from);
-        }
-
-        private void callAction(UserAction action, Square from)
-        {
-            ActionChanged(from, new ActionEventArgs(action));
+            ActionChanged?.Invoke(from, new ActionEventArgs(UserAction.Piece_Selected));
         }
 
         public ChessCore(IContainer container)
@@ -259,13 +291,19 @@ namespace SimpleChessApp.Chess
         /// <summary>
         /// Call it first to build the board, then add the ChessBoard to a panel
         /// </summary>
-        public void BuildBoard()
+        public void BuildBoard(Panel p)
         {
-            ChessBoard.Build();
+            ChessBoard.Build(p);
+            p.Controls.Add(ChessBoard);
         }
 
         public void ChangeTurn()
         {
+            addMoveNote();
+
+            LastMove = to;
+            from.Piece = null;
+
             if (WhosPlaying == PieceColor.Black)
                 WhosPlaying = PieceColor.White;
             else
@@ -285,15 +323,16 @@ namespace SimpleChessApp.Chess
 
         void resetFlags(bool turn = false)
         {
-            DisableTurns = turn;
+            DisableTurn = turn;
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
             WhiteCanCastleQueenSide = true;
             BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
             TurnId = 1;
-            Square.light.Clear();
-            PieceWhoChecked = new List<Square>();
+            lastCheckPiece = null;
+            light.Clear(); // highlighted moves
+            checks.Clear(); // highlighted checks
             Turns.Clear();
         }
 
@@ -311,7 +350,7 @@ namespace SimpleChessApp.Chess
 
         void addMoveNote()
         {
-            if (!ChessContext.Core.DisableTurns)
+            if (!ChessContext.Core.DisableTurn)
             {
                 if (ChessContext.Core.WhosPlaying == PieceColor.White)
                     Turns.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, White = new Notation(from, to) });

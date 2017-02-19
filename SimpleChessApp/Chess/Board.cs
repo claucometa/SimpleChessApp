@@ -31,11 +31,19 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public void Build()
+        public Square this[Square x]
+        {
+            get
+            {
+                return Squares[x.File, x.Rank];
+            }
+        }
+
+        public void Build(Panel p)
         {
             #region Set Board
-            var w = Width / 8;
-            var h = Height / 8;
+            var w = p.Width / 8;
+            var h = p.Height / 8;
             int count = 1;
             bool isBlack;
 
