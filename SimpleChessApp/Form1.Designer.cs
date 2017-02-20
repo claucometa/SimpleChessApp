@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -48,7 +49,10 @@
             this.castlingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.promotionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -91,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(692, 49);
+            this.label2.Location = new System.Drawing.Point(797, 219);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 18);
             this.label2.TabIndex = 14;
@@ -100,9 +104,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(500, 70);
+            this.panel2.Location = new System.Drawing.Point(682, 240);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(440, 440);
+            this.panel2.Size = new System.Drawing.Size(258, 270);
             this.panel2.TabIndex = 13;
             // 
             // gameToolStripMenuItem
@@ -117,13 +121,13 @@
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.restartToolStripMenuItem.Text = "Restart";
             // 
             // clearBoardToolStripMenuItem
             // 
             this.clearBoardToolStripMenuItem.Name = "clearBoardToolStripMenuItem";
-            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.clearBoardToolStripMenuItem.Text = "ClearBoard";
             // 
             // testsToolStripMenuItem
@@ -146,7 +150,7 @@
             this.queenToolStripMenuItem1,
             this.rookToolStripMenuItem1});
             this.singlePieceToolStripMenuItem.Name = "singlePieceToolStripMenuItem";
-            this.singlePieceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.singlePieceToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.singlePieceToolStripMenuItem.Text = "Single Piece";
             // 
             // knightToolStripMenuItem1
@@ -182,19 +186,19 @@
             // passantToolStripMenuItem
             // 
             this.passantToolStripMenuItem.Name = "passantToolStripMenuItem";
-            this.passantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.passantToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.passantToolStripMenuItem.Text = "Passant";
             // 
             // castlingToolStripMenuItem
             // 
             this.castlingToolStripMenuItem.Name = "castlingToolStripMenuItem";
-            this.castlingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.castlingToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.castlingToolStripMenuItem.Text = "Castling";
             // 
             // promotionToolStripMenuItem
             // 
             this.promotionToolStripMenuItem.Name = "promotionToolStripMenuItem";
-            this.promotionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.promotionToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.promotionToolStripMenuItem.Text = "Promotion";
             // 
             // menuStrip1
@@ -208,11 +212,22 @@
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // listBox1
+            // 
+            this.listBox1.DataSource = this.bindingSource1;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 18;
+            this.listBox1.Location = new System.Drawing.Point(515, 49);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(129, 382);
+            this.listBox1.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 536);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.radioButton2);
@@ -228,6 +243,7 @@
             this.Text = "SimpleChessApp";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,6 +270,8 @@
         private System.Windows.Forms.ToolStripMenuItem castlingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem promotionToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
 

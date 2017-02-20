@@ -46,6 +46,8 @@ namespace SimpleChessApp
         private void Square_Action(object sender, EventArgs e)
         {
             label1.Text = sender.ToString();
+            bindingSource1.DataSource = Core[0].ChessBoard.WhitePieces.Values;
+            listBox1.DisplayMember = "SpecialName";
         }
 
         private void Item_Click(object sender, EventArgs e)
@@ -75,18 +77,6 @@ namespace SimpleChessApp
             if (x.Tag is Pieces) w.TestSinglePiece((Pieces)x.Tag);
         }
 
-        private void Core_ActionChanged(object sender, ActionEventArgs e)
-        {
-            var x = (Square)sender;
-            label1.Text = e.Action.ToString();
-        }
-
-        private void Core_ActionChanged1(object sender, ActionEventArgs e)
-        {
-            var x = (Square)sender;
-            label2.Text = e.Action.ToString();
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             var ChessBoard1 = new Board(panel1, false, false, true);
@@ -94,9 +84,6 @@ namespace SimpleChessApp
 
             Core.Add(new ChessCore(ChessBoard1));
             Core.Add(new ChessCore(ChessBoard2));
-
-            Core[0].ActionChanged += Core_ActionChanged;
-            Core[1].ActionChanged += Core_ActionChanged1;
         }
 
         #region Stupid Enums

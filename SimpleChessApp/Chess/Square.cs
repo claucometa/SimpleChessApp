@@ -111,6 +111,18 @@ namespace SimpleChessApp.Chess
                             return;
                         }
                     }
+                    else if (Board.From.Piece == null)
+                    {
+                        if (to.Piece != null)
+                        {
+                            // hideMoves(Board.From);
+                            to.BackColor = Color.LightGreen;
+                            Board.From = to;
+                            action("Seleção 2");
+                            if (Board.ShowSelectedPieceMoves)
+                                Board.ShowPieceMoves(to);
+                        }
+                    }
                     else if (to.Piece.Id == Board.From.Piece.Id)
                     {
                         if (Board.From != null)
@@ -122,12 +134,21 @@ namespace SimpleChessApp.Chess
                     }
                     else if (to.Piece.Color != Board.From.Piece.Color)
                     {
+                        var msg = "Pedra oposta";
                         hideMoves(Board.From);
-                        to.BackColor = Color.LightGreen;
+
+                        var moves = Board.lights.MoveList[Board.From.Piece.Id];
+                        if (moves.Exists(t => t.Square == to))
+                        {
+                            msg = "Capturar";
+                            to.Capturar(Board.From);
+                        }
+
                         Board.From = to;
-                        action("Pedra oposta");
-                        if (Board.ShowSelectedPieceMoves)
-                            Board.ShowPieceMoves(to);
+                        to.BackColor = Color.LightGreen;
+                        //if (Board.ShowSelectedPieceMoves)
+                        //    Board.ShowPieceMoves(to);
+                        action(msg);
 
                     }
                     else if (to.Piece != Board.From.Piece && to.piece.Color != Board.From.Piece.Color)
@@ -160,7 +181,10 @@ namespace SimpleChessApp.Chess
                         if (Board.ShowSelectedPieceMoves)
                             Board.ShowPieceMoves(to);
                     }
+
                 }
+
+
             }
         }
 
@@ -174,18 +198,33 @@ namespace SimpleChessApp.Chess
             }
         }
 
+        private void Capturar(Square from)
+        {
+            if (Piece.Color == PieceColor.White)
+                Board.WhitePieces.Remove(Piece.Id);
+            else
+                Board.BlackPieces.Remove(Piece.Id);
+
+            if (from.Piece.Color == PieceColor.White)
+                Board.WhitePieces[from.Piece.Id].Current = this;
+            else
+                Board.BlackPieces[from.Piece.Id].Current = this;
+
+            Piece = from.Piece;
+            from.Piece = null;
+
+            Board.lights.FindAllMoves();
+        }
+
         private void MoveTo(Square from)
         {
             Piece = from.Piece;
-
-            //Board[this].Piece = Piece;
 
             if (Piece.Color == PieceColor.White)
                 Board.WhitePieces[Piece.Id].Current = this;
             else
                 Board.BlackPieces[Piece.Id].Current = this;
 
-            //Board[from].Piece = null;
             from.Piece = null;
 
             Board.lights.FindAllMoves();

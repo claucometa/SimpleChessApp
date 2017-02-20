@@ -104,6 +104,8 @@ namespace SimpleChessApp.Chess
 
         internal void ClearBoard()
         {
+            idd = 0;
+
             for (int i = 0; i < 8; i++)
                 for (int x = 0; x < 8; x++)
                     Squares[i, x].Piece = null;

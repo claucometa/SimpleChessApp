@@ -17,6 +17,8 @@ namespace SimpleChessApp.Chess
 
         public void FindAllMoves()
         {
+            Clear();
+
             foreach (var item in board.WhitePieces.Values)
                 FindMoveFrom(item.Current);
 
@@ -72,8 +74,11 @@ namespace SimpleChessApp.Chess
         public void Clear()
         {
             var moves = MoveList.Values.SelectMany(t => t);
-            foreach (var item in moves) item.Square.HideMove();
-            MoveList.Clear();
+            foreach (var item in moves)
+                item.Square.HideMove();
+
+            foreach (var item in MoveList.Values)
+                item.Clear();
         }
 
         void handlePawn(Square x)
