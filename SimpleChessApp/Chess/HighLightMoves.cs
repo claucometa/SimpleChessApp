@@ -57,9 +57,9 @@ namespace SimpleChessApp.Chess
             foreach (var item in moves)
             {
                 if (item.Piece.Color == PieceColor.White)
-                    item.Square.ShowMove(true, board.Flipped);
+                    item.Square.ShowMove();
                 if (item.Piece.Color == PieceColor.Black)
-                    item.Square.ShowCheck(true, board.Flipped);
+                    item.Square.ShowCheck();
             }
         }
 
@@ -72,7 +72,7 @@ namespace SimpleChessApp.Chess
         public void Clear()
         {
             var moves = MoveList.Values.SelectMany(t => t);
-            foreach (var item in moves) item.Square.ShowMove(false);
+            foreach (var item in moves) item.Square.HideMove();
             MoveList.Clear();
         }
 

@@ -76,11 +76,6 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        internal void ShowMove(object flipped)
-        {
-            throw new NotImplementedException();
-        }
-
         public Square()
         {
             InitializeComponent();
@@ -127,7 +122,7 @@ namespace SimpleChessApp.Chess
                     {
                         if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
                         x.BackColor = Color.LightGreen;
-                        Board.LastSquare = x;                 
+                        Board.LastSquare = x;
                     }
                 }
             }
@@ -155,17 +150,22 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public void ShowCheck(bool ok, bool flip)
+        public void ShowCheck()
         {
-            var img = flip ? Properties.Resources.Black : Properties.Resources.White;
-            
-            panel1.BackgroundImage = ok ? img : null;
+            var img = Board.Flipped ? Properties.Resources.Black : Properties.Resources.White;
+
+            panel1.BackgroundImage = img;
         }
 
-        public void ShowMove(bool ok, bool flip)
+        public void ShowMove()
         {
-            var img = flip ? Properties.Resources.White : Properties.Resources.Black;
-            panel1.BackgroundImage = ok ? img : null;
+            var img = Board.Flipped ? Properties.Resources.White : Properties.Resources.Black;
+            panel1.BackgroundImage = img;
+        }
+
+        public void HideMove()
+        {
+            panel1.BackgroundImage = null;
         }
     }
 }

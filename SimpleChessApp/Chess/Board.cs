@@ -70,6 +70,7 @@ namespace SimpleChessApp.Chess
             var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
             var flip = flipped ? 0 : 7;
 
+            //Controls.Clear();
             for (int rank = 0; rank < 8; rank++)
             {
                 isBlack = (count++ % 2) == 0;
