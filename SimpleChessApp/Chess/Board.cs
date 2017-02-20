@@ -9,13 +9,14 @@ namespace SimpleChessApp.Chess
     public class Board : Panel
     {
         public Square[,] Squares = new Square[8, 8];
-        public BindingList<ChessPiece> WhitePieces = new BindingList<ChessPiece>();
-        public BindingList<ChessPiece> BlackPieces = new BindingList<ChessPiece>();
+        public Dictionary<int, ChessPiece> WhitePieces = new Dictionary<int, ChessPiece>();
+        public Dictionary<int, ChessPiece> BlackPieces = new Dictionary<int, ChessPiece>();
         public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
-        public Square LastSquare;
-        public HighLightMoves lights;
+        public Square From;
+        public MoveFinder lights;
         public bool ShowAllMoves;
+        public bool ShowSelectedPieceMoves;
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -26,12 +27,13 @@ namespace SimpleChessApp.Chess
         int idd = 0;
         public bool Flipped;
 
-        public Board(Panel p, bool flipped = false, bool allMoves = false)
+        public Board(Panel p, bool flipped = false, bool allMoves = false, bool selected = false)
         {
+            ShowSelectedPieceMoves = selected;
             ShowAllMoves = allMoves;
             Flipped = flipped;
             Dock = DockStyle.Fill;
-            lights = new HighLightMoves(this);
+            lights = new MoveFinder(this);
             build(p, flipped);
             p.Controls.Add(this);
         }
@@ -106,10 +108,10 @@ namespace SimpleChessApp.Chess
                 for (int x = 0; x < 8; x++)
                     Squares[i, x].Piece = null;
 
-            LastSquare = null;
+            From = null;
 
             if (lights == null)
-                lights = new HighLightMoves(this);
+                lights = new MoveFinder(this);
 
             lights.Clear();
 
@@ -149,14 +151,26 @@ namespace SimpleChessApp.Chess
             x.Piece = new ChessPiece(x, p, c);
             if (c == PieceColor.White)
             {
-                WhitePieces.Add(x.Piece);
+                WhitePieces.Add(x.Piece.Id, x.Piece);
                 lights.MoveList.Add(x.Piece.Id, new List<PossibleMoves>());
             }
             if (c == PieceColor.Black)
             {
-                BlackPieces.Add(x.Piece);
+                BlackPieces.Add(x.Piece.Id, x.Piece);
                 lights.MoveList.Add(x.Piece.Id, new List<PossibleMoves>());
             }
+        }
+
+        internal void ShowPieceMoves(Square to)
+        {
+            foreach (var item in lights.MoveList[to.Piece.Id])
+                item.Square.ShowMove();
+        }
+
+        internal void HidePieceMoves(Square to)
+        {
+            foreach (var item in lights.MoveList[to.Piece.Id])
+                item.Square.HideMove();
         }
 
         public void addWhite(int v1, int v2, Pieces p)
@@ -174,12 +188,12 @@ namespace SimpleChessApp.Chess
             if (x.Color == PieceColor.Black)
             {
                 BlackCaptured.Add(x);
-                BlackPieces.Remove(x);
+                BlackPieces.Remove(x.Id);
             }
 
             if (x.Color == PieceColor.White)
             {
-                WhitePieces.Remove(x);
+                WhitePieces.Remove(x.Id);
                 WhiteCaptured.Add(x);
             }
         }

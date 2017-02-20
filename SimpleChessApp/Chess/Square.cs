@@ -8,8 +8,8 @@ namespace SimpleChessApp.Chess
     {
         public int File, Rank;
         public new string Name;
-        //public static event EventHandler FirstClick;
-        //public static event EventHandler SecondClick;
+        public static event EventHandler Action;
+
         Board Board;
 
         //private bool IsSelected;
@@ -87,45 +87,113 @@ namespace SimpleChessApp.Chess
         {
             if (e.Button == MouseButtons.Left)
             {
-                var x = this;
+                var to = this;
 
-                if (Board.LastSquare != null)
+                if (Board.From != null)
                 {
-                    if (x.Piece == null)
+                    if (to.Piece == null)
                     {
-                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
+                        // Move
+                        if (Board.From != null)
+                        {
+                            var moves = Board.lights.MoveList[Board.From.Piece.Id];
+                            var msg = $"Movimento inválido: {moves.Count}";
+                            Board.From.BackColor = Board.From.DefaultColor;
+                            if (moves.Exists(t => t.Square == to))
+                            {
+                                msg = "Movimento permitido!";
+                                to.MoveTo(Board.From);
+                                //Board.lights.FindAllMoves();
+                                return;
+                            }
+                            Board.From = null;
+                            action(msg);
+                            return;
+                        }
                     }
-                    else if (x.Piece.Color == Board.LastSquare.Piece.Color)
+                    else if (to.Piece.Id == Board.From.Piece.Id)
                     {
-                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
-                        x.BackColor = Color.LightGreen;
-                        Board.LastSquare = x;
+                        if (Board.From != null)
+                        {
+                            Board.From.BackColor = Board.From.DefaultColor;
+                            to.BackColor = Color.LightGreen;
+                            action("Mesma peça");
+                        }
                     }
-                    else if (x.Piece.Color != Board.LastSquare.Piece.Color)
+                    else if (to.Piece.Color != Board.From.Piece.Color)
                     {
-                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
-                        x.BackColor = Color.LightGreen;
-                        Board.LastSquare = x;
+                        hideMoves(Board.From);
+                        to.BackColor = Color.LightGreen;
+                        Board.From = to;
+                        action("Pedra oposta");
+                        if (Board.ShowSelectedPieceMoves)
+                            Board.ShowPieceMoves(to);
+
                     }
-                    else if (x.Piece != Board.LastSquare.Piece)
+                    else if (to.Piece != Board.From.Piece && to.piece.Color != Board.From.Piece.Color)
                     {
                         //x.BackColor = DefaultColor;
-                        Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
-                        Board.LastSquare = null;
+                        Board.From.BackColor = Board.From.DefaultColor;
+                        Board.From = null;
+                        action("Captura");
                         return;
+                    }
+                    else if (Board.From.Piece.Color == to.Piece.Color)
+                    {
+                        hideMoves(Board.From);
+                        to.BackColor = Color.LightGreen;
+                        Board.From = to;
+                        action("Seleção (próxima peça)");
+                        if (Board.ShowSelectedPieceMoves)
+                            Board.ShowPieceMoves(to);
                     }
                 }
 
-                else if (Board.LastSquare != x)
+                else if (Board.From != to)
                 {
-                    if (x.Piece != null)
+                    if (to.Piece != null)
                     {
-                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
-                        x.BackColor = Color.LightGreen;
-                        Board.LastSquare = x;
+                        hideMoves(Board.From);
+                        to.BackColor = Color.LightGreen;
+                        Board.From = to;
+                        action("Seleção");
+                        if (Board.ShowSelectedPieceMoves)
+                            Board.ShowPieceMoves(to);
                     }
                 }
             }
+        }
+
+        private void hideMoves(Square to)
+        {
+            if (Board.From != null)
+            {
+                Board.From.BackColor = Board.From.DefaultColor;
+                if (Board.ShowSelectedPieceMoves)
+                    Board.HidePieceMoves(to);
+            }
+        }
+
+        private void MoveTo(Square from)
+        {
+            Piece = from.Piece;
+
+            //Board[this].Piece = Piece;
+
+            if (Piece.Color == PieceColor.White)
+                Board.WhitePieces[Piece.Id].Current = this;
+            else
+                Board.BlackPieces[Piece.Id].Current = this;
+
+            //Board[from].Piece = null;
+            from.Piece = null;
+
+            Board.lights.FindAllMoves();
+        }
+
+        private void action(string v)
+        {
+            Action?.Invoke(v, null);
         }
 
         public Square(int file, int rank, Board Board) : this()

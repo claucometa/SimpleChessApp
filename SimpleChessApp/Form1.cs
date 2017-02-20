@@ -39,6 +39,13 @@ namespace SimpleChessApp
             bishopToolStripMenuItem1.Tag = Pieces.Bishop;
             rookToolStripMenuItem1.Tag = Pieces.Rook;
             #endregion
+
+            Square.Action += Square_Action;
+        }
+
+        private void Square_Action(object sender, EventArgs e)
+        {
+            label1.Text = sender.ToString();
         }
 
         private void Item_Click(object sender, EventArgs e)
@@ -82,8 +89,8 @@ namespace SimpleChessApp
 
         protected override void OnLoad(EventArgs e)
         {
-            var ChessBoard1 = new Board(panel1);
-            var ChessBoard2 = new Board(panel2, true, true);
+            var ChessBoard1 = new Board(panel1, false, false, true);
+            var ChessBoard2 = new Board(panel2, true, true, false);
 
             Core.Add(new ChessCore(ChessBoard1));
             Core.Add(new ChessCore(ChessBoard2));

@@ -65,7 +65,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chess\HighLightMoves.cs" />
+    <Compile Include="Chess\MoveFinder.cs" />
     <Compile Include="Chess\ChessPiece.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

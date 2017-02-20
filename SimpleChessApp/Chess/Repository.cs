@@ -50,13 +50,13 @@ namespace SimpleChessApp.Chess
 
             if (PromotedSquare.Piece.Color == PieceColor.White)
             {
-                var w = ChessBoard.WhitePieces.FirstOrDefault(t => t == PromotedSquare.Piece);
+                var w = ChessBoard.WhitePieces[PromotedSquare.Piece.Id];
                 if (w != null) w.Kind = x;
             }
 
             if (PromotedSquare.Piece.Color == PieceColor.Black)
             {
-                var w = ChessBoard.BlackPieces.FirstOrDefault(t => t == PromotedSquare.Piece);
+                var w = ChessBoard.BlackPieces[PromotedSquare.Piece.Id];
                 if (w != null) w.Kind = x;
             }
         }

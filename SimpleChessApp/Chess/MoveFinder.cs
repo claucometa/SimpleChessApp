@@ -4,23 +4,23 @@ using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
-    public class HighLightMoves
+    public class MoveFinder
     {
         public Dictionary<int, List<PossibleMoves>> MoveList = new Dictionary<int, List<PossibleMoves>>();
 
         Board board;
 
-        public HighLightMoves(Board b)
+        public MoveFinder(Board b)
         {
             this.board = b;
         }
 
         public void FindAllMoves()
         {
-            foreach (var item in board.WhitePieces)
+            foreach (var item in board.WhitePieces.Values)
                 FindMoveFrom(item.Current);
 
-            foreach (var item in board.BlackPieces)
+            foreach (var item in board.BlackPieces.Values)
                 FindMoveFrom(item.Current);
 
             if (board.ShowAllMoves) HighLightMoveStyle();
@@ -96,7 +96,7 @@ namespace SimpleChessApp.Chess
             }
 
             // Passant
-            sq = board.LastSquare;
+            sq = board.From;
             if (sq != null)
             {
                 if (sq.Piece != null)
