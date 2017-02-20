@@ -65,7 +65,7 @@ namespace SimpleChessApp.Chess
             #region Assemble Board
             var w = p.Width / 8;
             var h = p.Height / 8;
-            int count = 1;
+            int count = flipped ? 1 : 0;  // Right corner = white square
             bool isBlack;
             var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
             var flip = flipped ? 0 : 7;
