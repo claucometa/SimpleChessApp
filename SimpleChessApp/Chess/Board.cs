@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,8 +10,6 @@ namespace SimpleChessApp.Chess
         public Square[,] Squares = new Square[8, 8];
         public Dictionary<int, ChessPiece> WhitePieces = new Dictionary<int, ChessPiece>();
         public Dictionary<int, ChessPiece> BlackPieces = new Dictionary<int, ChessPiece>();
-        public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
-        public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
         public Square From;
         public MoveFinder lights;
         public bool ShowAllMoves;
@@ -117,6 +114,11 @@ namespace SimpleChessApp.Chess
 
             lights.Clear();
 
+            WhiteCanCastleKingSide = true;
+            BlackCanCastleKingSide = true;
+            WhiteCanCastleQueenSide = true;
+            BlackCanCastleQueenSide = true;
+
             WhitePieces.Clear();
             BlackPieces.Clear();
         }
@@ -183,21 +185,6 @@ namespace SimpleChessApp.Chess
         public void addBlack(int v1, int v2, Pieces p)
         {
             add(v1, v2, p, PieceColor.Black);
-        }
-
-        internal void RemovePiece(ChessPiece x)
-        {
-            if (x.Color == PieceColor.Black)
-            {
-                BlackCaptured.Add(x);
-                BlackPieces.Remove(x.Id);
-            }
-
-            if (x.Color == PieceColor.White)
-            {
-                WhitePieces.Remove(x.Id);
-                WhiteCaptured.Add(x);
-            }
         }
     }
 }

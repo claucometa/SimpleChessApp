@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SimpleChessApp
@@ -14,6 +16,8 @@ namespace SimpleChessApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+            BindingList<KeyValuePair<int, string>> z = new BindingList<KeyValuePair<int, string>>();
         }
     }
 }

@@ -191,20 +191,14 @@ namespace SimpleChessApp.Chess
             var s1 = board[x.File - 1, x.Rank];
             var s2 = board[x.File - 2, x.Rank];
             var s3 = board[x.File - 3, x.Rank];
-            if (s1.IsEmpty && s2.IsEmpty && s3.IsEmpty)
-            {
-                addMove(x.File - 2, x.Rank, x);
-            }
+            if (s1.IsEmpty && s2.IsEmpty && s3.IsEmpty) addMove(x.File - 2, x.Rank, x);
         }
 
         private void handleSmallCastling(Square x)
         {
             var s1 = board[x.File + 1, x.Rank];
             var s2 = board[x.File + 2, x.Rank];
-            if (s1.IsEmpty && s2.IsEmpty)
-            {
-                addMove(x.File + 2, x.Rank, x);
-            }
+            if (s1.IsEmpty && s2.IsEmpty) addMove(x.File + 2, x.Rank, x);
         }
 
         void handleRook(Square x)

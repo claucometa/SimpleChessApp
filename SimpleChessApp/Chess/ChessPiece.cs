@@ -32,7 +32,7 @@
         {
             get
             {
-                return Current.Name + " " + Kind;
+                return Kind + " " + Id.ToString() + " " +  Current.Name;
             }
         }
     }

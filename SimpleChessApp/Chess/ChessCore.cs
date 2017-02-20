@@ -8,7 +8,7 @@ namespace SimpleChessApp.Chess
 
         // Turn handling
         public event EventHandler NextTurn;
-        public event EventHandler<ActionEventArgs> ActionChanged;
+        //public event EventHandler Action;
         public PieceColor WhosPlaying;
         public bool DisableTurn;
         public int TurnId = 1;
@@ -349,11 +349,11 @@ namespace SimpleChessApp.Chess
         //    }
         //}
 
-        private void Square_FirstClick(object sender, EventArgs e)
-        {
-            from = (Square)sender;
-            ActionChanged?.Invoke(from, new ActionEventArgs(UserAction.Piece_Selected));
-        }
+        //private void Square_FirstClick(object sender, EventArgs e)
+        //{
+        //    from = (Square)sender;
+        //    ActionChanged?.Invoke(from, new ActionEventArgs(UserAction.Piece_Selected));
+        //}
 
         #endregion
 
@@ -400,7 +400,6 @@ namespace SimpleChessApp.Chess
             Turns.Clear();
         }
 
-
         void addMoveNote()
         {
             if (!ChessContext.Core[0].DisableTurn)
@@ -411,8 +410,6 @@ namespace SimpleChessApp.Chess
                 //    Turns.Moves.Last().Black = new Notation(from, to);
             }
         }
-
-
 
         #region DEBUG 
         internal void TestPassant()

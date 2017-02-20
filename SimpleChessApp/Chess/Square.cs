@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace SimpleChessApp.Chess
 {
@@ -95,7 +96,7 @@ namespace SimpleChessApp.Chess
                     if (to.Piece == null)
                     {
                         // Move
-                        if (Board.From != null)
+                        if (Board.From != null && Board.From.Piece != null)
                         {
                             var moves = Board.lights.MoveList[Board.From.Piece.Id];
                             var msg = $"Movimento inválido: {moves.Count}";
@@ -141,14 +142,14 @@ namespace SimpleChessApp.Chess
                         var moves = Board.lights.MoveList[Board.From.Piece.Id];
                         if (moves.Exists(t => t.Square == to))
                         {
-                            msg = "Capturar";
+                            msg = "Captura";
                             to.Capturar(Board.From);
                         }
 
                         Board.From = to;
                         to.BackColor = Color.LightGreen;
-                        //if (Board.ShowSelectedPieceMoves)
-                        //    Board.ShowPieceMoves(to);
+                        if (Board.ShowSelectedPieceMoves)
+                            Board.ShowPieceMoves(to);
                         action(msg);
 
                     }
@@ -222,16 +223,92 @@ namespace SimpleChessApp.Chess
             Piece = from.Piece;
 
             if (Piece.Color == PieceColor.White)
+            {
                 Board.WhitePieces[Piece.Id].Current = this;
-            else
+                handleWhiteCastling();
+            }
+
+            if (Piece.Color == PieceColor.Black)
+            {
                 Board.BlackPieces[Piece.Id].Current = this;
+                handleBlackCastling();
+            }
 
             from.Piece = null;
-
             Board.lights.FindAllMoves();
         }
 
-        private void action(string v)
+        private void handleBlackCastling()
+        {
+            if (Board.BlackCanCastleKingSide || Board.BlackCanCastleQueenSide)
+            {
+                if (Piece.Kind == Pieces.King || Piece.Kind == Pieces.Rook)
+                {
+                    if (Piece.Kind == Pieces.Rook)
+                    {
+                        if (Piece.Home.Name == "a8")
+                            Board.BlackCanCastleQueenSide = false;
+                        else
+                            Board.BlackCanCastleKingSide = false;
+                    }
+                    else
+                    {
+                        if (Piece.Current.File == 2)
+                        {
+                            Board[3, 7].Piece = Board[0, 7].Piece;
+                            Board[0, 7].Piece = null;
+                            Board.BlackPieces[Board[3, 7].Piece.Id].Current = Board[3, 7];
+                        }
+                        if (Piece.Current.File == 6)
+                        {
+                            Board[5, 7].Piece = Board[7, 7].Piece;
+                            Board[7, 7].Piece = null;
+                            Board.BlackPieces[Board[5, 7].Piece.Id].Current = Board[5, 7];
+                        }
+
+                        Board.BlackCanCastleQueenSide = false;
+                        Board.BlackCanCastleKingSide = false;
+                    }
+                }
+            }
+        }
+
+        private void handleWhiteCastling()
+        {
+            if (Board.WhiteCanCastleKingSide || Board.WhiteCanCastleKingSide)
+            {
+                if (Piece.Kind == Pieces.King || Piece.Kind == Pieces.Rook)
+                {
+                    if (Piece.Kind == Pieces.Rook)
+                    {
+                        if (Piece.Home.Name == "a1")
+                            Board.WhiteCanCastleQueenSide = false;
+                        else
+                            Board.WhiteCanCastleKingSide = false;
+                    }
+                    else
+                    {
+                        if (Piece.Current.File == 2)
+                        {
+                            Board[3, 0].Piece = Board[0, 0].Piece;
+                            Board[0, 0].Piece = null;
+                            Board.WhitePieces[Board[3, 0].Piece.Id].Current = Board[3, 0];
+                        }
+                        if (Piece.Current.File == 6)
+                        {
+                            Board[5, 0].Piece = Board[7, 0].Piece;
+                            Board[7, 0].Piece = null;
+                            Board.WhitePieces[Board[5, 0].Piece.Id].Current = Board[5, 0];
+                        }
+
+                        Board.WhiteCanCastleQueenSide = false;
+                        Board.WhiteCanCastleKingSide = false;
+                    }
+                }
+            }
+        }
+
+        public static void action(string v)
         {
             Action?.Invoke(v, null);
         }

@@ -46,6 +46,21 @@ namespace SimpleChessApp
         private void Square_Action(object sender, EventArgs e)
         {
             label1.Text = sender.ToString();
+            fillListBox();
+        }
+
+        private void fillListBox()
+        {
+            listBox1.Items.Clear();
+            foreach (var item in Core[0].ChessBoard.WhitePieces.Values)
+                listBox1.Items.Add(item);
+            listBox1.DisplayMember = "SpecialName";
+
+
+            listBox2.Items.Clear();
+            foreach (var item in Core[0].ChessBoard.BlackPieces.Values)
+                listBox2.Items.Add(item);
+            listBox2.DisplayMember = "SpecialName";
         }
 
         private void Item_Click(object sender, EventArgs e)
@@ -55,7 +70,7 @@ namespace SimpleChessApp
             handleDebug(x, Core[1]);
         }
 
-        private static void handleDebug(ToolStripMenuItem x, ChessCore w)
+        private void handleDebug(ToolStripMenuItem x, ChessCore w)
         {
             if (x.Tag is GameControl)
             {
@@ -73,6 +88,8 @@ namespace SimpleChessApp
             }
 
             if (x.Tag is Pieces) w.TestSinglePiece((Pieces)x.Tag);
+
+            fillListBox();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -83,8 +100,7 @@ namespace SimpleChessApp
             Core.Add(new ChessCore(ChessBoard1));
             Core.Add(new ChessCore(ChessBoard2));
 
-            bindingSource1.DataSource = Core[0].ChessBoard.WhitePieces.Values;
-            listBox1.DisplayMember = "SpecialName";
+            fillListBox();
         }
 
         #region Stupid Enums

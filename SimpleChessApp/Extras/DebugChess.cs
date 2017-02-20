@@ -38,19 +38,20 @@
             b.addWhite(4, 6, Pieces.Pawn);
             b.addBlack(3, 7, Pieces.King);
             b.addWhite(3, 0, Pieces.King);
-
             b.lights.FindAllMoves();
         }
 
         internal void TestCastling()
         {
             b.ClearBoard();
-            b.addWhite(0, 7, Pieces.Rook);
-            b.addWhite(4, 7, Pieces.King);
-            b.addWhite(7, 7, Pieces.Rook);
-            b.addBlack(0, 0, Pieces.Rook);
-            b.addBlack(4, 0, Pieces.King);
-            b.addBlack(7, 0, Pieces.Rook);
+
+            b.addBlack(0, 7, Pieces.Rook);
+            b.addBlack(4, 7, Pieces.King);
+            b.addBlack(7, 7, Pieces.Rook);
+
+            b.addWhite(0, 0, Pieces.Rook);
+            b.addWhite(4, 0, Pieces.King);
+            b.addWhite(7, 0, Pieces.Rook);
 
             b.lights.FindAllMoves();
         }
