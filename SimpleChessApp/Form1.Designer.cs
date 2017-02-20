@@ -62,6 +62,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(41, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(440, 440);
@@ -79,9 +80,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gameToolStripMenuItem,
-            this.testsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(10, 10);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(936, 24);
@@ -201,6 +199,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Location = new System.Drawing.Point(500, 70);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(440, 440);

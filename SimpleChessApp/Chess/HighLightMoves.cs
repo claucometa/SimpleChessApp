@@ -1,19 +1,32 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
 {
     public class HighLightMoves
     {
-        public List<PossibleMoves> MoveList = new List<PossibleMoves>();
-        public bool checkMode;
+        public Dictionary<int, List<PossibleMoves>> MoveList = new Dictionary<int, List<PossibleMoves>>();
 
-        public HighLightMoves(bool check = false)
+        Board board;
+
+        public HighLightMoves(Board b)
         {
-            checkMode = check;
+            this.board = b;
         }
 
-        public void FindAllMoves(Square x)
+        public void FindAllMoves()
+        {
+            foreach (var item in board.WhitePieces)
+                FindMoveFrom(item.Current);
+
+            foreach (var item in board.BlackPieces)
+                FindMoveFrom(item.Current);
+
+            if (board.ShowAllMoves) HighLightMoveStyle();
+        }
+
+        public void FindMoveFrom(Square x)
         {
             switch (x.Piece.Kind)
             {
@@ -40,18 +53,26 @@ namespace SimpleChessApp.Chess
 
         public void HighLightMoveStyle()
         {
-            foreach (var item in MoveList) item.Square.ShowMove(true);
+            var moves = MoveList.Values.SelectMany(t => t);
+            foreach (var item in moves)
+            {
+                if (item.Piece.Color == PieceColor.White)
+                    item.Square.ShowMove(true, board.Flipped);
+                if (item.Piece.Color == PieceColor.Black)
+                    item.Square.ShowCheck(true, board.Flipped);
+            }
         }
 
-        public void HighLightCheckStyle()
-        {
-            foreach (var item in MoveList) item.Square.ShowCheck(true);
-        }
+        //public void HighLightCheckStyle()
+        //{
+        //    var moves = MoveList.Values.SelectMany(t => t);
+        //    foreach (var item in moves) item.Square.ShowCheck(true);
+        //}
 
         public void Clear()
         {
-            foreach (var item in MoveList)
-                item.Square.ShowMove(false);
+            var moves = MoveList.Values.SelectMany(t => t);
+            foreach (var item in moves) item.Square.ShowMove(false);
             MoveList.Clear();
         }
 
@@ -60,25 +81,22 @@ namespace SimpleChessApp.Chess
             Square sq;
             int a = 0;
             int b = 0;
-            
+
             // black or white?
             int homeRank = x.Piece.Color == PieceColor.White ? 1 : 6;
             int m = x.Piece.Color == PieceColor.White ? 1 : -1;
 
-            if (!checkMode)
+            // Moves
+            a = x.File;
+            b = x.Rank + 1 * m;
+            if (b >= 0 && b < 8)
             {
-                // Moves
-                a = x.File;
-                b = x.Rank + 1 * m;
-                if (b >= 0 && b < 8)
-                {
-                    sq = ChessContext.Core[0].ChessBoard[a, b];
-                    if (sq.IsEmpty) addMove(a, b, x);
-                }
+                sq = board[a, b];
+                if (sq.IsEmpty) addMove(a, b, x);
             }
 
             // Passant
-            sq = ChessContext.Core[0].LastMove;
+            sq = board.LastSquare;
             if (sq != null)
             {
                 if (sq.Piece != null)
@@ -114,7 +132,7 @@ namespace SimpleChessApp.Chess
             b = x.Rank + 1 * m;
             if (a >= 0 && b >= 0 && b < 8)
             {
-                sq = ChessContext.Core[0].ChessBoard[a, b];
+                sq = board[a, b];
                 if (!sq.IsEmpty) addMove(a, b, x);
             }
 
@@ -122,7 +140,7 @@ namespace SimpleChessApp.Chess
             b = x.Rank + 1 * m;
             if (a < 8 && b >= 0 && b < 8)
             {
-                sq = ChessContext.Core[0].ChessBoard[a, b];
+                sq = board[a, b];
                 if (!sq.IsEmpty) addMove(a, b, x);
             }
         }
@@ -146,28 +164,28 @@ namespace SimpleChessApp.Chess
 
             if (x.Piece.Color == PieceColor.White)
             {
-                if (ChessContext.Core[0].WhiteCanCastleKingSide)
+                if (board.WhiteCanCastleKingSide)
                     handleSmallCastling(x);
 
-                if (ChessContext.Core[0].WhiteCanCastleQueenSide)
+                if (board.WhiteCanCastleQueenSide)
                     handleBigCastling(x);
             }
 
             if (x.Piece.Color == PieceColor.Black)
             {
-                if (ChessContext.Core[0].BlackCanCastleKingSide)
+                if (board.BlackCanCastleKingSide)
                     handleSmallCastling(x);
 
-                if (ChessContext.Core[0].BlackCanCastleQueenSide)
+                if (board.BlackCanCastleQueenSide)
                     handleBigCastling(x);
             }
         }
 
         private void handleBigCastling(Square x)
         {
-            var s1 = ChessContext.Core[0].ChessBoard[x.File - 1, x.Rank];
-            var s2 = ChessContext.Core[0].ChessBoard[x.File - 2, x.Rank];
-            var s3 = ChessContext.Core[0].ChessBoard[x.File - 3, x.Rank];
+            var s1 = board[x.File - 1, x.Rank];
+            var s2 = board[x.File - 2, x.Rank];
+            var s3 = board[x.File - 3, x.Rank];
             if (s1.IsEmpty && s2.IsEmpty && s3.IsEmpty)
             {
                 addMove(x.File - 2, x.Rank, x);
@@ -176,8 +194,8 @@ namespace SimpleChessApp.Chess
 
         private void handleSmallCastling(Square x)
         {
-            var s1 = ChessContext.Core[0].ChessBoard[x.File + 1, x.Rank];
-            var s2 = ChessContext.Core[0].ChessBoard[x.File + 2, x.Rank];
+            var s1 = board[x.File + 1, x.Rank];
+            var s2 = board[x.File + 2, x.Rank];
             if (s1.IsEmpty && s2.IsEmpty)
             {
                 addMove(x.File + 2, x.Rank, x);
@@ -213,6 +231,8 @@ namespace SimpleChessApp.Chess
 
         void handleBishop(Square x)
         {
+
+
             for (int i = 1; i < 8; i++)
             {
                 var a = x.File + i;
@@ -244,6 +264,8 @@ namespace SimpleChessApp.Chess
 
         void handleKnight(Square x)
         {
+            var p = x.Piece;
+
             int[] w = new int[] { +1, +1, -1, -1, +2, +2, -2, -2 };
             int[] z = new int[] { +2, -2, +2, -2, +1, -1, +1, -1 };
 
@@ -255,11 +277,11 @@ namespace SimpleChessApp.Chess
                 // Avoid going out of the board (overflow)
                 if (a < 0 || b < 0 || a > 7 || b > 7) continue;
 
-                var sq = ChessContext.Core[0].ChessBoard[a, b];
+                var sq = board[a, b];
                 if (sq.IsEmpty)
-                    MoveList.Add(new PossibleMoves(sq, UserAction.Move));
+                    MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Move));
                 else if (sq.Piece.Color != x.Piece.Color)
-                    MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
+                    MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Capture));
             }
         }
 
@@ -267,12 +289,15 @@ namespace SimpleChessApp.Chess
         {
             if (a < 0 || a > 7 || b < 0 || b > 7) return true;
 
-            var sq = ChessContext.Core[0].ChessBoard[a, b];
+            var p = x.Piece;
+            //MoveList.Add(p, new List<PossibleMoves>());
+
+            var sq = board[a, b];
             if (sq.IsEmpty)
-                MoveList.Add(new PossibleMoves(sq, UserAction.Move));
+                MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Move));
             else if (sq.Piece.Color != x.Piece.Color)
             {
-                MoveList.Add(new PossibleMoves(sq, UserAction.Capture));
+                MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Capture));
                 return true;
             }
             else
@@ -285,9 +310,11 @@ namespace SimpleChessApp.Chess
     {
         public Square Square;
         public UserAction Kind;
+        public ChessPiece Piece;
 
-        public PossibleMoves(Square sq, UserAction kind)
+        public PossibleMoves(ChessPiece p, Square sq, UserAction kind)
         {
+            Piece = p;
             Square = sq;
             Kind = kind;
         }

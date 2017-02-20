@@ -83,9 +83,11 @@ namespace SimpleChessApp
         protected override void OnLoad(EventArgs e)
         {
             var ChessBoard1 = new Board(panel1);
-            var ChessBoard2 = new Board(panel2);
+            var ChessBoard2 = new Board(panel2, true, true);
+
             Core.Add(new ChessCore(ChessBoard1));
             Core.Add(new ChessCore(ChessBoard2));
+
             Core[0].ActionChanged += Core_ActionChanged;
             Core[1].ActionChanged += Core_ActionChanged1;
         }

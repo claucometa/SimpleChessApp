@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -13,13 +14,25 @@ namespace SimpleChessApp.Chess
         public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
         public Square LastSquare;
+        public HighLightMoves lights;
+        public bool ShowAllMoves;
+
+        // Castling handling
+        public bool WhiteCanCastleKingSide;
+        public bool BlackCanCastleKingSide;
+        public bool WhiteCanCastleQueenSide;
+        public bool BlackCanCastleQueenSide;
 
         int idd = 0;
+        public bool Flipped;
 
-        public Board(Panel p)
-        {            
+        public Board(Panel p, bool flipped = false, bool allMoves = false)
+        {
+            ShowAllMoves = allMoves;
+            Flipped = flipped;
             Dock = DockStyle.Fill;
-            build(p);
+            lights = new HighLightMoves(this);
+            build(p, flipped);
             p.Controls.Add(this);
         }
 
@@ -47,7 +60,7 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        void build(Panel p)
+        void build(Panel p, bool flipped = false)
         {
             #region Assemble Board
             var w = p.Width / 8;
@@ -55,6 +68,7 @@ namespace SimpleChessApp.Chess
             int count = 1;
             bool isBlack;
             var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
+            var flip = flipped ? 0 : 7;
 
             for (int rank = 0; rank < 8; rank++)
             {
@@ -67,15 +81,14 @@ namespace SimpleChessApp.Chess
                     isBlack = (count++ % 2) == 0;
                     x.Width = w;
                     x.Height = h;
-                    x.Location = new Point(file * w, Math.Abs(rank - 7) * h);
+                    x.Location = new Point(file * w, Math.Abs(rank - flip) * h);
                     Squares[file, rank] = x;
                     Controls.Add(x);
                 }
             }
             #endregion
 
-            setBlackPieces();
-            setWhitePieces();
+            Restart();
         }
 
         internal void Restart()
@@ -83,6 +96,7 @@ namespace SimpleChessApp.Chess
             ClearBoard();
             setBlackPieces();
             setWhitePieces();
+            lights.FindAllMoves();
         }
 
         internal void ClearBoard()
@@ -92,6 +106,11 @@ namespace SimpleChessApp.Chess
                     Squares[i, x].Piece = null;
 
             LastSquare = null;
+
+            if (lights == null)
+                lights = new HighLightMoves(this);
+
+            lights.Clear();
 
             WhitePieces.Clear();
             BlackPieces.Clear();
@@ -127,8 +146,16 @@ namespace SimpleChessApp.Chess
         {
             var x = this[v1, v2];
             x.Piece = new ChessPiece(x, p, c);
-            if (c == PieceColor.White) WhitePieces.Add(x.Piece);
-            if (c == PieceColor.Black) BlackPieces.Add(x.Piece);
+            if (c == PieceColor.White)
+            {
+                WhitePieces.Add(x.Piece);
+                lights.MoveList.Add(x.Piece.Id, new List<PossibleMoves>());
+            }
+            if (c == PieceColor.Black)
+            {
+                BlackPieces.Add(x.Piece);
+                lights.MoveList.Add(x.Piece.Id, new List<PossibleMoves>());
+            }
         }
 
         public void addWhite(int v1, int v2, Pieces p)

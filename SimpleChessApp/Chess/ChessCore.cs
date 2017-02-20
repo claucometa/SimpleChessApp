@@ -1,8 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Linq;
 
 namespace SimpleChessApp.Chess
 {
@@ -17,16 +13,10 @@ namespace SimpleChessApp.Chess
         public bool DisableTurn;
         public int TurnId = 1;
 
-        // Castling handling
-        public bool WhiteCanCastleKingSide;
-        public bool BlackCanCastleKingSide;
-        public bool WhiteCanCastleQueenSide;
-        public bool BlackCanCastleQueenSide;
-
         // Check handling
         public Square lastCheckPiece;
         public Square ghostCheckPiece;
-        public HighLightMoves checks = new HighLightMoves(true);
+        //public HighLightMoves checks = new HighLightMoves(true);
         bool catchOnDeepCheck = false;
 
         // Move handling
@@ -39,7 +29,7 @@ namespace SimpleChessApp.Chess
         // Used by Square class
         public bool firstClick = true;
         public Square lastSquare;
-        public HighLightMoves light = new HighLightMoves();
+       // public HighLightMoves light = new HighLightMoves();
 
         #region Contructors
         public ChessCore(Board b)
@@ -57,237 +47,237 @@ namespace SimpleChessApp.Chess
 
         private void Square_SecondClick(object sender, EventArgs e)
         {
-            to = (Square)sender;
+            //to = (Square)sender;
 
-            if (light.MoveList.Count == 0)
-            {
-                ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.None));
-                return;
-            }
+            //if (light.MoveList.Count == 0)
+            //{
+            //    ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.None));
+            //    return;
+            //}
 
-            move = light.MoveList.FirstOrDefault(t => t.Square == to);
+            //move = light.MoveList.FirstOrDefault(t => t.Square == to);
 
-            if (move == null)
-            {
-                ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.Invalid_Move));
-                return;
-            }
+            //if (move == null)
+            //{
+            //    ActionChanged?.Invoke(to, new ActionEventArgs(UserAction.Invalid_Move));
+            //    return;
+            //}
 
-            if (move.Kind == UserAction.Move)
-            {
-                to.Piece = from.Piece;
-                to.Piece.Current = to;
+            //if (move.Kind == UserAction.Move)
+            //{
+            //    to.Piece = from.Piece;
+            //    to.Piece.Current = to;
 
-                if (to.Piece.Kind == Pieces.King)
-                {
-                    if (blackCanCastle || whiteCanCastle)
-                        handleCastling();
-                    shutOffCastling();
-                }
+            //    if (to.Piece.Kind == Pieces.King)
+            //    {
+            //        if (blackCanCastle || whiteCanCastle)
+            //            handleCastling();
+            //        shutOffCastling();
+            //    }
 
-                if (to.Piece.Kind == Pieces.Rook)
-                    shutOffCastling();
+            //    if (to.Piece.Kind == Pieces.Rook)
+            //        shutOffCastling();
 
-                if (to.Piece.Kind == Pieces.Pawn)
-                {
-                    if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
-                        to.Piece.Passant = true;
+            //    if (to.Piece.Kind == Pieces.Pawn)
+            //    {
+            //        if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
+            //            to.Piece.Passant = true;
 
-                    // Capture passant
-                    if (Math.Abs(from.File - to.File) == 1)
-                    {
-                        LastMove.Piece = null;
-                        move.Kind = UserAction.Capture;
-                    }
-                }
-            }
-            else if (move.Kind == UserAction.Capture)
-            {
-                ChessBoard.RemovePiece(to.Piece);
-                to.Piece = from.Piece;
-                to.Piece.Current = to;
-            }
+            //        // Capture passant
+            //        if (Math.Abs(from.File - to.File) == 1)
+            //        {
+            //            LastMove.Piece = null;
+            //            move.Kind = UserAction.Capture;
+            //        }
+            //    }
+            //}
+            //else if (move.Kind == UserAction.Capture)
+            //{
+            //    ChessBoard.RemovePiece(to.Piece);
+            //    to.Piece = from.Piece;
+            //    to.Piece.Current = to;
+            //}
 
-            if (move.Kind == UserAction.Move || move.Kind == UserAction.Capture)
-            {
-                if (to.Piece.Kind == Pieces.Pawn)
-                {
-                    if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
-                        to.Piece.Passant = true;
+            //if (move.Kind == UserAction.Move || move.Kind == UserAction.Capture)
+            //{
+            //    if (to.Piece.Kind == Pieces.Pawn)
+            //    {
+            //        if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
+            //            to.Piece.Passant = true;
 
-                    if (to.Rank == 0 || to.Rank == 7)
-                    {
-                        //PromotedSquare = to;
-                        //ShowPieceSelector(from);
-                    }
-                }
-            }
+            //        if (to.Rank == 0 || to.Rank == 7)
+            //        {
+            //            //PromotedSquare = to;
+            //            //ShowPieceSelector(from);
+            //        }
+            //    }
+            //}
 
-            var validMove = true;
+            //var validMove = true;
 
-            if (!catchOnDeepCheck) validMove = detectCheck();
+            //if (!catchOnDeepCheck) validMove = detectCheck();
 
-            if (validMove)
-            {
-                // Move piece
-                LastMove = to;
-                from.Piece = null;
+            //if (validMove)
+            //{
+            //    // Move piece
+            //    LastMove = to;
+            //    from.Piece = null;
 
-                validMove = deepCheckDetect();
-                catchOnDeepCheck = !validMove;
-            }
+            //    validMove = deepCheckDetect();
+            //    catchOnDeepCheck = !validMove;
+            //}
 
-            if (validMove)
-            {
-                lastCheckPiece = null;
-                ChangeTurn();
-            }
-            else
-            {
-                // Cancel Move
-                from.Piece = to.Piece;
-                ChessPiece a;
+            //if (validMove)
+            //{
+            //    lastCheckPiece = null;
+            //    ChangeTurn();
+            //}
+            //else
+            //{
+            //    // Cancel Move
+            //    from.Piece = to.Piece;
+            //    ChessPiece a;
 
-                if (WhosPlaying == PieceColor.White)
-                {
-                    a = ChessBoard.WhitePieces.FirstOrDefault(t => t.Id == from.Piece.Id);
-                    from.Piece.Current = to;
-                    a.Current = from;
-                }
+            //    if (WhosPlaying == PieceColor.White)
+            //    {
+            //        a = ChessBoard.WhitePieces.FirstOrDefault(t => t.Id == from.Piece.Id);
+            //        from.Piece.Current = to;
+            //        a.Current = from;
+            //    }
 
-                if (WhosPlaying == PieceColor.Black)
-                {
-                    a = ChessBoard.BlackPieces.FirstOrDefault(t => t.Id == from.Piece.Id);
-                    a.Current = from;
-                }
+            //    if (WhosPlaying == PieceColor.Black)
+            //    {
+            //        a = ChessBoard.BlackPieces.FirstOrDefault(t => t.Id == from.Piece.Id);
+            //        a.Current = from;
+            //    }
 
-                to.Piece = null;
-                move.Kind = UserAction.Invalid_Move;
-            }
+            //    to.Piece = null;
+            //    move.Kind = UserAction.Invalid_Move;
+            //}
 
-            ActionChanged?.Invoke(to, new ActionEventArgs(move.Kind));
+            //ActionChanged?.Invoke(to, new ActionEventArgs(move.Kind));
         }
 
         private bool deepCheckDetect()
         {
-            if (WhosPlaying == PieceColor.Black)
-            {
-                checks.Clear();
-                foreach (var piece in ChessBoard.WhitePieces)
-                {
-                    checks.FindAllMoves(piece.Current);
-                    foreach (var item in checks.MoveList)
-                    {
-                        if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
-                        {
-                            move.Kind = UserAction.Check;
-                            lastCheckPiece = to;
-                            return false;
-                        }
-                    }
-                }
-            }
+            //if (WhosPlaying == PieceColor.Black)
+            //{
+            //    checks.Clear();
+            //    foreach (var piece in ChessBoard.WhitePieces)
+            //    {
+            //        checks.FindAllMoves(piece.Current);
+            //        foreach (var item in checks.MoveList)
+            //        {
+            //            if (ChessBoard[item.Square].Piece == null) continue;
+            //            if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
+            //            {
+            //                move.Kind = UserAction.Check;
+            //                lastCheckPiece = to;
+            //                return false;
+            //            }
+            //        }
+            //    }
+            //}
 
-            if (WhosPlaying == PieceColor.White)
-            {
-                checks.Clear();
-                foreach (var piece in ChessBoard.BlackPieces)
-                {
-                    checks.FindAllMoves(piece.Current);
-                    foreach (var item in checks.MoveList)
-                    {
-                        if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
-                        {
-                            move.Kind = UserAction.Check;
-                            lastCheckPiece = to;
-                            return false;
-                        }
-                    }
-                }
-            }
+            //if (WhosPlaying == PieceColor.White)
+            //{
+            //    checks.Clear();
+            //    foreach (var piece in ChessBoard.BlackPieces)
+            //    {
+            //        checks.FindAllMoves(piece.Current);
+            //        foreach (var item in checks.MoveList)
+            //        {
+            //            if (ChessBoard[item.Square].Piece == null) continue;
+            //            if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
+            //            {
+            //                move.Kind = UserAction.Check;
+            //                lastCheckPiece = to;
+            //                return false;
+            //            }
+            //        }
+            //    }
+            //}
 
             return true;
         }
 
         private bool detectCheck()
         {
-            if (to.Piece.Kind != Pieces.King)
-            {
-                if (lastCheckPiece == null)
-                {
-                    checks.Clear();
-                    checks.FindAllMoves(to);
-                    //checks.HighLightCheckStyle();
-                    foreach (var item in checks.MoveList)
-                    {
-                        if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
-                        {
-                            move.Kind = UserAction.Check;
-                            ghostCheckPiece = lastCheckPiece = to;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    checks.Clear();
-                    checks.FindAllMoves(lastCheckPiece);
-                    //checks.HighLightCheckStyle();
-                    lastCheckPiece = null;
+            //if (to.Piece.Kind != Pieces.King)
+            //{
+            //    if (lastCheckPiece == null)
+            //    {
+            //        checks.Clear();
+            //        checks.FindAllMoves(to);
+            //        //checks.HighLightCheckStyle();
+            //        foreach (var item in checks.MoveList)
+            //        {
+            //            if (ChessBoard[item.Square].Piece == null) continue;
+            //            if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
+            //            {
+            //                move.Kind = UserAction.Check;
+            //                ghostCheckPiece = lastCheckPiece = to;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        checks.Clear();
+            //        checks.FindAllMoves(lastCheckPiece);
+            //        //checks.HighLightCheckStyle();
+            //        lastCheckPiece = null;
 
-                    foreach (var item in checks.MoveList)
-                    {
-                        if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
-                        {
-                            move.Kind = UserAction.Check;
-                            checks.Clear();
-                            checks.FindAllMoves(ghostCheckPiece);
-                            //checks.HighLightCheckStyle();
-                            lastCheckPiece = null;
-                            foreach (var item2 in checks.MoveList)
-                            {
-                                if (ChessBoard[item2.Square].Piece == null) continue;
-                                if (ChessBoard[item2.Square].Piece.Kind == Pieces.King)
-                                {
-                                    move.Kind = UserAction.Check;
-                                    lastCheckPiece = ghostCheckPiece;
-                                    return false;
-                                }
-                            }
-                            return false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (lastCheckPiece != null)
-                {
-                    // Move King
-                    LastMove = to;
-                    from.Piece = null;
+            //        foreach (var item in checks.MoveList)
+            //        {
+            //            if (ChessBoard[item.Square].Piece == null) continue;
+            //            if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
+            //            {
+            //                move.Kind = UserAction.Check;
+            //                checks.Clear();
+            //                checks.FindAllMoves(ghostCheckPiece);
+            //                //checks.HighLightCheckStyle();
+            //                lastCheckPiece = null;
+            //                foreach (var item2 in checks.MoveList)
+            //                {
+            //                    if (ChessBoard[item2.Square].Piece == null) continue;
+            //                    if (ChessBoard[item2.Square].Piece.Kind == Pieces.King)
+            //                    {
+            //                        move.Kind = UserAction.Check;
+            //                        lastCheckPiece = ghostCheckPiece;
+            //                        return false;
+            //                    }
+            //                }
+            //                return false;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (lastCheckPiece != null)
+            //    {
+            //        // Move King
+            //        LastMove = to;
+            //        from.Piece = null;
 
-                    checks.Clear();
-                    checks.FindAllMoves(lastCheckPiece);
-                    //checks.HighLightCheckStyle();
+            //        checks.Clear();
+            //        checks.FindAllMoves(lastCheckPiece);
+            //        //checks.HighLightCheckStyle();
 
-                    foreach (var item in checks.MoveList)
-                    {
-                        if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
-                        {
-                            move.Kind = UserAction.Check;
-                            return false;
-                        }
-                    }
+            //        foreach (var item in checks.MoveList)
+            //        {
+            //            if (ChessBoard[item.Square].Piece == null) continue;
+            //            if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
+            //            {
+            //                move.Kind = UserAction.Check;
+            //                return false;
+            //            }
+            //        }
 
-                    lastCheckPiece = null;
-                }
-            }
+            //        lastCheckPiece = null;
+            //    }
+            //}
 
             return true;
         }
@@ -297,22 +287,22 @@ namespace SimpleChessApp.Chess
             throw new NotImplementedException();
         }
 
-        private bool blackCanCastle
-        {
-            get
-            {
-                return to.Piece.Color == PieceColor.Black
-                            && BlackCanCastleQueenSide || BlackCanCastleKingSide;
-            }
-        }
+        //private bool blackCanCastle
+        //{
+        //    get
+        //    {
+        //        return to.Piece.Color == PieceColor.Black
+        //                    && BlackCanCastleQueenSide || BlackCanCastleKingSide;
+        //    }
+        //}
 
-        private bool whiteCanCastle
-        {
-            get
-            {
-                return to.Piece.Color == PieceColor.White && WhiteCanCastleKingSide || WhiteCanCastleQueenSide;
-            }
-        }
+        //private bool whiteCanCastle
+        //{
+        //    get
+        //    {
+        //        return to.Piece.Color == PieceColor.White && WhiteCanCastleKingSide || WhiteCanCastleQueenSide;
+        //    }
+        //}
 
         private void handleCastling()
         {
@@ -339,25 +329,25 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        private void shutOffCastling()
-        {
-            if (to.Piece.Color == PieceColor.Black)
-            {
-                if (blackCanCastle)
-                {
-                    BlackCanCastleQueenSide = false;
-                    BlackCanCastleKingSide = false;
-                }
-            }
-            else
-            {
-                if (whiteCanCastle)
-                {
-                    WhiteCanCastleQueenSide = false;
-                    WhiteCanCastleKingSide = false;
-                }
-            }
-        }
+        //private void shutOffCastling()
+        //{
+        //    if (to.Piece.Color == PieceColor.Black)
+        //    {
+        //        if (blackCanCastle)
+        //        {
+        //            BlackCanCastleQueenSide = false;
+        //            BlackCanCastleKingSide = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (whiteCanCastle)
+        //        {
+        //            WhiteCanCastleQueenSide = false;
+        //            WhiteCanCastleKingSide = false;
+        //        }
+        //    }
+        //}
 
         private void Square_FirstClick(object sender, EventArgs e)
         {
@@ -392,21 +382,21 @@ namespace SimpleChessApp.Chess
         public void RestartGame()
         {
             resetFlags(); // always first
-            ChessBoard.Restart();
+            ChessBoard.Restart();            
         }
 
         void resetFlags(bool turn = false)
         {
             DisableTurn = turn;
-            WhiteCanCastleKingSide = true;
-            BlackCanCastleKingSide = true;
-            WhiteCanCastleQueenSide = true;
-            BlackCanCastleQueenSide = true;
+            //WhiteCanCastleKingSide = true;
+            //BlackCanCastleKingSide = true;
+            //WhiteCanCastleQueenSide = true;
+            //BlackCanCastleQueenSide = true;
             WhosPlaying = PieceColor.White;
             TurnId = 1;
             lastCheckPiece = null;
-            light.Clear(); // highlighted moves
-            checks.Clear(); // highlighted checks
+            //light.Clear(); // highlighted moves
+            //checks.Clear(); // highlighted checks
             Turns.Clear();
         }
 
