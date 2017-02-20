@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimpleChessApp.Chess
 {
+    [ToolboxItem(false)]
     public class Board : Panel
     {
         public Square[,] Squares = new Square[8, 8];

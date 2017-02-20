@@ -28,11 +28,19 @@
             Current = Home = h;
         }
 
+        public ChessPiece(SimpleSquare h, Pieces p, PieceColor c)
+        {
+            Id = idd++;
+            Kind = p;
+            Color = c;
+            //Current = Home = h;
+        }
+
         public string SpecialName
         {
             get
             {
-                return Kind + " " + Id.ToString() + " " +  Current.Name;
+                return $"{Current.Name} - {Kind}";
             }
         }
     }

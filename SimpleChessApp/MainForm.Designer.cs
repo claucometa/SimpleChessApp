@@ -1,6 +1,6 @@
 ﻿namespace SimpleChessApp
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,21 +89,13 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(797, 219);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 18);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "label2";
-            // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(682, 240);
+            this.panel2.Location = new System.Drawing.Point(552, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(258, 270);
+            this.panel2.Size = new System.Drawing.Size(391, 385);
             this.panel2.TabIndex = 13;
             // 
             // gameToolStripMenuItem
@@ -212,20 +203,22 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 18;
+            this.listBox1.ItemHeight = 17;
             this.listBox1.Location = new System.Drawing.Point(487, 37);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(113, 382);
+            this.listBox1.Size = new System.Drawing.Size(113, 378);
             this.listBox1.TabIndex = 16;
             // 
             // listBox2
             // 
+            this.listBox2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 18;
+            this.listBox2.ItemHeight = 17;
             this.listBox2.Location = new System.Drawing.Point(606, 37);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(113, 382);
+            this.listBox2.Size = new System.Drawing.Size(113, 378);
             this.listBox2.TabIndex = 17;
             // 
             // Form1
@@ -235,7 +228,6 @@
             this.ClientSize = new System.Drawing.Size(956, 536);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.label1);
@@ -248,6 +240,7 @@
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleChessApp";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -260,7 +253,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;

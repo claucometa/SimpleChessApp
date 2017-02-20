@@ -15,7 +15,7 @@ namespace SimpleChessApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
 
             BindingList<KeyValuePair<int, string>> z = new BindingList<KeyValuePair<int, string>>();
         }

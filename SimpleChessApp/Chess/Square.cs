@@ -1,44 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace SimpleChessApp.Chess
 {
-    public partial class Square : UserControl
+    [ToolboxItem(false)]
+    public partial class Square : SimpleSquare
     {
         public int File, Rank;
         public new string Name;
         public static event EventHandler Action;
-        public string msg;
-
-        Board Board;
-
-        //private bool IsSelected;
-
-        public Color DefaultColor;
-
-        ChessPiece piece;
-        public ChessPiece Piece
-        {
-            get
-            {
-                return piece;
-            }
-            set
-            {
-                piece = value;
-
-                if (piece == null)
-                {
-                    piece = null;
-                    BackgroundImage = null;
-                    return;
-                }
-
-                BackgroundImage = repo.GetPiece(piece.Kind, piece.Color);
-            }
-        }
+        public Board Board;
 
         public string SpecialName
         {
@@ -56,20 +29,6 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        bool isBlackSquare;
-        public bool IsBlackSquare
-        {
-            get
-            {
-                return isBlackSquare;
-            }
-            set
-            {
-                isBlackSquare = value;
-                colorSquare();
-            }
-        } // Used just and only to draw the board
-
         Repository repo
         {
             get
@@ -78,11 +37,29 @@ namespace SimpleChessApp.Chess
             }
         }
 
+        public static void action(string msg)
+        {
+            Action?.Invoke(msg, null);
+        }
+
+        public Square(int file, int rank, Board Board) : this()
+        {
+            this.Board = Board;
+            File = file;
+            Rank = rank;
+            Name = "abcdefgh"[file] + (Rank + 1).ToString();
+        }
+
+        private void colorSquare()
+        {
+            DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
+            BackColor = DefaultColor;
+        }
+
         public Square()
         {
             InitializeComponent();
-            MouseClick += Square_MouseClick;
-            panel1.MouseClick += Square_MouseClick;
+            Click += Square_MouseClick;
         }
 
         private void Square_MouseClick(object sender, MouseEventArgs e)
@@ -104,7 +81,7 @@ namespace SimpleChessApp.Chess
                             if (moves.Exists(t => t.Square == to))
                             {
                                 msg = "Movimento permitido!";
-                                to.MoveTo(Board.From);
+                                to.MoveFrom(Board.From);
                                 //Board.lights.FindAllMoves();
                                 return;
                             }
@@ -143,7 +120,7 @@ namespace SimpleChessApp.Chess
                         if (moves.Exists(t => t.Square == to))
                         {
                             msg = "Captura";
-                            to.Capturar(Board.From);
+                            to.Capt(Board.From);
                         }
 
                         Board.From = to;
@@ -153,7 +130,7 @@ namespace SimpleChessApp.Chess
                         action(msg);
 
                     }
-                    else if (to.Piece != Board.From.Piece && to.piece.Color != Board.From.Piece.Color)
+                    else if (to.Piece != Board.From.Piece && to.Piece.Color != Board.From.Piece.Color)
                     {
                         //x.BackColor = DefaultColor;
                         Board.From.BackColor = Board.From.DefaultColor;
@@ -183,10 +160,7 @@ namespace SimpleChessApp.Chess
                         if (Board.ShowSelectedPieceMoves)
                             Board.ShowPieceMoves(to);
                     }
-
                 }
-
-
             }
         }
 
@@ -200,7 +174,7 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        private void Capturar(Square from)
+        private void Capt(Square from)
         {
             if (Piece.Color == PieceColor.White)
                 Board.WhitePieces.Remove(Piece.Id);
@@ -218,23 +192,40 @@ namespace SimpleChessApp.Chess
             Board.lights.FindAllMoves();
         }
 
-        private void MoveTo(Square from)
+        private void MoveFrom(Square from)
         {
             Piece = from.Piece;
 
-            if (Piece.Color == PieceColor.White)
+            var promotePawn = false;
+            var isWhite = Piece.Color == PieceColor.White;
+
+            if (isWhite)
             {
                 Board.WhitePieces[Piece.Id].Current = this;
                 handleWhiteCastling();
+                if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 7)
+                    promotePawn = true;
             }
 
             if (Piece.Color == PieceColor.Black)
             {
                 Board.BlackPieces[Piece.Id].Current = this;
                 handleBlackCastling();
+                if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 0)
+                    promotePawn = true;
             }
 
             from.Piece = null;
+
+            if (promotePawn)
+            {
+                using (var w = new Promotion(Cursor.Position))
+                {
+                    w.ShowDialog();
+                    Kind = w.Piece; // Redraw the piece
+                }
+            }
+
             Board.lights.FindAllMoves();
         }
 
@@ -305,33 +296,6 @@ namespace SimpleChessApp.Chess
                         Board.WhiteCanCastleKingSide = false;
                     }
                 }
-            }
-        }
-
-        public static void action(string v)
-        {
-            Action?.Invoke(v, null);
-        }
-
-        public Square(int file, int rank, Board Board) : this()
-        {
-            this.Board = Board;
-            File = file;
-            Rank = rank;
-            Name = "abcdefgh"[file] + (Rank + 1).ToString();
-        }
-
-        private void colorSquare()
-        {
-            DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
-            BackColor = DefaultColor;
-        }
-
-        public bool IsEmpty
-        {
-            get
-            {
-                return Piece == null;
             }
         }
 

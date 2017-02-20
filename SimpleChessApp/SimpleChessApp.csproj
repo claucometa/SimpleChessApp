@@ -53,20 +53,32 @@
     <Compile Include="Chess\Repository.Designer.cs">
       <DependentUpon>Repository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chess\SimpleSquare.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chess\SimpleSquare.Designer.cs">
+      <DependentUpon>SimpleSquare.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extras\Notation.cs" />
     <Compile Include="Chess\Board.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Extras\DebugChess.cs" />
     <Compile Include="Extras\Notify.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Chess\MoveFinder.cs" />
     <Compile Include="Chess\ChessPiece.cs" />
+    <Compile Include="Promotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Promotion.Designer.cs">
+      <DependentUpon>Promotion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chess\Square.cs">
@@ -83,11 +95,17 @@
     <EmbeddedResource Include="Chess\Repository.resx">
       <DependentUpon>Repository.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Chess\SimpleSquare.resx">
+      <DependentUpon>SimpleSquare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chess\Square.resx">
       <DependentUpon>Square.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Promotion.resx">
+      <DependentUpon>Promotion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

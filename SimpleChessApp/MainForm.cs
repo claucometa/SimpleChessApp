@@ -5,13 +5,12 @@ using static SimpleChessApp.Chess.ChessContext;
 
 namespace SimpleChessApp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             label1.Text = "";
-            label2.Text = "";
             #region Stupid Region
             // This is stupid to add one event for each item but menustrip sucks :D
             // and this is the only way
@@ -39,7 +38,6 @@ namespace SimpleChessApp
             bishopToolStripMenuItem1.Tag = Pieces.Bishop;
             rookToolStripMenuItem1.Tag = Pieces.Rook;
             #endregion
-
             Square.Action += Square_Action;
         }
 
@@ -61,6 +59,12 @@ namespace SimpleChessApp
             foreach (var item in Core[0].ChessBoard.BlackPieces.Values)
                 listBox2.Items.Add(item);
             listBox2.DisplayMember = "SpecialName";
+
+            if (Core[0].ChessBoard.From != null)
+                if (Core[0].ChessBoard.From.Piece.Color == PieceColor.White)
+                    listBox1.SelectedItem = Core[0].ChessBoard.From.Piece;
+                else
+                    listBox2.SelectedItem = Core[0].ChessBoard.From.Piece;
         }
 
         private void Item_Click(object sender, EventArgs e)
