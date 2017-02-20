@@ -73,6 +73,9 @@
     </Compile>
     <Compile Include="Chess\MoveFinder.cs" />
     <Compile Include="Chess\ChessPiece.cs" />
+    <Compile Include="NiceLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Promotion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +94,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DesignBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignBoard.Designer.cs">
+      <DependentUpon>DesignBoard.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Chess\Repository.resx">
       <DependentUpon>Repository.cs</DependentUpon>
@@ -111,6 +120,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignBoard.resx">
+      <DependentUpon>DesignBoard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

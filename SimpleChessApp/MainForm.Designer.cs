@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,54 +45,19 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.designBoard2 = new SimpleChessApp.DesignBoard();
+            this.designBoard1 = new SimpleChessApp.DesignBoard();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(233, 49);
+            this.label1.Location = new System.Drawing.Point(14, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 18);
+            this.label1.Size = new System.Drawing.Size(420, 18);
             this.label1.TabIndex = 11;
             this.label1.Text = "label1";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Location = new System.Drawing.Point(41, 70);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 440);
-            this.panel1.TabIndex = 0;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(21, 70);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(14, 13);
-            this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(21, 487);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(14, 13);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(552, 49);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(391, 385);
-            this.panel2.TabIndex = 13;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gameToolStripMenuItem
             // 
@@ -221,22 +182,39 @@
             this.listBox2.Size = new System.Drawing.Size(113, 378);
             this.listBox2.TabIndex = 17;
             // 
-            // Form1
+            // designBoard2
+            // 
+            this.designBoard2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.designBoard2.BackColor = System.Drawing.Color.Black;
+            this.designBoard2.Location = new System.Drawing.Point(564, 37);
+            this.designBoard2.Name = "designBoard2";
+            this.designBoard2.Padding = new System.Windows.Forms.Padding(0, 9, 9, 0);
+            this.designBoard2.Size = new System.Drawing.Size(370, 370);
+            this.designBoard2.TabIndex = 19;
+            // 
+            // designBoard1
+            // 
+            this.designBoard1.BackColor = System.Drawing.Color.Black;
+            this.designBoard1.Location = new System.Drawing.Point(14, 71);
+            this.designBoard1.Name = "designBoard1";
+            this.designBoard1.Padding = new System.Windows.Forms.Padding(0, 9, 9, 0);
+            this.designBoard1.Size = new System.Drawing.Size(420, 420);
+            this.designBoard1.TabIndex = 18;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 536);
+            this.Controls.Add(this.designBoard2);
+            this.Controls.Add(this.designBoard1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleChessApp";
@@ -249,11 +227,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearBoardToolStripMenuItem;
@@ -270,6 +244,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private DesignBoard designBoard1;
+        private DesignBoard designBoard2;
     }
 }
 

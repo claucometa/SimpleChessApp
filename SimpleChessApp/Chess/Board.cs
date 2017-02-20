@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace SimpleChessApp.Chess
 {
-    [ToolboxItem(false)]
     public class Board : Panel
     {
         public Square[,] Squares = new Square[8, 8];
@@ -64,8 +63,8 @@ namespace SimpleChessApp.Chess
         void build(Panel p, bool flipped = false)
         {
             #region Assemble Board
-            var w = p.Width / 8;
-            var h = p.Height / 8;
+            var w = (p.Width / 8) + 1;
+            var h = (p.Height / 8) + 1;
             int count = flipped ? 1 : 0;  // Right corner = white square
             bool isBlack;
             var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
@@ -89,7 +88,6 @@ namespace SimpleChessApp.Chess
                 }
             }
             #endregion
-
             Restart();
         }
 

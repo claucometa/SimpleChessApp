@@ -29,7 +29,10 @@ namespace SimpleChessApp.Chess
         // Used by Square class
         public bool firstClick = true;
         public Square lastSquare;
-       // public HighLightMoves light = new HighLightMoves();
+
+        
+
+        // public HighLightMoves light = new HighLightMoves();
 
         #region Contructors
         public ChessCore(Board b)
@@ -382,7 +385,7 @@ namespace SimpleChessApp.Chess
         public void RestartGame()
         {
             resetFlags(); // always first
-            ChessBoard.Restart();            
+            ChessBoard.Restart();
         }
 
         void resetFlags(bool turn = false)

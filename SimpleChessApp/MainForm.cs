@@ -54,17 +54,16 @@ namespace SimpleChessApp
                 listBox1.Items.Add(item);
             listBox1.DisplayMember = "SpecialName";
 
-
             listBox2.Items.Clear();
             foreach (var item in Core[0].ChessBoard.BlackPieces.Values)
                 listBox2.Items.Add(item);
             listBox2.DisplayMember = "SpecialName";
 
-            if (Core[0].ChessBoard.From != null)
-                if (Core[0].ChessBoard.From.Piece.Color == PieceColor.White)
-                    listBox1.SelectedItem = Core[0].ChessBoard.From.Piece;
-                else
-                    listBox2.SelectedItem = Core[0].ChessBoard.From.Piece;
+            //if (Core[0].ChessBoard.From != null)
+            //    if (Core[0].ChessBoard.From.Piece.Color == PieceColor.White)
+            //        listBox1.SelectedItem = Core[0].ChessBoard.From.Piece;
+            //    else
+            //        listBox2.SelectedItem = Core[0].ChessBoard.From.Piece;
         }
 
         private void Item_Click(object sender, EventArgs e)
@@ -98,11 +97,11 @@ namespace SimpleChessApp
 
         protected override void OnLoad(EventArgs e)
         {
-            var ChessBoard1 = new Board(panel1, false, false, true);
-            var ChessBoard2 = new Board(panel2, true, true, false);
+            designBoard1.SetBoard(false, false, true);
+            designBoard2.SetBoard(true, true, false);
 
-            Core.Add(new ChessCore(ChessBoard1));
-            Core.Add(new ChessCore(ChessBoard2));
+            Core.Add(new ChessCore(designBoard1.Board));
+            Core.Add(new ChessCore(designBoard1.Board));
 
             fillListBox();
         }
