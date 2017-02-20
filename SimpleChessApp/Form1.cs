@@ -46,8 +46,6 @@ namespace SimpleChessApp
         private void Square_Action(object sender, EventArgs e)
         {
             label1.Text = sender.ToString();
-            bindingSource1.DataSource = Core[0].ChessBoard.WhitePieces.Values;
-            listBox1.DisplayMember = "SpecialName";
         }
 
         private void Item_Click(object sender, EventArgs e)
@@ -84,6 +82,9 @@ namespace SimpleChessApp
 
             Core.Add(new ChessCore(ChessBoard1));
             Core.Add(new ChessCore(ChessBoard2));
+
+            bindingSource1.DataSource = Core[0].ChessBoard.WhitePieces.Values;
+            listBox1.DisplayMember = "SpecialName";
         }
 
         #region Stupid Enums

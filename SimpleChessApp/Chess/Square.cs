@@ -9,6 +9,7 @@ namespace SimpleChessApp.Chess
         public int File, Rank;
         public new string Name;
         public static event EventHandler Action;
+        public string msg;
 
         Board Board;
 
