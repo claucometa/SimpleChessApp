@@ -45,16 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chess\ChessContext.cs" />
+    <Compile Include="Chess\ChessCore.cs" />
+    <Compile Include="Chess\Repository.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chess\Repository.Designer.cs">
+      <DependentUpon>Repository.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extras\Notation.cs" />
     <Compile Include="Chess\Board.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ChessContext.cs" />
-    <Compile Include="Chess\ChessCore.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chess\ChessCore.Designer.cs">
-      <DependentUpon>ChessCore.cs</DependentUpon>
     </Compile>
     <Compile Include="Extras\DebugChess.cs" />
     <Compile Include="Extras\Notify.cs" />
@@ -79,8 +80,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Chess\ChessCore.resx">
-      <DependentUpon>ChessCore.cs</DependentUpon>
+    <EmbeddedResource Include="Chess\Repository.resx">
+      <DependentUpon>Repository.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

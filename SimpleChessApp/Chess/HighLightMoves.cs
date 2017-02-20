@@ -15,7 +15,7 @@ namespace SimpleChessApp.Chess
 
         public void FindAllMoves(Square x)
         {
-            switch (x.Piece.Name)
+            switch (x.Piece.Kind)
             {
                 case Pieces.Pawn:
                     handlePawn(x);
@@ -72,13 +72,13 @@ namespace SimpleChessApp.Chess
                 b = x.Rank + 1 * m;
                 if (b >= 0 && b < 8)
                 {
-                    sq = ChessContext.Core.ChessBoard[a, b];
+                    sq = ChessContext.Core[0].ChessBoard[a, b];
                     if (sq.IsEmpty) addMove(a, b, x);
                 }
             }
 
             // Passant
-            sq = ChessContext.Core.LastMove;
+            sq = ChessContext.Core[0].LastMove;
             if (sq != null)
             {
                 if (sq.Piece != null)
@@ -114,7 +114,7 @@ namespace SimpleChessApp.Chess
             b = x.Rank + 1 * m;
             if (a >= 0 && b >= 0 && b < 8)
             {
-                sq = ChessContext.Core.ChessBoard[a, b];
+                sq = ChessContext.Core[0].ChessBoard[a, b];
                 if (!sq.IsEmpty) addMove(a, b, x);
             }
 
@@ -122,7 +122,7 @@ namespace SimpleChessApp.Chess
             b = x.Rank + 1 * m;
             if (a < 8 && b >= 0 && b < 8)
             {
-                sq = ChessContext.Core.ChessBoard[a, b];
+                sq = ChessContext.Core[0].ChessBoard[a, b];
                 if (!sq.IsEmpty) addMove(a, b, x);
             }
         }
@@ -146,28 +146,28 @@ namespace SimpleChessApp.Chess
 
             if (x.Piece.Color == PieceColor.White)
             {
-                if (ChessContext.Core.WhiteCanCastleKingSide)
+                if (ChessContext.Core[0].WhiteCanCastleKingSide)
                     handleSmallCastling(x);
 
-                if (ChessContext.Core.WhiteCanCastleQueenSide)
+                if (ChessContext.Core[0].WhiteCanCastleQueenSide)
                     handleBigCastling(x);
             }
 
             if (x.Piece.Color == PieceColor.Black)
             {
-                if (ChessContext.Core.BlackCanCastleKingSide)
+                if (ChessContext.Core[0].BlackCanCastleKingSide)
                     handleSmallCastling(x);
 
-                if (ChessContext.Core.BlackCanCastleQueenSide)
+                if (ChessContext.Core[0].BlackCanCastleQueenSide)
                     handleBigCastling(x);
             }
         }
 
         private void handleBigCastling(Square x)
         {
-            var s1 = ChessContext.Core.ChessBoard[x.File - 1, x.Rank];
-            var s2 = ChessContext.Core.ChessBoard[x.File - 2, x.Rank];
-            var s3 = ChessContext.Core.ChessBoard[x.File - 3, x.Rank];
+            var s1 = ChessContext.Core[0].ChessBoard[x.File - 1, x.Rank];
+            var s2 = ChessContext.Core[0].ChessBoard[x.File - 2, x.Rank];
+            var s3 = ChessContext.Core[0].ChessBoard[x.File - 3, x.Rank];
             if (s1.IsEmpty && s2.IsEmpty && s3.IsEmpty)
             {
                 addMove(x.File - 2, x.Rank, x);
@@ -176,8 +176,8 @@ namespace SimpleChessApp.Chess
 
         private void handleSmallCastling(Square x)
         {
-            var s1 = ChessContext.Core.ChessBoard[x.File + 1, x.Rank];
-            var s2 = ChessContext.Core.ChessBoard[x.File + 2, x.Rank];
+            var s1 = ChessContext.Core[0].ChessBoard[x.File + 1, x.Rank];
+            var s2 = ChessContext.Core[0].ChessBoard[x.File + 2, x.Rank];
             if (s1.IsEmpty && s2.IsEmpty)
             {
                 addMove(x.File + 2, x.Rank, x);
@@ -255,7 +255,7 @@ namespace SimpleChessApp.Chess
                 // Avoid going out of the board (overflow)
                 if (a < 0 || b < 0 || a > 7 || b > 7) continue;
 
-                var sq = ChessContext.Core.ChessBoard[a, b];
+                var sq = ChessContext.Core[0].ChessBoard[a, b];
                 if (sq.IsEmpty)
                     MoveList.Add(new PossibleMoves(sq, UserAction.Move));
                 else if (sq.Piece.Color != x.Piece.Color)
@@ -267,7 +267,7 @@ namespace SimpleChessApp.Chess
         {
             if (a < 0 || a > 7 || b < 0 || b > 7) return true;
 
-            var sq = ChessContext.Core.ChessBoard[a, b];
+            var sq = ChessContext.Core[0].ChessBoard[a, b];
             if (sq.IsEmpty)
                 MoveList.Add(new PossibleMoves(sq, UserAction.Move));
             else if (sq.Piece.Color != x.Piece.Color)

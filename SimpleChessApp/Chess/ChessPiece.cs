@@ -3,7 +3,7 @@
     public class ChessPiece : Notify
     {
         public int Id { get; set; }
-        public Pieces Name { get; set; }
+        public Pieces Kind { get; set; }
         public PieceColor Color { get; set; }
         public Square Home { get; set; }
         public bool Passant { get; set; }
@@ -23,7 +23,7 @@
         public ChessPiece(Square h, Pieces p, PieceColor c)
         {
             Id = idd++;
-            Name = p;
+            Kind = p;
             Color = c;
             Current = Home = h;
         }
@@ -32,7 +32,7 @@
         {
             get
             {
-                return Current.Name + " " + Name;
+                return Current.Name + " " + Kind;
             }
         }
     }

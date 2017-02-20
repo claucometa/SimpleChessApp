@@ -8,13 +8,21 @@ namespace SimpleChessApp.Chess
     public class Board : Panel
     {
         public Square[,] Squares = new Square[8, 8];
-
         public BindingList<ChessPiece> WhitePieces = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackPieces = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> WhiteCaptured = new BindingList<ChessPiece>();
         public BindingList<ChessPiece> BlackCaptured = new BindingList<ChessPiece>();
+        public Square LastSquare;
 
         int idd = 0;
+
+        public Board(Panel p)
+        {            
+            Dock = DockStyle.Fill;
+            build(p);
+            p.Controls.Add(this);
+        }
+
         public int id
         {
             get
@@ -39,7 +47,7 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        public void Build(Panel p)
+        void build(Panel p)
         {
             #region Assemble Board
             var w = p.Width / 8;
@@ -53,7 +61,7 @@ namespace SimpleChessApp.Chess
                 isBlack = (count++ % 2) == 0;
                 for (int file = 0; file < 8; file++)
                 {
-                    var x = new Square(file, rank);
+                    var x = new Square(file, rank, this);
                     x.IsBlackSquare = isBlack;
                     x.BackgroundImageLayout = layout;
                     isBlack = (count++ % 2) == 0;
@@ -82,6 +90,8 @@ namespace SimpleChessApp.Chess
             for (int i = 0; i < 8; i++)
                 for (int x = 0; x < 8; x++)
                     Squares[i, x].Piece = null;
+
+            LastSquare = null;
 
             WhitePieces.Clear();
             BlackPieces.Clear();
@@ -121,12 +131,12 @@ namespace SimpleChessApp.Chess
             if (c == PieceColor.Black) BlackPieces.Add(x.Piece);
         }
 
-        void addWhite(int v1, int v2, Pieces p)
+        public void addWhite(int v1, int v2, Pieces p)
         {
             add(v1, v2, p, PieceColor.White);
         }
 
-        void addBlack(int v1, int v2, Pieces p)
+        public void addBlack(int v1, int v2, Pieces p)
         {
             add(v1, v2, p, PieceColor.Black);
         }

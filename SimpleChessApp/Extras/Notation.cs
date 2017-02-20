@@ -49,12 +49,12 @@ namespace SimpleChessApp.Chess
         public Square from;
         public Square to;
 
-        public Notation(Square f, Square t)
+        public Notation(Square f, Square t, Board bo)
         {
-            var a = new Square(f.File, f.Rank);
-            var b = new Square(t.File, t.Rank);
-            a.Piece = new ChessPiece(f, t.Piece.Name, t.Piece.Color);
-            b.Piece = new ChessPiece(t, t.Piece.Name, t.Piece.Color);
+            var a = new Square(f.File, f.Rank, bo);
+            var b = new Square(t.File, t.Rank, bo);
+            a.Piece = new ChessPiece(f, t.Piece.Kind, t.Piece.Color);
+            b.Piece = new ChessPiece(t, t.Piece.Kind, t.Piece.Color);
             from = a;
             to = b;
         }

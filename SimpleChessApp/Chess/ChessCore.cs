@@ -6,8 +6,10 @@ using System.Linq;
 
 namespace SimpleChessApp.Chess
 {
-    public partial class ChessCore : Component
+    public class ChessCore
     {
+        public Board ChessBoard;
+
         // Turn handling
         public event EventHandler NextTurn;
         public event EventHandler<ActionEventArgs> ActionChanged;
@@ -30,7 +32,7 @@ namespace SimpleChessApp.Chess
         // Move handling
         PossibleMoves move;
         public Square LastMove;
-        public Square PromotedSquare;
+
         public NotationManager Turns = new NotationManager();
         Square to, from;
 
@@ -40,25 +42,17 @@ namespace SimpleChessApp.Chess
         public HighLightMoves light = new HighLightMoves();
 
         #region Contructors
+        public ChessCore(Board b)
+        {
+            ChessBoard = b;
+            //Square.FirstClick += Square_FirstClick;
+            //Square.SecondClick += Square_SecondClick;
+            resetFlags();
+        }
+
         public ChessCore()
         {
-            InitializeComponent();
 
-            #region Pawn Promotion Menu Initializer
-            queenToolStripMenuItem.Tag = Pieces.Queen;
-            knightToolStripMenuItem.Tag = Pieces.Knight;
-            rookToolStripMenuItem.Tag = Pieces.Rook;
-            bishopToolStripMenuItem.Tag = Pieces.Bishop;
-            queenToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
-            knightToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
-            rookToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
-            bishopToolStripMenuItem.Click += QueenToolStripMenuItem_Click;
-            #endregion
-
-            Square.FirstClick += Square_FirstClick;
-            Square.SecondClick += Square_SecondClick;
-
-            resetFlags();
         }
 
         private void Square_SecondClick(object sender, EventArgs e)
@@ -84,17 +78,17 @@ namespace SimpleChessApp.Chess
                 to.Piece = from.Piece;
                 to.Piece.Current = to;
 
-                if (to.Piece.Name == Pieces.King)
+                if (to.Piece.Kind == Pieces.King)
                 {
                     if (blackCanCastle || whiteCanCastle)
                         handleCastling();
                     shutOffCastling();
                 }
 
-                if (to.Piece.Name == Pieces.Rook)
+                if (to.Piece.Kind == Pieces.Rook)
                     shutOffCastling();
 
-                if (to.Piece.Name == Pieces.Pawn)
+                if (to.Piece.Kind == Pieces.Pawn)
                 {
                     if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
                         to.Piece.Passant = true;
@@ -116,15 +110,15 @@ namespace SimpleChessApp.Chess
 
             if (move.Kind == UserAction.Move || move.Kind == UserAction.Capture)
             {
-                if (to.Piece.Name == Pieces.Pawn)
+                if (to.Piece.Kind == Pieces.Pawn)
                 {
                     if ((from.Rank == 1 && to.Rank == 3) || (from.Rank == 6 && to.Rank == 4))
                         to.Piece.Passant = true;
 
                     if (to.Rank == 0 || to.Rank == 7)
                     {
-                        PromotedSquare = to;
-                        ShowPieceSelector(from);
+                        //PromotedSquare = to;
+                        //ShowPieceSelector(from);
                     }
                 }
             }
@@ -185,7 +179,7 @@ namespace SimpleChessApp.Chess
                     foreach (var item in checks.MoveList)
                     {
                         if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
                         {
                             move.Kind = UserAction.Check;
                             lastCheckPiece = to;
@@ -204,7 +198,7 @@ namespace SimpleChessApp.Chess
                     foreach (var item in checks.MoveList)
                     {
                         if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
                         {
                             move.Kind = UserAction.Check;
                             lastCheckPiece = to;
@@ -219,7 +213,7 @@ namespace SimpleChessApp.Chess
 
         private bool detectCheck()
         {
-            if (to.Piece.Name != Pieces.King)
+            if (to.Piece.Kind != Pieces.King)
             {
                 if (lastCheckPiece == null)
                 {
@@ -229,7 +223,7 @@ namespace SimpleChessApp.Chess
                     foreach (var item in checks.MoveList)
                     {
                         if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
                         {
                             move.Kind = UserAction.Check;
                             ghostCheckPiece = lastCheckPiece = to;
@@ -247,7 +241,7 @@ namespace SimpleChessApp.Chess
                     foreach (var item in checks.MoveList)
                     {
                         if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
                         {
                             move.Kind = UserAction.Check;
                             checks.Clear();
@@ -257,7 +251,7 @@ namespace SimpleChessApp.Chess
                             foreach (var item2 in checks.MoveList)
                             {
                                 if (ChessBoard[item2.Square].Piece == null) continue;
-                                if (ChessBoard[item2.Square].Piece.Name == Pieces.King)
+                                if (ChessBoard[item2.Square].Piece.Kind == Pieces.King)
                                 {
                                     move.Kind = UserAction.Check;
                                     lastCheckPiece = ghostCheckPiece;
@@ -284,7 +278,7 @@ namespace SimpleChessApp.Chess
                     foreach (var item in checks.MoveList)
                     {
                         if (ChessBoard[item.Square].Piece == null) continue;
-                        if (ChessBoard[item.Square].Piece.Name == Pieces.King)
+                        if (ChessBoard[item.Square].Piece.Kind == Pieces.King)
                         {
                             move.Kind = UserAction.Check;
                             return false;
@@ -371,21 +365,11 @@ namespace SimpleChessApp.Chess
             ActionChanged?.Invoke(from, new ActionEventArgs(UserAction.Piece_Selected));
         }
 
-        public ChessCore(IContainer container)
-        {
-            container.Add(this);
-            InitializeComponent();
-        }
         #endregion
 
         /// <summary>
         /// Call it first to build the board, then add the ChessBoard to a panel
-        /// </summary>
-        public void BuildBoard(Panel p)
-        {
-            ChessBoard.Build(p);
-            p.Controls.Add(ChessBoard);
-        }
+        /// </summary>        
 
         public void ChangeTurn()
         {
@@ -426,59 +410,19 @@ namespace SimpleChessApp.Chess
             Turns.Clear();
         }
 
-        /// <summary>
-        /// Returns the image of a chess piece
-        /// </summary> 
-        /// <param name="name">The name of the piece</param>
-        /// <param name="color">The color of the piece</param>
-        public Image GetPiece(Pieces name, PieceColor color)
-        {
-            var i = ((int)name) - 1;
-            //return color == PieceColor.Black ? BlackPieces.Images[i] : WhitePieces.Images[i];
-            return color == PieceColor.Black ? imageList1.Images[i] : imageList2.Images[i];
-        }
 
         void addMoveNote()
         {
-            if (!ChessContext.Core.DisableTurn)
+            if (!ChessContext.Core[0].DisableTurn)
             {
-                if (ChessContext.Core.WhosPlaying == PieceColor.White)
-                    Turns.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, White = new Notation(from, to) });
-                else
-                    Turns.Moves.Last().Black = new Notation(from, to);
+                //if (ChessContext.Core.WhosPlaying == PieceColor.White)
+                //    Turns.Moves.Add(new Turn { Id = ChessContext.Core.TurnId, White = new Notation(from, to) });
+                //else
+                //    Turns.Moves.Last().Black = new Notation(from, to);
             }
         }
 
-        #region Pawn Promotion
-        /// <summary>
-        /// The param x is just for location purpuses
-        /// </summary>
-        /// <param name="x"></param>
-        internal void ShowPieceSelector(Control x)
-        {
-            PawnPromotionDialog.Show(x.Parent, x.Location);
-        }
 
-        private void QueenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var x = (Pieces)((ToolStripMenuItem)sender).Tag;
-            PromotedSquare.Piece.Name = x;
-            ChessBoard[PromotedSquare].Piece = PromotedSquare.Piece;
-
-            if (PromotedSquare.Piece.Color == PieceColor.White)
-            {
-                var w = ChessBoard.WhitePieces.FirstOrDefault(t => t == PromotedSquare.Piece);
-                if( w!= null) w.Name = x;
-            }
-
-            if (PromotedSquare.Piece.Color == PieceColor.Black)
-            {
-                var w = ChessBoard.BlackPieces.FirstOrDefault(t => t == PromotedSquare.Piece);
-                if (w != null) w.Name = x; 
-            }
-        }
-
-        #endregion
 
         #region DEBUG 
         internal void TestPassant()

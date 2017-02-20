@@ -8,8 +8,9 @@ namespace SimpleChessApp.Chess
     {
         public int File, Rank;
         public new string Name;
-        public static event EventHandler FirstClick;
-        public static event EventHandler SecondClick;
+        //public static event EventHandler FirstClick;
+        //public static event EventHandler SecondClick;
+        Board Board;
 
         //private bool IsSelected;
 
@@ -33,7 +34,7 @@ namespace SimpleChessApp.Chess
                     return;
                 }
 
-                BackgroundImage = u.GetPiece(piece.Name, piece.Color);
+                BackgroundImage = repo.GetPiece(piece.Kind, piece.Color);
             }
         }
 
@@ -67,11 +68,11 @@ namespace SimpleChessApp.Chess
             }
         } // Used just and only to draw the board
 
-        ChessCore u
+        Repository repo
         {
             get
             {
-                return ChessContext.Core;
+                return ChessContext.repo;
             }
         }
 
@@ -86,62 +87,51 @@ namespace SimpleChessApp.Chess
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (u.firstClick)
+                var x = this;
+
+                if (Board.LastSquare != null)
                 {
-                    var x = this;
-
-                    if (x.Piece == null) return;
-
-                    if (u.WhosPlaying == x.Piece.Color || u.DisableTurn)
+                    if (x.Piece == null)
                     {
+                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
+                    }
+                    else if (x.Piece.Color == Board.LastSquare.Piece.Color)
+                    {
+                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
                         x.BackColor = Color.LightGreen;
-                        u.lastSquare = x;
-                        u.light.FindAllMoves(x);
-                        u.light.HighLightMoveStyle();
-                        FirstClick?.Invoke(this, e);
-                        u.firstClick = !u.firstClick;
+                        Board.LastSquare = x;
+                    }
+                    else if (x.Piece.Color != Board.LastSquare.Piece.Color)
+                    {
+                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
+                        x.BackColor = Color.LightGreen;
+                        Board.LastSquare = x;
+                    }
+                    else if (x.Piece != Board.LastSquare.Piece)
+                    {
+                        //x.BackColor = DefaultColor;
+                        Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
+                        Board.LastSquare = null;
+                        return;
                     }
                 }
-                else
+
+                else if (Board.LastSquare != x)
                 {
-                    var x = this;
+                    if (x.Piece != null)
+                    {
+                        if (Board.LastSquare != null) Board.LastSquare.BackColor = Board.LastSquare.DefaultColor;
+                        x.BackColor = Color.LightGreen;
+                        Board.LastSquare = x;
+                    }
 
-                    // If click again on same piece do nothing
-                    if (u.lastSquare == x) return;
-
-                    u.lastSquare.BackColor = u.lastSquare.DefaultColor;
-
-                    if (!x.IsEmpty)
-
-                        if (x.Piece != null)
-                        {
-                            if (x.Piece.Color == u.lastSquare.Piece.Color)
-                            {
-                                u.light.Clear();
-                                x.BackColor = Color.LightGreen;
-
-                                u.lastSquare = x;
-                                u.light.FindAllMoves(x);
-                                u.light.HighLightMoveStyle();
-                                FirstClick?.Invoke(this, e);
-                                return;
-                            }
-                        }
-
-                    SecondClick?.Invoke(this, e);
-                    u.firstClick = !u.firstClick;
-                    u.light.Clear();
                 }
-            }
-
-            if (e.Button == MouseButtons.Right)
-            {
-                MessageBox.Show($"{Piece?.Name}\r\n{File}-{Rank}\r\n{Name}");
             }
         }
 
-        public Square(int file, int rank) : this()
+        public Square(int file, int rank, Board Board) : this()
         {
+            this.Board = Board;
             File = file;
             Rank = rank;
             Name = "abcdefgh"[file] + (Rank + 1).ToString();
