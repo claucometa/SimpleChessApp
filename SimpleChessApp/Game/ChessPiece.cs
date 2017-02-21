@@ -1,22 +1,13 @@
-﻿namespace SimpleChessApp.Chess
+﻿namespace SimpleChessApp.Game
 {
-    public class ChessPiece : Notify
+    public class ChessPiece
     {
-        public int Id { get; set; }
-        public Pieces Kind { get; set; }
-        public PieceColor Color { get; set; }
-        public Square Home { get; set; }
-        public bool Passant { get; set; }
-
-        public Square c;
-        public Square Current
-        {
-            get { return c; }
-            set
-            {
-                SetField(ref c, value, "Current");
-            }
-        }
+        public int Id;
+        public Pieces Kind;
+        public PieceColor Color;
+        public Square Home;
+        public bool Passant;
+        public Square Current;
 
         static int idd = 0;
 
@@ -28,12 +19,11 @@
             Current = Home = h;
         }
 
-        public ChessPiece(SimpleSquare h, Pieces p, PieceColor c)
+        public ChessPiece(Pieces p, PieceColor c)
         {
             Id = idd++;
             Kind = p;
             Color = c;
-            //Current = Home = h;
         }
 
         public string SpecialName

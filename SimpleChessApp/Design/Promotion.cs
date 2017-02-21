@@ -1,4 +1,4 @@
-﻿using SimpleChessApp.Chess;
+﻿using SimpleChessApp.Game;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,10 +15,10 @@ namespace SimpleChessApp
             StartPosition = FormStartPosition.Manual;
             Location = p;
 
-            square1.Piece = new ChessPiece(square1, Pieces.Queen, PieceColor.White);
-            square2.Piece = new ChessPiece(square2, Pieces.Rook, PieceColor.White);
-            square3.Piece = new ChessPiece(square3, Pieces.Knight, PieceColor.White);
-            square4.Piece = new ChessPiece(square4, Pieces.Bishop, PieceColor.White);
+            square1.Piece = new ChessPiece(Pieces.Queen, PieceColor.White);
+            square2.Piece = new ChessPiece(Pieces.Rook, PieceColor.White);
+            square3.Piece = new ChessPiece(Pieces.Knight, PieceColor.White);
+            square4.Piece = new ChessPiece(Pieces.Bishop, PieceColor.White);
 
             square1.Click += _Click;
             square2.Click += _Click;

@@ -1,8 +1,8 @@
-﻿using SimpleChessApp.Chess;
+﻿using SimpleChessApp.Game;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using static SimpleChessApp.Chess.ChessContext;
+using static SimpleChessApp.Game.ChessContext;
 
 namespace SimpleChessApp
 {

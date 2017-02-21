@@ -1,14 +1,14 @@
-﻿using SimpleChessApp.Chess;
+﻿using SimpleChessApp.Game;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimpleChessApp
 {
-    public partial class DesignBoard : UserControl
+    public partial class BoardPanel : UserControl
     {
         public Board Board;
 
-        public DesignBoard()
+        public BoardPanel()
         {
             InitializeComponent();
 
@@ -19,10 +19,10 @@ namespace SimpleChessApp
             for (int i = 0; i < 8; i++)
             {
                 tableLayoutPanel1.Controls.Add(
-                    new NiceLabel() { Text = (8 - i).ToString() }, 0, i);
+                    new BoardLabel() { Text = (8 - i).ToString() }, 0, i);
 
                 tableLayoutPanel2.Controls.Add(
-                    new NiceLabel() { TextAlign = ContentAlignment.TopRight, Text = "abcdefgh"[i].ToString() }, i, 0);
+                    new BoardLabel() { TextAlign = ContentAlignment.TopRight, Text = "abcdefgh"[i].ToString() }, i, 0);
 
             }
         }

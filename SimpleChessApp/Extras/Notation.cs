@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public class NotationManager
     {

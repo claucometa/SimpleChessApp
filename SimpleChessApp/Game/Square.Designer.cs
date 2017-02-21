@@ -1,4 +1,4 @@
-﻿namespace SimpleChessApp.Chess
+﻿namespace SimpleChessApp.Game
 {
     partial class Square
     {

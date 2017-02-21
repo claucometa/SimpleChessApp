@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public partial class SimpleSquare : UserControl
     {

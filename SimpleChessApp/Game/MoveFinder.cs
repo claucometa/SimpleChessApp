@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public class MoveFinder
     {

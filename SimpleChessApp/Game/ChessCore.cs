@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public class ChessCore
     {

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     [ToolboxItem(false)]
     public partial class Square : SimpleSquare

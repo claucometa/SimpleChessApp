@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public class Notify : INotifyPropertyChanged
     {

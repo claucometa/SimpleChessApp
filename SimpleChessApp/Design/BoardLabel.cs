@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace SimpleChessApp
 {
-    public class NiceLabel : Label
+    public class BoardLabel : Label
     {
-        public NiceLabel()
+        public BoardLabel()
         {
             Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom;
             ForeColor = Color.WhiteSmoke;

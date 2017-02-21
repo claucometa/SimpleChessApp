@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleChessApp.Chess
+namespace SimpleChessApp.Game
 {
     public static class ChessContext
     {

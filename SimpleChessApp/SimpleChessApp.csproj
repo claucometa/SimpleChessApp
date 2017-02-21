@@ -45,24 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chess\Board.cs">
+    <Compile Include="Game\Board.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Chess\Board.Designer.cs">
+    <Compile Include="Game\Board.Designer.cs">
       <DependentUpon>Board.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chess\ChessContext.cs" />
-    <Compile Include="Chess\ChessCore.cs" />
-    <Compile Include="Chess\Repository.cs">
+    <Compile Include="Game\ChessContext.cs" />
+    <Compile Include="Game\ChessCore.cs" />
+    <Compile Include="Design\Repository.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Chess\Repository.Designer.cs">
+    <Compile Include="Design\Repository.Designer.cs">
       <DependentUpon>Repository.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chess\SimpleSquare.cs">
+    <Compile Include="Game\SimpleSquare.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Chess\SimpleSquare.Designer.cs">
+    <Compile Include="Game\SimpleSquare.Designer.cs">
       <DependentUpon>SimpleSquare.cs</DependentUpon>
     </Compile>
     <Compile Include="Extras\Notation.cs" />
@@ -74,23 +74,23 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chess\MoveFinder.cs" />
-    <Compile Include="Chess\ChessPiece.cs" />
-    <Compile Include="NiceLabel.cs">
+    <Compile Include="Game\MoveFinder.cs" />
+    <Compile Include="Game\ChessPiece.cs" />
+    <Compile Include="Design\BoardLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Promotion.cs">
+    <Compile Include="Design\Promotion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Promotion.Designer.cs">
+    <Compile Include="Design\Promotion.Designer.cs">
       <DependentUpon>Promotion.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Chess\Square.cs">
+    <Compile Include="Game\Square.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Chess\Square.Designer.cs">
+    <Compile Include="Game\Square.Designer.cs">
       <DependentUpon>Square.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -98,28 +98,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DesignBoard.cs">
+    <Compile Include="Design\BoardPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DesignBoard.Designer.cs">
-      <DependentUpon>DesignBoard.cs</DependentUpon>
+    <Compile Include="Design\BoardPanel.Designer.cs">
+      <DependentUpon>BoardPanel.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Chess\Board.resx">
+    <EmbeddedResource Include="Game\Board.resx">
       <DependentUpon>Board.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chess\Repository.resx">
+    <EmbeddedResource Include="Design\Repository.resx">
       <DependentUpon>Repository.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chess\SimpleSquare.resx">
+    <EmbeddedResource Include="Game\SimpleSquare.resx">
       <DependentUpon>SimpleSquare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chess\Square.resx">
+    <EmbeddedResource Include="Game\Square.resx">
       <DependentUpon>Square.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Promotion.resx">
+    <EmbeddedResource Include="Design\Promotion.resx">
       <DependentUpon>Promotion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -127,8 +127,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DesignBoard.resx">
-      <DependentUpon>DesignBoard.cs</DependentUpon>
+    <EmbeddedResource Include="Design\BoardPanel.resx">
+      <DependentUpon>BoardPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

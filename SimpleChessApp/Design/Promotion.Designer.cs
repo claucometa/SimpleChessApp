@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.square1 = new SimpleChessApp.Chess.SimpleSquare();
-            this.square2 = new SimpleChessApp.Chess.SimpleSquare();
-            this.square3 = new SimpleChessApp.Chess.SimpleSquare();
-            this.square4 = new SimpleChessApp.Chess.SimpleSquare();
+            this.square1 = new SimpleChessApp.Game.SimpleSquare();
+            this.square2 = new SimpleChessApp.Game.SimpleSquare();
+            this.square3 = new SimpleChessApp.Game.SimpleSquare();
+            this.square4 = new SimpleChessApp.Game.SimpleSquare();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -131,10 +131,10 @@
 
         #endregion
 
-        private Chess.SimpleSquare square1;
-        private Chess.SimpleSquare square2;
-        private Chess.SimpleSquare square3;
-        private Chess.SimpleSquare square4;
+        private Game.SimpleSquare square1;
+        private Game.SimpleSquare square2;
+        private Game.SimpleSquare square3;
+        private Game.SimpleSquare square4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

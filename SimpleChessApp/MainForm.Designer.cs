@@ -45,8 +45,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.designBoard1 = new SimpleChessApp.DesignBoard();
-            this.designBoard2 = new SimpleChessApp.DesignBoard();
+            this.designBoard1 = new SimpleChessApp.BoardPanel();
+            this.designBoard2 = new SimpleChessApp.BoardPanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -244,8 +244,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
-        private DesignBoard designBoard2;
-        private DesignBoard designBoard1;
+        private BoardPanel designBoard2;
+        private BoardPanel designBoard1;
     }
 }
 
