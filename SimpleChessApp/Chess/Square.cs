@@ -122,7 +122,6 @@ namespace SimpleChessApp.Chess
                                             var w = Board[s.Square.File, s.Square.Rank - 1];
                                             if (Board.lastPassantPawn == w.Piece)
                                             {
-                                                w.BackColor = Color.Purple;
                                                 Board.BlackPieces.Remove(w.Piece.Id);
                                                 w.Piece = null;
                                             }
@@ -188,10 +187,10 @@ namespace SimpleChessApp.Chess
                     }
                     else if (to.Piece != Board.From.Piece && to.Piece.Color != Board.From.Piece.Color)
                     {
-                        Board.From.BackColor = Board.From.DefaultColor;
-                        Board.From = null;
-                        action("Captura");
-                        return;
+                        throw new Exception("Acho que nunca entra aqui");
+                        //Board.From.BackColor = Board.From.DefaultColor;
+                        //Board.From = null;
+                        //action("Captura 2");
                     }
                     else if (Board.From.Piece.Color == to.Piece.Color)
                     {
@@ -248,7 +247,36 @@ namespace SimpleChessApp.Chess
                 Board.BlackPieces[from.Piece.Id].Current = this;
 
             Piece = from.Piece;
+
+            var promotePawn = false;
+            var isWhite = Piece.Color == PieceColor.White;
+
+            if (isWhite)
+            {
+                Board.WhitePieces[Piece.Id].Current = this;
+                handleWhiteCastling();
+                if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 7)
+                    promotePawn = true;
+            }
+
+            if (Piece.Color == PieceColor.Black)
+            {
+                Board.BlackPieces[Piece.Id].Current = this;
+                handleBlackCastling();
+                if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 0)
+                    promotePawn = true;
+            }
+
             from.Piece = null;
+
+            if (promotePawn)
+            {
+                using (var w = new Promotion(Cursor.Position))
+                {
+                    w.ShowDialog();
+                    Kind = w.Piece; // Redraw the piece
+                }
+            }
 
             Board.lights.FindAllMoves();
         }
