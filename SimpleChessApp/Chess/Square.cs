@@ -62,6 +62,15 @@ namespace SimpleChessApp.Chess
             Click += Square_MouseClick;
         }
 
+        void SwitchPlayer()
+        {
+            if (Board.WhosPlaying == PieceColor.White)
+                Board.WhosPlaying = PieceColor.Black;
+            else
+                Board.WhosPlaying = PieceColor.White;
+        }
+
+
         private void Square_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -82,9 +91,12 @@ namespace SimpleChessApp.Chess
                             {
                                 msg = "Movimento permitido!";
                                 to.MoveFrom(Board.From);
-                                //Board.lights.FindAllMoves();
+                                SwitchPlayer();
+                                action(msg);
                                 return;
                             }
+                            if (Board.ShowSelectedPieceMoves)
+                                Board.HidePieceMoves(Board.From);
                             Board.From = null;
                             action(msg);
                             return;
@@ -94,45 +106,43 @@ namespace SimpleChessApp.Chess
                     {
                         if (to.Piece != null)
                         {
-                            // hideMoves(Board.From);
-                            to.BackColor = Color.LightGreen;
-                            Board.From = to;
-                            action("Seleção 2");
-                            if (Board.ShowSelectedPieceMoves)
-                                Board.ShowPieceMoves(to);
+                            if (Board.WhosPlaying == to.Piece.Color)
+                            {
+                                to.BackColor = Color.LightGreen;
+                                Board.From = to;
+                                action("Seleção 2");
+                                if (Board.ShowSelectedPieceMoves)
+                                    Board.ShowPieceMoves(to);
+                            }
                         }
                     }
                     else if (to.Piece.Id == Board.From.Piece.Id)
                     {
-                        if (Board.From != null)
+                        if (Board.WhosPlaying == Board.From.Piece.Color)
                         {
-                            Board.From.BackColor = Board.From.DefaultColor;
-                            to.BackColor = Color.LightGreen;
-                            action("Mesma peça");
+                            if (Board.From != null)
+                            {
+                                Board.From.BackColor = Board.From.DefaultColor;
+                                to.BackColor = Color.LightGreen;
+                                action("Mesma peça");
+                            }
                         }
                     }
                     else if (to.Piece.Color != Board.From.Piece.Color)
                     {
                         var msg = "Pedra oposta";
-                        hideMoves(Board.From);
-
                         var moves = Board.lights.MoveList[Board.From.Piece.Id];
                         if (moves.Exists(t => t.Square == to))
                         {
                             msg = "Captura";
+                            Board.From.BackColor = Board.From.DefaultColor;
                             to.Capt(Board.From);
+                            SwitchPlayer();
                         }
-
-                        Board.From = to;
-                        to.BackColor = Color.LightGreen;
-                        if (Board.ShowSelectedPieceMoves)
-                            Board.ShowPieceMoves(to);
                         action(msg);
-
                     }
                     else if (to.Piece != Board.From.Piece && to.Piece.Color != Board.From.Piece.Color)
                     {
-                        //x.BackColor = DefaultColor;
                         Board.From.BackColor = Board.From.DefaultColor;
                         Board.From = null;
                         action("Captura");
@@ -140,12 +150,15 @@ namespace SimpleChessApp.Chess
                     }
                     else if (Board.From.Piece.Color == to.Piece.Color)
                     {
-                        hideMoves(Board.From);
-                        to.BackColor = Color.LightGreen;
-                        Board.From = to;
-                        action("Seleção (próxima peça)");
-                        if (Board.ShowSelectedPieceMoves)
-                            Board.ShowPieceMoves(to);
+                        if (Board.WhosPlaying == Board.From.Piece.Color)
+                        {
+                            hideMoves(Board.From);
+                            to.BackColor = Color.LightGreen;
+                            Board.From = to;
+                            action("Seleção (próxima peça)");
+                            if (Board.ShowSelectedPieceMoves)
+                                Board.ShowPieceMoves(to);
+                        }
                     }
                 }
 
@@ -153,12 +166,15 @@ namespace SimpleChessApp.Chess
                 {
                     if (to.Piece != null)
                     {
-                        hideMoves(Board.From);
-                        to.BackColor = Color.LightGreen;
-                        Board.From = to;
-                        action("Seleção");
-                        if (Board.ShowSelectedPieceMoves)
-                            Board.ShowPieceMoves(to);
+                        if (Board.WhosPlaying == to.Piece.Color)
+                        {
+                            hideMoves(Board.From);
+                            to.BackColor = Color.LightGreen;
+                            Board.From = to;
+                            action("Seleção");
+                            if (Board.ShowSelectedPieceMoves)
+                                Board.ShowPieceMoves(to);
+                        }
                     }
                 }
             }

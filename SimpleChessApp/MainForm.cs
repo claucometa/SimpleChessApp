@@ -1,5 +1,6 @@
 ﻿using SimpleChessApp.Chess;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using static SimpleChessApp.Chess.ChessContext;
 
@@ -39,6 +40,14 @@ namespace SimpleChessApp
             rookToolStripMenuItem1.Tag = Pieces.Rook;
             #endregion
             Square.Action += Square_Action;
+
+            // #252526 #2D2D30
+            var c = ColorTranslator.FromHtml("#2D2D30");
+            BackColor = c;
+            ForeColor = Color.WhiteSmoke;
+            menuStrip1.BackColor = c;
+            menuStrip1.ForeColor = Color.WhiteSmoke;
+
         }
 
         private void Square_Action(object sender, EventArgs e)
@@ -97,9 +106,8 @@ namespace SimpleChessApp
 
         protected override void OnLoad(EventArgs e)
         {
-            designBoard1.SetBoard(false, false, true);
-            designBoard2.SetBoard(true, true, false);
-
+            designBoard1.SetBoard(ImageLayout.Center, false, false, true);
+            designBoard2.SetBoard(ImageLayout.Stretch, true, true, false);
             Core.Add(new ChessCore(designBoard1.Board));
             Core.Add(new ChessCore(designBoard1.Board));
 

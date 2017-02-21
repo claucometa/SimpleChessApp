@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimpleChessApp.Chess
 {
-    public class Board : Panel
+    public partial class Board : UserControl
     {
         public Square[,] Squares = new Square[8, 8];
         public Dictionary<int, ChessPiece> WhitePieces = new Dictionary<int, ChessPiece>();
@@ -15,6 +14,7 @@ namespace SimpleChessApp.Chess
         public MoveFinder lights;
         public bool ShowAllMoves;
         public bool ShowSelectedPieceMoves;
+        public PieceColor WhosPlaying;
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -25,14 +25,19 @@ namespace SimpleChessApp.Chess
         int idd = 0;
         public bool Flipped;
 
-        public Board(Panel p, bool flipped = false, bool allMoves = false, bool selected = false)
+        public Board()
+        {
+            InitializeComponent();
+        }
+
+        public Board(Panel p, ImageLayout layout = ImageLayout.Center, bool flipped = false, bool allMoves = false, bool selected = false) : this()
         {
             ShowSelectedPieceMoves = selected;
             ShowAllMoves = allMoves;
             Flipped = flipped;
             Dock = DockStyle.Fill;
             lights = new MoveFinder(this);
-            build(p, flipped);
+            build(layout, flipped);
             p.Controls.Add(this);
         }
 
@@ -60,31 +65,25 @@ namespace SimpleChessApp.Chess
             }
         }
 
-        void build(Panel p, bool flipped = false)
+        void build(ImageLayout layout, bool flipped)
         {
             #region Assemble Board
-            var w = (p.Width / 8) + 1;
-            var h = (p.Height / 8) + 1;
             int count = flipped ? 1 : 0;  // Right corner = white square
             bool isBlack;
-            var layout = w >= 50 || h >= 50 ? ImageLayout.Center : ImageLayout.Stretch;
-            var flip = flipped ? 0 : 7;
 
-            //Controls.Clear();
+            table.Controls.Clear();
             for (int rank = 0; rank < 8; rank++)
             {
                 isBlack = (count++ % 2) == 0;
                 for (int file = 0; file < 8; file++)
                 {
                     var x = new Square(file, rank, this);
+                    x.Dock = DockStyle.Fill;
                     x.IsBlackSquare = isBlack;
                     x.BackgroundImageLayout = layout;
                     isBlack = (count++ % 2) == 0;
-                    x.Width = w;
-                    x.Height = h;
-                    x.Location = new Point(file * w, Math.Abs(rank - flip) * h);
                     Squares[file, rank] = x;
-                    Controls.Add(x);
+                    table.Controls.Add(x, file, flipped ? rank : 7 - rank);
                 }
             }
             #endregion
@@ -113,6 +112,8 @@ namespace SimpleChessApp.Chess
                 lights = new MoveFinder(this);
 
             lights.Clear();
+
+            WhosPlaying = PieceColor.White;
 
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;

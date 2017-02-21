@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chess\Board.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chess\Board.Designer.cs">
+      <DependentUpon>Board.cs</DependentUpon>
+    </Compile>
     <Compile Include="Chess\ChessContext.cs" />
     <Compile Include="Chess\ChessCore.cs" />
     <Compile Include="Chess\Repository.cs">
@@ -60,9 +66,6 @@
       <DependentUpon>SimpleSquare.cs</DependentUpon>
     </Compile>
     <Compile Include="Extras\Notation.cs" />
-    <Compile Include="Chess\Board.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Extras\DebugChess.cs" />
     <Compile Include="Extras\Notify.cs" />
     <Compile Include="MainForm.cs">
@@ -101,6 +104,9 @@
     <Compile Include="DesignBoard.Designer.cs">
       <DependentUpon>DesignBoard.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Chess\Board.resx">
+      <DependentUpon>Board.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Chess\Repository.resx">
       <DependentUpon>Repository.cs</DependentUpon>
     </EmbeddedResource>

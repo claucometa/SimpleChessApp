@@ -45,16 +45,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.designBoard2 = new SimpleChessApp.DesignBoard();
             this.designBoard1 = new SimpleChessApp.DesignBoard();
+            this.designBoard2 = new SimpleChessApp.DesignBoard();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(14, 50);
+            this.label1.Location = new System.Drawing.Point(23, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(420, 18);
+            this.label1.Size = new System.Drawing.Size(436, 18);
             this.label1.TabIndex = 11;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,32 +182,32 @@
             this.listBox2.Size = new System.Drawing.Size(113, 378);
             this.listBox2.TabIndex = 17;
             // 
+            // designBoard1
+            // 
+            this.designBoard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.designBoard1.Location = new System.Drawing.Point(10, 68);
+            this.designBoard1.Margin = new System.Windows.Forms.Padding(0);
+            this.designBoard1.Name = "designBoard1";
+            this.designBoard1.Size = new System.Drawing.Size(460, 460);
+            this.designBoard1.TabIndex = 20;
+            // 
             // designBoard2
             // 
             this.designBoard2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.designBoard2.BackColor = System.Drawing.Color.Black;
-            this.designBoard2.Location = new System.Drawing.Point(564, 37);
+            this.designBoard2.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.designBoard2.Location = new System.Drawing.Point(646, 50);
+            this.designBoard2.Margin = new System.Windows.Forms.Padding(0);
             this.designBoard2.Name = "designBoard2";
-            this.designBoard2.Padding = new System.Windows.Forms.Padding(0, 9, 9, 0);
-            this.designBoard2.Size = new System.Drawing.Size(370, 370);
+            this.designBoard2.Size = new System.Drawing.Size(300, 300);
             this.designBoard2.TabIndex = 19;
-            // 
-            // designBoard1
-            // 
-            this.designBoard1.BackColor = System.Drawing.Color.Black;
-            this.designBoard1.Location = new System.Drawing.Point(14, 71);
-            this.designBoard1.Name = "designBoard1";
-            this.designBoard1.Padding = new System.Windows.Forms.Padding(0, 9, 9, 0);
-            this.designBoard1.Size = new System.Drawing.Size(420, 420);
-            this.designBoard1.TabIndex = 18;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 536);
-            this.Controls.Add(this.designBoard2);
             this.Controls.Add(this.designBoard1);
+            this.Controls.Add(this.designBoard2);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label1);
@@ -244,8 +244,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
-        private DesignBoard designBoard1;
         private DesignBoard designBoard2;
+        private DesignBoard designBoard1;
     }
 }
 

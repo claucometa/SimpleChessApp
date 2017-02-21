@@ -379,7 +379,7 @@ namespace SimpleChessApp.Chess
                 TurnId++;
             }
 
-            NextTurn?.Invoke(this, null);
+            //NextTurn?.Invoke(this, null);
         }
 
         public void RestartGame()
