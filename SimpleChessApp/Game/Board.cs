@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SimpleChessApp.Game
@@ -17,6 +15,7 @@ namespace SimpleChessApp.Game
         public PieceColor WhosPlaying;
         public bool DisableTurns;
         public ChessPiece lastPassantPawn;
+        public bool IsOnCheck;
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -51,8 +50,6 @@ namespace SimpleChessApp.Game
                 return ++idd;
             }
         }
-
-  
 
         public Square this[int File, int Rank]
         {
@@ -121,6 +118,7 @@ namespace SimpleChessApp.Game
             lastPassantPawn = null;
             WhosPlaying = PieceColor.White;
             DisableTurns = false;
+            IsOnCheck = false;
 
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;

@@ -10,7 +10,6 @@ namespace SimpleChessApp.Game
 
         public MoveFinder(Board b)
         {
-
             board = b;
         }
 
@@ -304,7 +303,15 @@ namespace SimpleChessApp.Game
                 MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Move));
             else if (sq.Piece.Color != x.Piece.Color)
             {
-                MoveList[p.Id].Add(new PossibleMoves(p, sq, UserAction.Capture));
+                var action = UserAction.Capture;
+
+                if (sq.Piece.Kind == Pieces.King)
+                {
+                    if (x.Piece.Kind != Pieces.King && x.Piece.Kind != Pieces.Pawn)
+                        action = UserAction.Check;
+                }
+
+                MoveList[p.Id].Add(new PossibleMoves(p, sq, action));
                 return true;
             }
             else

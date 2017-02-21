@@ -13,6 +13,7 @@ namespace SimpleChessApp.Game
         public new string Name;
         public static event EventHandler Action;
         public Board Board;
+        string msg;
 
         public string SpecialName
         {
@@ -90,7 +91,7 @@ namespace SimpleChessApp.Game
                         if (Board.From != null && Board.From.Piece != null)
                         {
                             var moves = Board.lights.MoveList[Board.From.Piece.Id];
-                            var msg = $"Movimento inválido: {moves.Count}";
+                            msg = $"Movimento inválido: {moves.Count}";
                             Board.From.BackColor = Board.From.DefaultColor;
                             if (moves.Exists(t => t.Square == to))
                             {
@@ -135,7 +136,6 @@ namespace SimpleChessApp.Game
                                 }
 
                                 to.MoveFrom(Board.From);
-                                SwitchPlayer();
                                 action(msg);
                                 return;
                             }
@@ -174,14 +174,13 @@ namespace SimpleChessApp.Game
                     }
                     else if (to.Piece.Color != Board.From.Piece.Color)
                     {
-                        var msg = "Pedra oposta";
+                        msg = "Pedra oposta";
                         var moves = Board.lights.MoveList[Board.From.Piece.Id];
                         if (moves.Exists(t => t.Square == to))
                         {
                             msg = "Captura";
                             Board.From.BackColor = Board.From.DefaultColor;
-                            to.Capt(Board.From);
-                            SwitchPlayer();
+                            to.Capt(Board.From);                            
                         }
                         action(msg);
                     }
@@ -279,6 +278,9 @@ namespace SimpleChessApp.Game
             }
 
             Board.lights.FindAllMoves();
+            identifyCheck();
+
+            SwitchPlayer();
         }
 
         private void MoveFrom(Square from)
@@ -324,6 +326,33 @@ namespace SimpleChessApp.Game
             }
 
             Board.lights.FindAllMoves();
+
+            if (Board.IsOnCheck)
+            {
+                identifyCheck();
+                if (Board.IsOnCheck)
+                {
+                    from.Piece = Piece;
+                    Piece = null;
+                    msg = "O rei continua em cheque!";
+                    return;
+                }
+            }
+            else
+            {
+                identifyCheck();
+            }
+
+            SwitchPlayer();
+        }
+
+        private void identifyCheck()
+        {
+            var x = Board.lights.MoveList.SelectMany(t => t.Value);
+            var y = x.Where(t => t.Kind == UserAction.Check);
+            Board.IsOnCheck = y.Count() > 0;
+
+            if (Board.IsOnCheck) msg = "Cheque!";
         }
 
         private void handleBlackCastling()
