@@ -12,6 +12,7 @@
         internal void TestSinglePiece(Pieces x)
         {
             b.ClearBoard();
+            b.DisableTurns = true;
             b.addWhite(4, 4, x);
             b.lights.FindAllMoves();
         }
@@ -19,7 +20,7 @@
         internal void TestPassant()
         {
             b.ClearBoard();
-
+            
             b.addWhite(1, 1, Pieces.Pawn);
             b.addWhite(3, 1, Pieces.Pawn);
             b.addWhite(5, 4, Pieces.Pawn);
@@ -44,6 +45,7 @@
         internal void TestCastling()
         {
             b.ClearBoard();
+            b.DisableTurns = true;
 
             b.addBlack(0, 7, Pieces.Rook);
             b.addBlack(4, 7, Pieces.King);

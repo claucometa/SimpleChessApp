@@ -64,10 +64,14 @@ namespace SimpleChessApp.Chess
 
         void SwitchPlayer()
         {
-            if (Board.WhosPlaying == PieceColor.White)
-                Board.WhosPlaying = PieceColor.Black;
-            else
-                Board.WhosPlaying = PieceColor.White;
+            if (!Board.DisableTurns)
+            {
+                if (Board.WhosPlaying == PieceColor.White)
+
+                    Board.WhosPlaying = PieceColor.Black;
+                else
+                    Board.WhosPlaying = PieceColor.White;
+            }
         }
 
 
@@ -106,7 +110,7 @@ namespace SimpleChessApp.Chess
                     {
                         if (to.Piece != null)
                         {
-                            if (Board.WhosPlaying == to.Piece.Color)
+                            if (Board.WhosPlaying == to.Piece.Color || Board.DisableTurns)
                             {
                                 to.BackColor = Color.LightGreen;
                                 Board.From = to;
@@ -118,7 +122,7 @@ namespace SimpleChessApp.Chess
                     }
                     else if (to.Piece.Id == Board.From.Piece.Id)
                     {
-                        if (Board.WhosPlaying == Board.From.Piece.Color)
+                        if (Board.WhosPlaying == Board.From.Piece.Color || Board.DisableTurns)
                         {
                             if (Board.From != null)
                             {
@@ -150,7 +154,7 @@ namespace SimpleChessApp.Chess
                     }
                     else if (Board.From.Piece.Color == to.Piece.Color)
                     {
-                        if (Board.WhosPlaying == Board.From.Piece.Color)
+                        if (Board.WhosPlaying == Board.From.Piece.Color || Board.DisableTurns)
                         {
                             hideMoves(Board.From);
                             to.BackColor = Color.LightGreen;
@@ -166,7 +170,7 @@ namespace SimpleChessApp.Chess
                 {
                     if (to.Piece != null)
                     {
-                        if (Board.WhosPlaying == to.Piece.Color)
+                        if (Board.WhosPlaying == to.Piece.Color || Board.DisableTurns)
                         {
                             hideMoves(Board.From);
                             to.BackColor = Color.LightGreen;

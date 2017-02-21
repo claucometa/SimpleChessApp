@@ -15,6 +15,7 @@ namespace SimpleChessApp.Chess
         public bool ShowAllMoves;
         public bool ShowSelectedPieceMoves;
         public PieceColor WhosPlaying;
+        public bool DisableTurns;
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -114,6 +115,7 @@ namespace SimpleChessApp.Chess
             lights.Clear();
 
             WhosPlaying = PieceColor.White;
+            DisableTurns = false;
 
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
