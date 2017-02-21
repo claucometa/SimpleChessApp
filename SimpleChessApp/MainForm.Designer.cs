@@ -42,11 +42,13 @@
             this.passantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.castlingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.promotionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.designBoard1 = new SimpleChessApp.BoardPanel();
             this.designBoard2 = new SimpleChessApp.BoardPanel();
+            this.discoveredCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +88,9 @@
             this.singlePieceToolStripMenuItem,
             this.passantToolStripMenuItem,
             this.castlingToolStripMenuItem,
-            this.promotionToolStripMenuItem});
+            this.promotionToolStripMenuItem,
+            this.checkToolStripMenuItem,
+            this.discoveredCheckToolStripMenuItem});
             this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
             this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.testsToolStripMenuItem.Text = "Tests";
@@ -100,7 +104,7 @@
             this.queenToolStripMenuItem1,
             this.rookToolStripMenuItem1});
             this.singlePieceToolStripMenuItem.Name = "singlePieceToolStripMenuItem";
-            this.singlePieceToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.singlePieceToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.singlePieceToolStripMenuItem.Text = "Single Piece";
             // 
             // knightToolStripMenuItem1
@@ -136,20 +140,26 @@
             // passantToolStripMenuItem
             // 
             this.passantToolStripMenuItem.Name = "passantToolStripMenuItem";
-            this.passantToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.passantToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.passantToolStripMenuItem.Text = "Passant";
             // 
             // castlingToolStripMenuItem
             // 
             this.castlingToolStripMenuItem.Name = "castlingToolStripMenuItem";
-            this.castlingToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.castlingToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.castlingToolStripMenuItem.Text = "Castling";
             // 
             // promotionToolStripMenuItem
             // 
             this.promotionToolStripMenuItem.Name = "promotionToolStripMenuItem";
-            this.promotionToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.promotionToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.promotionToolStripMenuItem.Text = "Promotion";
+            // 
+            // checkToolStripMenuItem
+            // 
+            this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
+            this.checkToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.checkToolStripMenuItem.Text = "Check";
             // 
             // menuStrip1
             // 
@@ -201,6 +211,12 @@
             this.designBoard2.Size = new System.Drawing.Size(300, 300);
             this.designBoard2.TabIndex = 19;
             // 
+            // discoveredCheckToolStripMenuItem
+            // 
+            this.discoveredCheckToolStripMenuItem.Name = "discoveredCheckToolStripMenuItem";
+            this.discoveredCheckToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.discoveredCheckToolStripMenuItem.Text = "Discovered Check";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -246,6 +262,8 @@
         private System.Windows.Forms.ListBox listBox2;
         private BoardPanel designBoard2;
         private BoardPanel designBoard1;
+        private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem discoveredCheckToolStripMenuItem;
     }
 }
 

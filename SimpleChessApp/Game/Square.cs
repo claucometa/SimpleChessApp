@@ -135,7 +135,7 @@ namespace SimpleChessApp.Game
                                     }
                                 }
 
-                                to.MoveFrom(Board.From);
+                                to.Move(Board.From);
                                 action(msg);
                                 return;
                             }
@@ -169,6 +169,8 @@ namespace SimpleChessApp.Game
                                 Board.From.BackColor = Board.From.DefaultColor;
                                 to.BackColor = Color.LightGreen;
                                 action("Mesma peça");
+                                if (Board.ShowSelectedPieceMoves)
+                                    Board.ShowPieceMoves(to);
                             }
                         }
                     }
@@ -180,7 +182,7 @@ namespace SimpleChessApp.Game
                         {
                             msg = "Captura";
                             Board.From.BackColor = Board.From.DefaultColor;
-                            to.Capt(Board.From);                            
+                            to.Capt(Board.From);
                         }
                         action(msg);
                     }
@@ -283,7 +285,7 @@ namespace SimpleChessApp.Game
             SwitchPlayer();
         }
 
-        private void MoveFrom(Square from)
+        private new void Move(Square from)
         {
             Piece = from.Piece;
 
@@ -334,13 +336,40 @@ namespace SimpleChessApp.Game
                 {
                     from.Piece = Piece;
                     Piece = null;
-                    msg = "O rei continua em cheque!";
+                    msg = "Inválido! O rei está em cheque!";
+
+                    if (isWhite)
+                        Board.WhitePieces[from.Piece.Id].Current = from;
+                    else
+                        Board.BlackPieces[from.Piece.Id].Current = from;
+
+                    Board.lights.FindAllMoves();
+
                     return;
                 }
             }
             else
             {
                 identifyCheck();
+
+                if (Board.IsOnCheck)
+                {
+                    if (Piece.Color == Board.WhosPlaying)
+                    {
+                        from.Piece = Piece;
+                        Piece = null;
+                        msg = "Inválido! O rei está em cheque!";
+
+                        if (isWhite)
+                            Board.WhitePieces[from.Piece.Id].Current = from;
+                        else
+                            Board.BlackPieces[from.Piece.Id].Current = from;
+
+                        Board.lights.FindAllMoves();
+
+                        return;
+                    }
+                }
             }
 
             SwitchPlayer();
@@ -351,7 +380,6 @@ namespace SimpleChessApp.Game
             var x = Board.lights.MoveList.SelectMany(t => t.Value);
             var y = x.Where(t => t.Kind == UserAction.Check);
             Board.IsOnCheck = y.Count() > 0;
-
             if (Board.IsOnCheck) msg = "Cheque!";
         }
 

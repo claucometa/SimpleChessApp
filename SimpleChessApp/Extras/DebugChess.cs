@@ -1,4 +1,6 @@
-﻿namespace SimpleChessApp.Game
+﻿using System;
+
+namespace SimpleChessApp.Game
 {
     class DebugChess
     {
@@ -65,5 +67,24 @@
 
             b.lights.FindAllMoves();
         }
+
+        internal void TestDiscoverCheck()
+        {
+            b.ClearBoard();
+            b.addWhite(4, 0, Pieces.King);
+            b.addWhite(3, 1, Pieces.Pawn);
+            b.addBlack(0, 4, Pieces.Bishop);
+            b.lights.FindAllMoves();
+        }
+
+        internal void TestCheck()
+        {
+            b.ClearBoard();
+            b.addBlack(4, 7, Pieces.King);
+            b.addWhite(3, 0, Pieces.Bishop);
+            b.lights.FindAllMoves();
+        }
+
+       
     }
 }
