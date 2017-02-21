@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 
 namespace SimpleChessApp.Chess
@@ -7,12 +6,12 @@ namespace SimpleChessApp.Chess
     public class MoveFinder
     {
         public Dictionary<int, List<PossibleMoves>> MoveList = new Dictionary<int, List<PossibleMoves>>();
-
         Board board;
 
         public MoveFinder(Board b)
         {
-            this.board = b;
+
+            board = b;
         }
 
         public void FindAllMoves()
@@ -100,30 +99,33 @@ namespace SimpleChessApp.Chess
                 if (sq.IsEmpty) addMove(a, b, x);
             }
 
-            // Passant
-            sq = board.From;
-            if (sq != null)
+            #region Handle passant
+            var isWhitePassant = x.Rank == 4 && x.Piece.Color == PieceColor.White;
+            var isBlackPassant = x.Rank == 3 && x.Piece.Color == PieceColor.Black;
+            var passantRank = isWhitePassant ? 5 : 2;
+
+            if (isWhitePassant || isBlackPassant)
             {
-                if (sq.Piece != null)
-                {
-                    if (sq.Piece.Passant)
-                    {
-                        if (x.Piece.Color == PieceColor.White && x.Rank == 4)
-                        {
-                            if (sq.Rank == 4 && Math.Abs(sq.File - x.File) == 1)
-                                addMove(sq.File, 5, x);
-                        }
+                var left = x.File - 1;
+                var right = x.File + 1;
 
-                        if (x.Piece.Color == PieceColor.Black && x.Rank == 3)
-                        {
-                            if (sq.Rank == 3 && Math.Abs(sq.File - x.File) == 1)
-                                addMove(sq.File, 2, x);
-                        }
+                // Pawn to the left
+                if (left >= 0)
+                    if (board[left, x.Rank].Piece != null)
+                        if (board[left, x.Rank].Piece.Kind == Pieces.Pawn
+                            && board[left, x.Rank].Piece.Color != x.Piece.Color)
+                            if (board.lastPassantPawn == board[left, x.Rank].Piece)
+                                addCapture(left, passantRank, x, board[left, x.Rank].Piece);
 
-                        sq.Piece.Passant = false;
-                    }
-                }
+                // Pawn to the right
+                if (right < 8)
+                    if (board[right, x.Rank].Piece != null)
+                        if (board[right, x.Rank].Piece.Kind == Pieces.Pawn
+                            && board[right, x.Rank].Piece.Color != x.Piece.Color)
+                            if (board.lastPassantPawn == board[right, x.Rank].Piece)
+                                addCapture(right, passantRank, x, board[right, x.Rank].Piece);
             }
+            #endregion
 
             // Move from home rank
             if (x.Rank == homeRank)
@@ -230,8 +232,6 @@ namespace SimpleChessApp.Chess
 
         void handleBishop(Square x)
         {
-
-
             for (int i = 1; i < 8; i++)
             {
                 var a = x.File + i;
@@ -284,12 +284,20 @@ namespace SimpleChessApp.Chess
             }
         }
 
+        // Used only to passant
+        void addCapture(int a, int b, Square x, ChessPiece pawn)
+        {
+            var p = x.Piece;
+            var sq = board[a, b];
+            Board.lastValidPassantMove = new PossibleMoves(p, sq, UserAction.Capture);
+            MoveList[p.Id].Add(Board.lastValidPassantMove);
+        }
+
         bool addMove(int a, int b, Square x)
         {
             if (a < 0 || a > 7 || b < 0 || b > 7) return true;
 
             var p = x.Piece;
-            //MoveList.Add(p, new List<PossibleMoves>());
 
             var sq = board[a, b];
             if (sq.IsEmpty)

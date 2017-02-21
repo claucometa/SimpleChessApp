@@ -46,6 +46,7 @@
             this.table.Location = new System.Drawing.Point(0, 0);
             this.table.Margin = new System.Windows.Forms.Padding(0);
             this.table.Name = "table";
+            this.table.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.table.RowCount = 8;
             this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));

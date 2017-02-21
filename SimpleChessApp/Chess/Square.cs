@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -94,6 +95,46 @@ namespace SimpleChessApp.Chess
                             if (moves.Exists(t => t.Square == to))
                             {
                                 msg = "Movimento permitido!";
+
+                                if (Board.From.Piece.Kind == Pieces.Pawn)
+                                {
+                                    var s = moves.First(t => t.Square == to);
+                                    if (s.Kind == UserAction.Capture)
+                                    {
+                                        msg = "Captura passant!";
+
+                                        if (Board.From.Piece.Color == PieceColor.Black)
+                                        {
+                                            var w = Board[s.Square.File, s.Square.Rank + 1];
+                                            if (Board.lastPassantPawn == w.Piece)
+                                            {
+                                                Board.WhitePieces.Remove(w.Piece.Id);
+                                                w.Piece = null;
+                                            }
+                                            else
+                                            {
+                                                action("Movimento inválido");
+                                                return;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var w = Board[s.Square.File, s.Square.Rank - 1];
+                                            if (Board.lastPassantPawn == w.Piece)
+                                            {
+                                                w.BackColor = Color.Purple;
+                                                Board.BlackPieces.Remove(w.Piece.Id);
+                                                w.Piece = null;
+                                            }
+                                            else
+                                            {
+                                                action("Movimento inválido");
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+
                                 to.MoveFrom(Board.From);
                                 SwitchPlayer();
                                 action(msg);
@@ -215,6 +256,14 @@ namespace SimpleChessApp.Chess
         private void MoveFrom(Square from)
         {
             Piece = from.Piece;
+
+            Board.lastPassantPawn = null;
+
+            if (Piece.Kind == Pieces.Pawn)
+            {
+                if (Rank == 3 || Rank == 4)
+                    Board.lastPassantPawn = Piece;
+            }
 
             var promotePawn = false;
             var isWhite = Piece.Color == PieceColor.White;

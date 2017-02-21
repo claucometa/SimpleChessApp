@@ -16,6 +16,7 @@ namespace SimpleChessApp.Chess
         public bool ShowSelectedPieceMoves;
         public PieceColor WhosPlaying;
         public bool DisableTurns;
+        public ChessPiece lastPassantPawn;
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -25,6 +26,7 @@ namespace SimpleChessApp.Chess
 
         int idd = 0;
         public bool Flipped;
+        internal static PossibleMoves lastValidPassantMove;
 
         public Board()
         {
@@ -49,6 +51,8 @@ namespace SimpleChessApp.Chess
                 return ++idd;
             }
         }
+
+  
 
         public Square this[int File, int Rank]
         {
@@ -114,6 +118,7 @@ namespace SimpleChessApp.Chess
 
             lights.Clear();
 
+            lastPassantPawn = null;
             WhosPlaying = PieceColor.White;
             DisableTurns = false;
 
