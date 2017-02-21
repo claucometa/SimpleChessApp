@@ -67,7 +67,6 @@
     </Compile>
     <Compile Include="Extras\Notation.cs" />
     <Compile Include="Extras\DebugChess.cs" />
-    <Compile Include="Extras\Notify.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -17,18 +17,12 @@ namespace SimpleChessApp.Game
         }
     }
 
-    public class Turn : Notify
+    public class Turn 
     {
         public int Id;
         public Notation White;
-
-        Notation black;
-        public Notation Black
-        {
-            get { return black; }
-            set { SetField(ref black, value, "y"); }
-        }
-
+        public Notation Black;
+        
         public override string ToString()
         {
             return $"{Id} {White}-{Black}";

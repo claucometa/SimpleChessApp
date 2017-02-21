@@ -7,6 +7,8 @@ namespace SimpleChessApp.Game
     {
         public Dictionary<int, List<PossibleMoves>> MoveList = new Dictionary<int, List<PossibleMoves>>();
         Board board;
+        public PieceColor KingColorOnCheck;
+        public bool IsOnCheck;
 
         public MoveFinder(Board b)
         {
@@ -62,12 +64,6 @@ namespace SimpleChessApp.Game
                     item.Square.ShowCheck();
             }
         }
-
-        //public void HighLightCheckStyle()
-        //{
-        //    var moves = MoveList.Values.SelectMany(t => t);
-        //    foreach (var item in moves) item.Square.ShowCheck(true);
-        //}
 
         public void Clear()
         {
@@ -308,7 +304,10 @@ namespace SimpleChessApp.Game
                 if (sq.Piece.Kind == Pieces.King)
                 {
                     if (x.Piece.Kind != Pieces.King && x.Piece.Kind != Pieces.Pawn)
-                        action = UserAction.Check;
+                    {
+                        KingColorOnCheck = sq.Piece.Color;
+                        IsOnCheck = true;
+                    }
                 }
 
                 MoveList[p.Id].Add(new PossibleMoves(p, sq, action));
@@ -340,7 +339,6 @@ namespace SimpleChessApp.Game
         Move,
         Capture,
         Invalid_Move,
-        Piece_Selected,
-        Check
+        Piece_Selected
     }
 }

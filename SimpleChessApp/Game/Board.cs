@@ -15,7 +15,7 @@ namespace SimpleChessApp.Game
         public PieceColor WhosPlaying;
         public bool DisableTurns;
         public ChessPiece lastPassantPawn;
-        public bool IsOnCheck;
+
 
         // Castling handling
         public bool WhiteCanCastleKingSide;
@@ -118,7 +118,6 @@ namespace SimpleChessApp.Game
             lastPassantPawn = null;
             WhosPlaying = PieceColor.White;
             DisableTurns = false;
-            IsOnCheck = false;
 
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
@@ -173,14 +172,16 @@ namespace SimpleChessApp.Game
 
         internal void ShowPieceMoves(Square to)
         {
-            foreach (var item in lights.MoveList[to.Piece.Id])
-                item.Square.ShowMove();
+            if (ShowSelectedPieceMoves)
+                foreach (var item in lights.MoveList[to.Piece.Id])
+                    item.Square.ShowMove();
         }
 
         internal void HidePieceMoves(Square to)
         {
-            foreach (var item in lights.MoveList[to.Piece.Id])
-                item.Square.HideMove();
+            if (ShowSelectedPieceMoves)
+                foreach (var item in lights.MoveList[to.Piece.Id])
+                    item.Square.HideMove();
         }
 
         public void addWhite(int v1, int v2, Pieces p)

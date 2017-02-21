@@ -76,153 +76,108 @@ namespace SimpleChessApp.Game
             }
         }
 
+        bool getSide(Square x)
+        {
+            return Board.DisableTurns || Board.WhosPlaying == x.Piece.Color;
+        }
 
         private void Square_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 var to = this;
+                var great = Board.From != null && Board.From.Piece != null;
 
-                if (Board.From != null)
+                if (to.Piece == null && great)
                 {
-                    if (to.Piece == null)
+                    #region Validação de movimento + Captura passant
+                    var moves = Board.lights.MoveList[Board.From.Piece.Id];
+                    msg = $"Movimento inválido: {moves.Count}";
+                    Board.From.BackColor = Board.From.DefaultColor;
+                    if (moves.Exists(t => t.Square == to))
                     {
-                        // Move
-                        if (Board.From != null && Board.From.Piece != null)
-                        {
-                            var moves = Board.lights.MoveList[Board.From.Piece.Id];
-                            msg = $"Movimento inválido: {moves.Count}";
-                            Board.From.BackColor = Board.From.DefaultColor;
-                            if (moves.Exists(t => t.Square == to))
-                            {
-                                msg = "Movimento permitido!";
+                        msg = "Movimento permitido!";
 
-                                if (Board.From.Piece.Kind == Pieces.Pawn)
+                        if (Board.From.Piece.Kind == Pieces.Pawn)
+                        {
+                            var s = moves.First(t => t.Square == to);
+                            if (s.Kind == UserAction.Capture)
+                            {
+                                msg = "Captura passant!";
+                                var isWhite = Board.From.Piece.Color == PieceColor.White;
+                                var list = isWhite ? Board.BlackPieces : Board.WhitePieces;
+
+                                var w = Board[s.Square.File, s.Square.Rank + (isWhite ? -1 : 1)];
+                                if (Board.lastPassantPawn == w.Piece)
                                 {
-                                    var s = moves.First(t => t.Square == to);
-                                    if (s.Kind == UserAction.Capture)
-                                    {
-                                        msg = "Captura passant!";
-
-                                        if (Board.From.Piece.Color == PieceColor.Black)
-                                        {
-                                            var w = Board[s.Square.File, s.Square.Rank + 1];
-                                            if (Board.lastPassantPawn == w.Piece)
-                                            {
-                                                Board.WhitePieces.Remove(w.Piece.Id);
-                                                w.Piece = null;
-                                            }
-                                            else
-                                            {
-                                                action("Movimento inválido");
-                                                return;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            var w = Board[s.Square.File, s.Square.Rank - 1];
-                                            if (Board.lastPassantPawn == w.Piece)
-                                            {
-                                                Board.BlackPieces.Remove(w.Piece.Id);
-                                                w.Piece = null;
-                                            }
-                                            else
-                                            {
-                                                action("Movimento inválido");
-                                                return;
-                                            }
-                                        }
-                                    }
+                                    list.Remove(w.Piece.Id);
+                                    w.Piece = null;
                                 }
-
-                                to.Move(Board.From);
-                                action(msg);
-                                return;
-                            }
-                            if (Board.ShowSelectedPieceMoves)
-                                Board.HidePieceMoves(Board.From);
-                            Board.From = null;
-                            action(msg);
-                            return;
-                        }
-                    }
-                    else if (Board.From.Piece == null)
-                    {
-                        if (to.Piece != null)
-                        {
-                            if (Board.WhosPlaying == to.Piece.Color || Board.DisableTurns)
-                            {
-                                to.BackColor = Color.LightGreen;
-                                Board.From = to;
-                                action("Seleção 2");
-                                if (Board.ShowSelectedPieceMoves)
-                                    Board.ShowPieceMoves(to);
+                                else
+                                {
+                                    action("Movimento inválido");
+                                    return;
+                                }
                             }
                         }
+                        to.MovePawn(Board.From);
                     }
-                    else if (to.Piece.Id == Board.From.Piece.Id)
+                    else
                     {
-                        if (Board.WhosPlaying == Board.From.Piece.Color || Board.DisableTurns)
-                        {
-                            if (Board.From != null)
-                            {
-                                Board.From.BackColor = Board.From.DefaultColor;
-                                to.BackColor = Color.LightGreen;
-                                action("Mesma peça");
-                                if (Board.ShowSelectedPieceMoves)
-                                    Board.ShowPieceMoves(to);
-                            }
-                        }
+                        Board.HidePieceMoves(Board.From);
+                        Board.From = null;
                     }
-                    else if (to.Piece.Color != Board.From.Piece.Color)
+                    #endregion
+                }
+                else if (great)
+                {
+                    if (to.Piece.Color != Board.From.Piece.Color)
                     {
+                        #region Pedra oposta ou captura
                         msg = "Pedra oposta";
                         var moves = Board.lights.MoveList[Board.From.Piece.Id];
                         if (moves.Exists(t => t.Square == to))
                         {
                             msg = "Captura";
                             Board.From.BackColor = Board.From.DefaultColor;
-                            to.Capt(Board.From);
+                            to.CaptPawn(Board.From);
                         }
-                        action(msg);
+                        #endregion  
                     }
-                    else if (to.Piece != Board.From.Piece && to.Piece.Color != Board.From.Piece.Color)
+                    else if (getSide(Board.From))
                     {
-                        throw new Exception("Acho que nunca entra aqui");
-                        //Board.From.BackColor = Board.From.DefaultColor;
-                        //Board.From = null;
-                        //action("Captura 2");
-                    }
-                    else if (Board.From.Piece.Color == to.Piece.Color)
-                    {
-                        if (Board.WhosPlaying == Board.From.Piece.Color || Board.DisableTurns)
+                        #region Seleção: mesma peça ou próxima peça
+                        if (to.Piece.Id == Board.From.Piece.Id)
+                        {
+                            Board.From.BackColor = Board.From.DefaultColor;
+                            to.BackColor = Color.LightGreen;
+                            msg = "Mesma peça";
+                            Board.ShowPieceMoves(to);
+                        }
+                        else if (Board.From.Piece.Color == to.Piece.Color)
                         {
                             hideMoves(Board.From);
                             to.BackColor = Color.LightGreen;
                             Board.From = to;
-                            action("Seleção (próxima peça)");
-                            if (Board.ShowSelectedPieceMoves)
-                                Board.ShowPieceMoves(to);
+                            msg = "Seleção (próxima peça)";
+                            Board.ShowPieceMoves(to);
                         }
+                        #endregion
                     }
                 }
-
-                else if (Board.From != to)
+                else if (getSide(to))
                 {
-                    if (to.Piece != null)
-                    {
-                        if (Board.WhosPlaying == to.Piece.Color || Board.DisableTurns)
-                        {
-                            hideMoves(Board.From);
-                            to.BackColor = Color.LightGreen;
-                            Board.From = to;
-                            action("Seleção");
-                            if (Board.ShowSelectedPieceMoves)
-                                Board.ShowPieceMoves(to);
-                        }
-                    }
+                    #region Seleção
+                    to.BackColor = Color.LightGreen;
+                    Board.From = to;
+                    msg = "Seleção";
+                    Board.ShowPieceMoves(to);
+                    #endregion
                 }
+                else
+                    msg = "Pedra oposta";
             }
+            action(msg);
         }
 
         private void hideMoves(Square to)
@@ -230,12 +185,11 @@ namespace SimpleChessApp.Game
             if (Board.From != null)
             {
                 Board.From.BackColor = Board.From.DefaultColor;
-                if (Board.ShowSelectedPieceMoves)
-                    Board.HidePieceMoves(to);
+                Board.HidePieceMoves(to);
             }
         }
 
-        private void Capt(Square from)
+        private void CaptPawn(Square from)
         {
             if (Piece.Color == PieceColor.White)
                 Board.WhitePieces.Remove(Piece.Id);
@@ -280,12 +234,11 @@ namespace SimpleChessApp.Game
             }
 
             Board.lights.FindAllMoves();
-            identifyCheck();
 
             SwitchPlayer();
         }
 
-        private new void Move(Square from)
+        private void MovePawn(Square from)
         {
             Piece = from.Piece;
 
@@ -329,36 +282,22 @@ namespace SimpleChessApp.Game
 
             Board.lights.FindAllMoves();
 
-            if (Board.IsOnCheck)
+            if (Board.lights.IsOnCheck)
             {
-                identifyCheck();
-                if (Board.IsOnCheck)
+                if (Board.lights.KingColorOnCheck == Piece.Color)
                 {
-                    from.Piece = Piece;
-                    Piece = null;
-                    msg = "Inválido! O rei está em cheque!";
+                    var invalidMove = true;
 
-                    if (isWhite)
-                        Board.WhitePieces[from.Piece.Id].Current = from;
-                    else
-                        Board.BlackPieces[from.Piece.Id].Current = from;
+                    if (Piece.Kind == Pieces.King)
+                    {
+                        invalidMove = Board.lights.IsOnCheck;
+                    }
 
-                    Board.lights.FindAllMoves();
-
-                    return;
-                }
-            }
-            else
-            {
-                identifyCheck();
-
-                if (Board.IsOnCheck)
-                {
-                    if (Piece.Color == Board.WhosPlaying)
+                    if (invalidMove)
                     {
                         from.Piece = Piece;
                         Piece = null;
-                        msg = "Inválido! O rei está em cheque!";
+                        msg = "Inválido! O rei está em cheque 1";
 
                         if (isWhite)
                             Board.WhitePieces[from.Piece.Id].Current = from;
@@ -370,17 +309,13 @@ namespace SimpleChessApp.Game
                         return;
                     }
                 }
+                else
+                {
+                    msg = "Cheque";
+                }
             }
 
             SwitchPlayer();
-        }
-
-        private void identifyCheck()
-        {
-            var x = Board.lights.MoveList.SelectMany(t => t.Value);
-            var y = x.Where(t => t.Kind == UserAction.Check);
-            Board.IsOnCheck = y.Count() > 0;
-            if (Board.IsOnCheck) msg = "Cheque!";
         }
 
         private void handleBlackCastling()
