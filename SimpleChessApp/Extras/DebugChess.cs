@@ -89,6 +89,8 @@ namespace SimpleChessApp.Game
         {
             b.ClearBoard();
 
+            b.DisableTurns = true;
+
             b.addBlack(0, 7, Pieces.Rook);
             b.addBlack(4, 7, Pieces.King);
             b.addBlack(7, 7, Pieces.Rook);

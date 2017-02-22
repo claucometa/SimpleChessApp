@@ -311,40 +311,21 @@ namespace SimpleChessApp.Game
                         {
                             var f = hasJustCastled.Current.File;
                             var r = hasJustCastled.Current.Rank;
+                            Square s = f == 5 ? Board[7, r] : Board[0, r];
 
-                            if (f == 5)
+                            s.Piece = hasJustCastled;
+
+                            if (isWhite)
                             {
-                                Board[7, r].Piece = hasJustCastled;
-                                if (isWhite)
-                                {
-                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[7, r];
-                                    Board.WhiteCanCastleQueenSide = true;
-                                    Board.WhiteCanCastleKingSide = true;
-                                }
-                                else
-                                {
-                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[7, r];
-                                    Board.BlackCanCastleQueenSide = true;
-                                    Board.BlackCanCastleKingSide = true;
-
-                                }
+                                Board.WhitePieces[hasJustCastled.Id].Current = s;
+                                Board.WhiteCanCastleQueenSide = true;
+                                Board.WhiteCanCastleKingSide = true;
                             }
-
-                            if (f == 3)
+                            else
                             {
-                                Board[0, r].Piece = hasJustCastled;
-                                if (isWhite)
-                                {
-                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[0, r];
-                                    Board.WhiteCanCastleQueenSide = true;
-                                    Board.WhiteCanCastleKingSide = true;
-                                }
-                                else
-                                {
-                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[0, r];
-                                    Board.BlackCanCastleQueenSide = true;
-                                    Board.BlackCanCastleKingSide = true;
-                                }
+                                Board.BlackPieces[hasJustCastled.Id].Current = s;
+                                Board.BlackCanCastleQueenSide = true;
+                                Board.BlackCanCastleKingSide = true;
                             }
 
                             Board[f, r].Piece = null;
