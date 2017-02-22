@@ -85,6 +85,22 @@ namespace SimpleChessApp.Game
             b.lights.FindAllMoves();
         }
 
-       
+        internal void CheckOnCastling()
+        {
+            b.ClearBoard();
+
+            b.addBlack(0, 7, Pieces.Rook);
+            b.addBlack(4, 7, Pieces.King);
+            b.addBlack(7, 7, Pieces.Rook);
+
+            b.addWhite(0, 0, Pieces.Rook);
+            b.addWhite(4, 0, Pieces.King);
+            b.addWhite(7, 0, Pieces.Rook);
+
+            b.addBlack(4, 2, Pieces.Bishop);
+            b.addWhite(4, 5, Pieces.Bishop);
+
+            b.lights.FindAllMoves();
+        }
     }
 }

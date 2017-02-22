@@ -309,41 +309,45 @@ namespace SimpleChessApp.Game
 
                         if (hasJustCastled != null)
                         {
-                            var x = hasJustCastled.Current.File;
-                            var y = hasJustCastled.Current.Rank;
+                            var f = hasJustCastled.Current.File;
+                            var r = hasJustCastled.Current.Rank;
 
-                            if (x == 5)
+                            if (f == 5)
                             {
-                                Board[7, y].Piece = hasJustCastled;
+                                Board[7, r].Piece = hasJustCastled;
                                 if (isWhite)
                                 {
-                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[7, y];
+                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[7, r];
+                                    Board.WhiteCanCastleQueenSide = true;
                                     Board.WhiteCanCastleKingSide = true;
                                 }
                                 else
                                 {
-                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[7, y];
+                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[7, r];
+                                    Board.BlackCanCastleQueenSide = true;
+                                    Board.BlackCanCastleKingSide = true;
+
+                                }
+                            }
+
+                            if (f == 3)
+                            {
+                                Board[0, r].Piece = hasJustCastled;
+                                if (isWhite)
+                                {
+                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[0, r];
+                                    Board.WhiteCanCastleQueenSide = true;
+                                    Board.WhiteCanCastleKingSide = true;
+                                }
+                                else
+                                {
+                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[0, r];
+                                    Board.BlackCanCastleQueenSide = true;
                                     Board.BlackCanCastleKingSide = true;
                                 }
                             }
 
-                            if (x == 3)
-                            {
-                                Board[0, y].Piece = hasJustCastled;
-                                Board.WhitePieces[hasJustCastled.Id].Current = Board[0, y];
-                                if (isWhite)
-                                {
-                                    Board.WhiteCanCastleQueenSide = true;
-                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[0, y];
-                                }
-                                else
-                                {
-                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[0, y];
-                                    Board.BlackCanCastleQueenSide = true;
-                                }
-                            }
-
-                            Board[x, y].Piece = null;
+                            Board[f, r].Piece = null;
                         }
 
                         Board.lights.FindAllMoves();
@@ -379,17 +383,19 @@ namespace SimpleChessApp.Game
                     {
                         if (Piece.Current.File == 2)
                         {
-                            Board[3, 7].Piece = Board[0, 7].Piece;
+                            var s = Board[3, 7];
+                            s.Piece = Board[0, 7].Piece;
                             Board[0, 7].Piece = null;
-                            Board.BlackPieces[Board[3, 7].Piece.Id].Current = Board[3, 7];
-                            rook = Board[3, 7].Piece;
+                            Board.BlackPieces[s.Piece.Id].Current = s;
+                            rook = s.Piece;
                         }
                         if (Piece.Current.File == 6)
                         {
-                            Board[5, 7].Piece = Board[7, 7].Piece;
+                            var s = Board[5, 7];
+                            s.Piece = Board[7, 7].Piece;
                             Board[7, 7].Piece = null;
-                            Board.BlackPieces[Board[5, 7].Piece.Id].Current = Board[5, 7];
-                            rook = Board[5, 7].Piece;
+                            Board.BlackPieces[s.Piece.Id].Current = s;
+                            rook = s.Piece;
                         }
 
                         Board.BlackCanCastleQueenSide = false;
@@ -419,17 +425,19 @@ namespace SimpleChessApp.Game
                     {
                         if (Piece.Current.File == 2)
                         {
-                            Board[3, 0].Piece = Board[0, 0].Piece;
+                            var s = Board[3, 0];
+                            s.Piece = Board[0, 0].Piece;
                             Board[0, 0].Piece = null;
-                            Board.WhitePieces[Board[3, 0].Piece.Id].Current = Board[3, 0];
-                            rook = Board[3, 0].Piece;
+                            Board.WhitePieces[s.Piece.Id].Current = s;
+                            rook = s.Piece;
                         }
                         if (Piece.Current.File == 6)
                         {
-                            Board[5, 0].Piece = Board[7, 0].Piece;
+                            var s = Board[5, 0];
+                            s.Piece = Board[7, 0].Piece;
                             Board[7, 0].Piece = null;
-                            Board.WhitePieces[Board[5, 0].Piece.Id].Current = Board[5, 0];
-                            rook = Board[5, 0].Piece;
+                            Board.WhitePieces[s.Piece.Id].Current = s;
+                            rook = s.Piece;
                         }
 
                         Board.WhiteCanCastleQueenSide = false;

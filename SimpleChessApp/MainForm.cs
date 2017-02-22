@@ -27,12 +27,14 @@ namespace SimpleChessApp
             passantToolStripMenuItem.Click += Item_Click;
             checkToolStripMenuItem.Click += Item_Click; 
             discoveredCheckToolStripMenuItem.Click += Item_Click;
+            checkOnCastlingToolStripMenuItem.Click += Item_Click;
 
             passantToolStripMenuItem.Tag = DebugItems.Passant;
             castlingToolStripMenuItem.Tag = DebugItems.Castling;
             promotionToolStripMenuItem.Tag = DebugItems.Promotion;
             checkToolStripMenuItem.Tag = DebugItems.Check;
             discoveredCheckToolStripMenuItem.Tag = DebugItems.DiscoverCheck;
+            checkOnCastlingToolStripMenuItem.Tag = DebugItems.CheckOnCastling;
 
             restartToolStripMenuItem.Tag = GameControl.Restart;
             clearBoardToolStripMenuItem.Tag = GameControl.ClearBoard;
@@ -103,6 +105,7 @@ namespace SimpleChessApp
                 if (z == DebugItems.Promotion) w.TestPromotion();
                 if (z == DebugItems.Check) w.TestCheck();
                 if (z == DebugItems.DiscoverCheck) w.TestDiscoverCheck();
+                if (z == DebugItems.CheckOnCastling) w.CheckOnCastling();
             }
 
             if (x.Tag is Pieces) w.TestSinglePiece((Pieces)x.Tag);
@@ -133,8 +136,14 @@ namespace SimpleChessApp
             Castling,
             Promotion,
             Check,
-            DiscoverCheck
+            DiscoverCheck,
+            CheckOnCastling
         }
         #endregion
+
+        private void checkOnCastlingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

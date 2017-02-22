@@ -85,6 +85,12 @@ namespace SimpleChessApp.Game
             new DebugChess(ChessBoard).TestPromotion();
             resetFlags(true);
         }
+
+        internal void CheckOnCastling()
+        {
+            new DebugChess(ChessBoard).CheckOnCastling();
+            resetFlags(true);
+        }
         #endregion
     }
 
