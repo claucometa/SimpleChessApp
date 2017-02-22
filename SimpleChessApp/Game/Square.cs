@@ -165,7 +165,7 @@ namespace SimpleChessApp.Game
                         #endregion
                     }
                 }
-                else if (getSide(to))
+                else if (to.Piece != null && getSide(to))
                 {
                     #region Seleção
                     to.BackColor = Color.LightGreen;
@@ -279,6 +279,8 @@ namespace SimpleChessApp.Game
                     Kind = w.Piece; // Redraw the piece
                 }
             }
+
+            Board.lights.IsOnCheck = false;
 
             Board.lights.FindAllMoves();
 
