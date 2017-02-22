@@ -240,6 +240,8 @@ namespace SimpleChessApp.Game
 
         private void MovePawn(Square from)
         {
+            ChessPiece hasJustCastled = null;
+
             Piece = from.Piece;
 
             Board.lastPassantPawn = null;
@@ -256,15 +258,14 @@ namespace SimpleChessApp.Game
             if (isWhite)
             {
                 Board.WhitePieces[Piece.Id].Current = this;
-                handleWhiteCastling();
+                hasJustCastled = handleWhiteCastling();
                 if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 7)
                     promotePawn = true;
             }
-
-            if (Piece.Color == PieceColor.Black)
+            else
             {
                 Board.BlackPieces[Piece.Id].Current = this;
-                handleBlackCastling();
+                hasJustCastled = handleBlackCastling();
                 if (Piece.Kind == Pieces.Pawn && Piece.Current.Rank == 0)
                     promotePawn = true;
             }
@@ -306,6 +307,45 @@ namespace SimpleChessApp.Game
                         else
                             Board.BlackPieces[from.Piece.Id].Current = from;
 
+                        if (hasJustCastled != null)
+                        {
+                            var x = hasJustCastled.Current.File;
+                            var y = hasJustCastled.Current.Rank;
+
+                            if (x == 5)
+                            {
+                                Board[7, y].Piece = hasJustCastled;
+                                if (isWhite)
+                                {
+                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[7, y];
+                                    Board.WhiteCanCastleKingSide = true;
+                                }
+                                else
+                                {
+                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[7, y];
+                                    Board.BlackCanCastleKingSide = true;
+                                }
+                            }
+
+                            if (x == 3)
+                            {
+                                Board[0, y].Piece = hasJustCastled;
+                                Board.WhitePieces[hasJustCastled.Id].Current = Board[0, y];
+                                if (isWhite)
+                                {
+                                    Board.WhiteCanCastleQueenSide = true;
+                                    Board.WhitePieces[hasJustCastled.Id].Current = Board[0, y];
+                                }
+                                else
+                                {
+                                    Board.BlackPieces[hasJustCastled.Id].Current = Board[0, y];
+                                    Board.BlackCanCastleQueenSide = true;
+                                }
+                            }
+
+                            Board[x, y].Piece = null;
+                        }
+
                         Board.lights.FindAllMoves();
 
                         return;
@@ -320,8 +360,10 @@ namespace SimpleChessApp.Game
             SwitchPlayer();
         }
 
-        private void handleBlackCastling()
+        private ChessPiece handleBlackCastling()
         {
+            ChessPiece rook = null;
+
             if (Board.BlackCanCastleKingSide || Board.BlackCanCastleQueenSide)
             {
                 if (Piece.Kind == Pieces.King || Piece.Kind == Pieces.Rook)
@@ -340,12 +382,14 @@ namespace SimpleChessApp.Game
                             Board[3, 7].Piece = Board[0, 7].Piece;
                             Board[0, 7].Piece = null;
                             Board.BlackPieces[Board[3, 7].Piece.Id].Current = Board[3, 7];
+                            rook = Board[3, 7].Piece;
                         }
                         if (Piece.Current.File == 6)
                         {
                             Board[5, 7].Piece = Board[7, 7].Piece;
                             Board[7, 7].Piece = null;
                             Board.BlackPieces[Board[5, 7].Piece.Id].Current = Board[5, 7];
+                            rook = Board[5, 7].Piece;
                         }
 
                         Board.BlackCanCastleQueenSide = false;
@@ -353,10 +397,13 @@ namespace SimpleChessApp.Game
                     }
                 }
             }
+            return rook;
         }
 
-        private void handleWhiteCastling()
+        private ChessPiece handleWhiteCastling()
         {
+            ChessPiece rook = null;
+
             if (Board.WhiteCanCastleKingSide || Board.WhiteCanCastleKingSide)
             {
                 if (Piece.Kind == Pieces.King || Piece.Kind == Pieces.Rook)
@@ -375,12 +422,14 @@ namespace SimpleChessApp.Game
                             Board[3, 0].Piece = Board[0, 0].Piece;
                             Board[0, 0].Piece = null;
                             Board.WhitePieces[Board[3, 0].Piece.Id].Current = Board[3, 0];
+                            rook = Board[3, 0].Piece;
                         }
                         if (Piece.Current.File == 6)
                         {
                             Board[5, 0].Piece = Board[7, 0].Piece;
                             Board[7, 0].Piece = null;
                             Board.WhitePieces[Board[5, 0].Piece.Id].Current = Board[5, 0];
+                            rook = Board[5, 0].Piece;
                         }
 
                         Board.WhiteCanCastleQueenSide = false;
@@ -388,6 +437,7 @@ namespace SimpleChessApp.Game
                     }
                 }
             }
+            return rook;
         }
 
         public void ShowCheck()
