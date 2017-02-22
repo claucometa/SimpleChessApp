@@ -6,8 +6,10 @@ namespace SimpleChessApp.Game
 {
     public partial class SimpleSquare : UserControl
     {
+ 
+
         public new event EventHandler<MouseEventArgs> Click;
-        public Color DefaultColor;
+        Color DefaultColor;
 
         ChessPiece piece;
         public ChessPiece Piece
@@ -29,6 +31,12 @@ namespace SimpleChessApp.Game
 
                 BackgroundImage = repo.GetPiece(piece.Kind, piece.Color);
             }
+        }
+
+        public void colorSquare()
+        {
+            DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
+            BackColor = DefaultColor;
         }
 
         // Redraw
@@ -55,7 +63,7 @@ namespace SimpleChessApp.Game
             }
         } // Used just and only to draw the board
 
-        Repository repo
+        public Repository repo
         {
             get
             {
@@ -75,9 +83,13 @@ namespace SimpleChessApp.Game
             Click?.Invoke(this, e);
         }
 
-        private void colorSquare()
+        public void HighLight()
         {
-            DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
+            BackColor = Color.ForestGreen;
+        }
+
+        public void ClearHighLight()
+        {
             BackColor = DefaultColor;
         }
 

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
+using static ImageUtil;
+using System.Drawing;
 
 namespace SimpleChessApp.Game
 {
@@ -31,14 +32,6 @@ namespace SimpleChessApp.Game
             }
         }
 
-        Repository repo
-        {
-            get
-            {
-                return ChessContext.repo;
-            }
-        }
-
         public static void action(string msg)
         {
             Action?.Invoke(msg, null);
@@ -50,12 +43,6 @@ namespace SimpleChessApp.Game
             File = file;
             Rank = rank;
             Name = "abcdefgh"[file] + (Rank + 1).ToString();
-        }
-
-        private void colorSquare()
-        {
-            DefaultColor = IsBlackSquare ? Color.CornflowerBlue : Color.WhiteSmoke;
-            BackColor = DefaultColor;
         }
 
         public Square()
@@ -93,7 +80,7 @@ namespace SimpleChessApp.Game
                     #region Validação de movimento + Captura passant
                     var moves = Board.lights.MoveList[Board.From.Piece.Id];
                     msg = $"Movimento inválido: {moves.Count}";
-                    Board.From.BackColor = Board.From.DefaultColor;
+                    Board.From.ClearHighLight();
                     if (moves.Exists(t => t.Square == to))
                     {
                         msg = "Movimento permitido!";
@@ -139,8 +126,19 @@ namespace SimpleChessApp.Game
                         if (moves.Exists(t => t.Square == to))
                         {
                             msg = "Captura";
-                            Board.From.BackColor = Board.From.DefaultColor;
+                            Board.From.ClearHighLight();
                             to.CaptPawn(Board.From);
+                        }
+                        else if (Board.DisableTurns)
+                        {
+                            #region Seleção
+                            hideMoves(Board.From);
+                            Board.From.ClearHighLight();
+                            to.HighLight();
+                            Board.From = to;
+                            msg = "Seleção";
+                            Board.ShowPieceMoves(to);
+                            #endregion
                         }
                         #endregion  
                     }
@@ -149,15 +147,15 @@ namespace SimpleChessApp.Game
                         #region Seleção: mesma peça ou próxima peça
                         if (to.Piece.Id == Board.From.Piece.Id)
                         {
-                            Board.From.BackColor = Board.From.DefaultColor;
-                            to.BackColor = Color.LightGreen;
+                            Board.From.ClearHighLight();
+                            to.HighLight();
                             msg = "Mesma peça";
                             Board.ShowPieceMoves(to);
                         }
                         else if (Board.From.Piece.Color == to.Piece.Color)
                         {
                             hideMoves(Board.From);
-                            to.BackColor = Color.LightGreen;
+                            to.HighLight();
                             Board.From = to;
                             msg = "Seleção (próxima peça)";
                             Board.ShowPieceMoves(to);
@@ -168,7 +166,7 @@ namespace SimpleChessApp.Game
                 else if (to.Piece != null && getSide(to))
                 {
                     #region Seleção
-                    to.BackColor = Color.LightGreen;
+                    to.HighLight();
                     Board.From = to;
                     msg = "Seleção";
                     Board.ShowPieceMoves(to);
@@ -184,7 +182,7 @@ namespace SimpleChessApp.Game
         {
             if (Board.From != null)
             {
-                Board.From.BackColor = Board.From.DefaultColor;
+                Board.From.ClearHighLight();
                 Board.HidePieceMoves(to);
             }
         }
@@ -234,6 +232,8 @@ namespace SimpleChessApp.Game
             }
 
             Board.lights.FindAllMoves();
+
+            Extras.PlaySound.Play();
 
             SwitchPlayer();
         }
@@ -342,6 +342,8 @@ namespace SimpleChessApp.Game
                 }
             }
 
+            Extras.PlaySound.Play();
+
             SwitchPlayer();
         }
 
@@ -429,17 +431,18 @@ namespace SimpleChessApp.Game
             return rook;
         }
 
-        public void ShowCheck()
+        public void ShowAllMoves()
         {
-            var img = Board.Flipped ? Properties.Resources.Black : Properties.Resources.White;
+            var img = Board.Flipped ? Properties.Resources.c2 : Properties.Resources.c3;
 
-            panel1.BackgroundImage = img;
+            panel1.BackgroundImage = img.Opacity(0.5);
         }
 
-        public void ShowMove()
+        public void ShowSelectedPieceMoves()
         {
-            var img = Board.Flipped ? Properties.Resources.White : Properties.Resources.Black;
-            panel1.BackgroundImage = img;
+            //var img = Board.Flipped ? Properties.Resources.c2 : 
+            var img = Properties.Resources.c2;
+            panel1.BackgroundImage = img.Opacity(0.5);
         }
 
         public void HideMove()

@@ -59,9 +59,9 @@ namespace SimpleChessApp.Game
             foreach (var item in moves)
             {
                 if (item.Piece.Color == PieceColor.White)
-                    item.Square.ShowMove();
+                    item.Square.ShowSelectedPieceMoves();
                 if (item.Piece.Color == PieceColor.Black)
-                    item.Square.ShowCheck();
+                    item.Square.ShowAllMoves();
             }
         }
 

@@ -44,12 +44,12 @@
             this.promotionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoveredCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkOnCastlingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.designBoard1 = new SimpleChessApp.BoardPanel();
             this.designBoard2 = new SimpleChessApp.BoardPanel();
-            this.checkOnCastlingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,6 +169,13 @@
             this.discoveredCheckToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.discoveredCheckToolStripMenuItem.Text = "Discovered Check";
             // 
+            // checkOnCastlingToolStripMenuItem
+            // 
+            this.checkOnCastlingToolStripMenuItem.Name = "checkOnCastlingToolStripMenuItem";
+            this.checkOnCastlingToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.checkOnCastlingToolStripMenuItem.Text = "Check on Castling";
+            this.checkOnCastlingToolStripMenuItem.Click += new System.EventHandler(this.checkOnCastlingToolStripMenuItem_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -218,13 +225,6 @@
             this.designBoard2.Name = "designBoard2";
             this.designBoard2.Size = new System.Drawing.Size(300, 300);
             this.designBoard2.TabIndex = 19;
-            // 
-            // checkOnCastlingToolStripMenuItem
-            // 
-            this.checkOnCastlingToolStripMenuItem.Name = "checkOnCastlingToolStripMenuItem";
-            this.checkOnCastlingToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.checkOnCastlingToolStripMenuItem.Text = "Check on Castling";
-            this.checkOnCastlingToolStripMenuItem.Click += new System.EventHandler(this.checkOnCastlingToolStripMenuItem_Click);
             // 
             // MainForm
             // 

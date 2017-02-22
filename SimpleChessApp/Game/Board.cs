@@ -108,6 +108,7 @@ namespace SimpleChessApp.Game
                 for (int x = 0; x < 8; x++)
                     Squares[i, x].Piece = null;
 
+            if (From != null) From.ClearHighLight();
             From = null;
 
             if (lights == null)
@@ -118,6 +119,8 @@ namespace SimpleChessApp.Game
             lastPassantPawn = null;
             WhosPlaying = PieceColor.White;
             DisableTurns = false;
+
+            
 
             WhiteCanCastleKingSide = true;
             BlackCanCastleKingSide = true;
@@ -174,7 +177,7 @@ namespace SimpleChessApp.Game
         {
             if (ShowSelectedPieceMoves)
                 foreach (var item in lights.MoveList[to.Piece.Id])
-                    item.Square.ShowMove();
+                    item.Square.ShowSelectedPieceMoves();
         }
 
         internal void HidePieceMoves(Square to)
